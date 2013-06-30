@@ -1,0 +1,325 @@
+<!doctype html> 
+<html lang="en">
+<head>
+	<meta charset="utf-8" />  
+	<script type="text/javascript" src="../../js/jquery-1.8.2.min.js"></script> 
+
+	<script type="text/javascript" src="../../js/artDialog.js"></script>
+	<script type="text/javascript" src="../../js/iframeTools.js"></script> 
+	<!-- styles needed by jScrollPane -->
+	<link type="text/css" href="../../plugins/jscroll/jscroll.css" rel="stylesheet" media="all" /> 
+	<!-- the mousewheel plugin - optional to provide mousewheel support -->
+	<script type="text/javascript" src="../../plugins/jscroll/jquery.mousewheel.js"></script>
+	<!-- the mwheelIntent plugin -->
+	<script type="text/javascript" src="../../plugins/jscroll/mwheelIntent.js"></script>
+	<!-- the jScrollPane script -->
+	<script type="text/javascript" src="../../plugins/jscroll/jscroll.js"></script>
+
+	<!-- jquery easyui -->
+	<link rel="stylesheet" type="text/css" href="../../plugins/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../plugins/themes/icon.css">
+	<script type="text/javascript" src="../../plugins/jquery.easyui.min.js"></script>
+	<!-- Bootstrap -->
+	<link href="../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
+	<!-- <link href="plugins/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" > -->
+	<script src="../../plugins/bootstrap/js/bootstrap.js"></script> 
+	<!-- chk box list -->
+	<script src="../../plugins/chklist/chklist.js"></script>  
+ 
+	
+
+	<link href="../../css/page.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+</head>
+
+<body class="page" style="width:900px; height:600px;">
+	<div class="section"> 
+		<ul class="breadcrumb">
+			<li><a href="../myapp.html">我的应用</a> <span class="divider">/</span></li> 
+			<li class="active">上传应用</li>
+		</ul>
+
+		<div class="row-fluid">
+			<div class="span8">
+				<div class="silder_left">
+					<!-- 提示 banner  -->	
+					<div class="alert alert-info">
+						我的应用上传/修改成功！<spna class="close" data-dismiss="alert">&times;</span>
+					</div>
+					<div class="form-horizontal">
+						<div class="myapp_item control-group">
+							<span class="control-label">
+								<img src="../../img/myapp_default.png" /> 
+							</span>
+							<div  class="controls">
+								<ul>
+									<li>文件大小：12.5 kb</li>
+									<li>文件类型：.exe</li>
+									<li>上传时间: 2012.01.12 </li> 
+								</ul> 
+							</div> 
+
+						</div> 
+						<!-- 我的应用相关信息   -->
+						<div class="control-group">
+							<label class="control-label"> 
+								版本号:
+							</label>
+							<div class="controls">
+								<input type="text"  />  
+							</div>
+						</div> 
+
+						<div class="control-group">
+							<label class="control-label"> 
+								有效期:
+							</label>
+							<div class="controls">
+									<label class="color_gray"> 
+										生效日期
+									</label>
+								    <span class="input-append"  id="datepicker_input">
+									    <input class="span8" type="text">
+									    <span class="btn" type="button"><i class="icon-calendar"></i></span>   
+									</span>  
+									<label class="color_gray" > 
+										失效日期
+									</label>
+									<div class="input-append"  id="datepicker_input2"> 
+									    <input class="span8" type="text">
+									    <span class="btn" type="button"><i class="icon-calendar"></i></span>   
+									</div>  
+
+							</div>
+						</div>
+
+
+						<div class="control-group">
+							<label class="control-label"> 
+								应用级别
+							</label>
+							<div class="controls"> 
+								<label class="radio inline">
+									<input type="radio" checked="true" value="00" id="optionsRadios1" name="optionsRadios">
+									系统级应用
+								</label>
+								<label class="radio inline">
+									<input type="radio" value="01" id="optionsRadios2" name="optionsRadios">
+									企业级应用
+								</label>
+
+								<label class="radio inline">
+									<input type="radio" value="02" id="optionsRadios3" name="optionsRadios">
+									个人应用
+								</label>     
+							</div>
+						</div> 
+						<div class="control-group">
+							<label class="control-label"> 
+								应用编码 			    	
+							</label>
+							<div class="controls"> 
+								 <input  type="text" value="00000001"  disabled>
+								
+							</div>
+						</div> 
+						<div class="control-group">
+							<label class="control-label"> 
+								应用条码		    	
+							</label>
+							<div class="controls"> 
+
+								二维码
+							</div>
+						</div> 
+						<div class="control-group">
+							<label class="control-label"> 
+								计费方式	    	
+							</label>
+							<form >
+								<div class="controls" id="t_radio"  > 
+									<label class="radio inline"> 
+										<input type="radio"  value="0"  name="charge_type"  checked="true" >
+										免费
+									</label>
+									<label class="radio inline">
+										<input type="radio"  value="1"  name="charge_type">
+										收费
+									</label> 
+
+								</div>
+
+							</form>
+						</div>
+						<div class="control-group" id="charge_value"> 
+							<label class="control-label"> 
+								价格    	
+							</label>
+							<div class="controls" id="tab_radion">
+								<div class=" input-append">
+									<input type="text" class="span5"/>
+									<span class="add-on">元</span>
+								</div>
+							</div>
+
+						</div> 
+						<div class="control-group" id="charge_value"> 
+							<label class="control-label"> 
+								类别标签    	
+							</label>
+							<div class="controls" > 
+								<!-- 这里要改一下，改成checkbox list class=" input-append" -->
+
+
+
+								<!-- 我这边 checklist 会吧 value 里面的值设置为默认标签  -->
+								<div id="chkbox_list">
+									<div class="ipt span7" name="typelist"  value="opt1,opt2,opt4" ></div>
+									<span class="btn"> 添加 <span class="caret"></span></span>
+								</div> 
+
+							</div>
+							<div class="controls" id="tab_radion"> 
+								 
+							</div> 
+						</div> 
+
+
+						<div class="control-group" id="charge_value"> 
+							<label class="control-label"> 
+								描述    	
+							</label>
+							<div class="controls"> 
+								<textarea rows="3"></textarea> 
+							</div> 
+						</div>
+						<div class="control-group" id="charge_value">
+
+							<label class="control-label"> 
+								使用说明( 富文本)    	
+							</label>
+							<div class="controls"> 
+								<textarea rows="3"></textarea> 
+							</div>
+
+						</div> 
+
+						<div class="control-group"> 
+							<div class="controls">
+							 
+								<span id="btnsave" class="btn" >  保存</span>
+							</div>
+						</div> 
+					</div>
+				</div>	     
+			</div> <!-- span 8-->
+			<div class="span4"> 
+				<div class="silder_right well">
+					<ul class="nav nav-list" id="tablist"> 
+						<li class="nav-header">上传步骤</li> 
+						<li><a href="#plan1"><i class="icon-arrow-up"></i> step:1 上传应用</a></li>
+						<li class="active"><a href="#plan2"><i class="icon-pencil"></i>step:2 填写应用信息</a></li> 
+						<li><a href="#plan3" class="cookie-delete"><i class=" icon-ok"></i>step:3 上传成功</a></li> 
+						<li class="nav-header">获取帮助</li>
+						<li><a href="#"><i class="icon-question-sign"></i> 上传遇到问题?</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</div> <!--row-fluid--> 
+	</div>	
+</body>
+<script>
+
+$(function () {
+	//datepicker 日期控件  
+	function datepicker (id) {  
+		$node = $(id);
+		if(!$node) { console.log(id + "undefinde datepicker"); return;}
+		// 提供弹出层的相对定位
+		$node.css({ position: "relative"});
+		var $ipt = $node.find("input");
+		var $btn = $node.find(".btn");
+		// var offset =  $btn.offset();
+		// console.log(offset.top +  " ----- " +  offset.left);
+		var calendar = (function () { 
+			var $datepicker = $("<div class='datepicker' />");
+			// $datepicker.css({ top : offset.top , left : offset.left }); 
+			$datepicker.css({ top : 30 , left : 0 }); 
+			$node.append($datepicker);
+			// 依赖 jqueryeasyui 
+			$datepicker.calendar({  
+		        current:new Date(),
+		        onSelect: function(date){
+					var dateStr =  date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+					// 赋值 日期
+					$ipt.val(dateStr);
+					//选中后关闭
+					$datepicker.hide();
+
+				}
+		    });
+			//初始化时隐藏
+		    $datepicker.hide();
+			return $datepicker;
+		})();
+		$btn.click(function () {
+			calendar.toggle();
+		});
+			
+	}
+	// id 元素上 绑定 日历控件
+	datepicker("#datepicker_input");
+
+	// // 多选
+  
+ 	var arr = [{key:"选项111",value: "opt1"},{key:"选项2",value: "opt2"},{key:"选项3",value: "opt3"},{key:"选项4",value: "opt4"},{key:"选项5",value: "opt5"},{key:"选项66666",value: "opt6"},{key:"选项777777777777777777777",value: "opt7"},{key:"选项8",value: "opt8"},{key:"选项8888888888888888888888",value: "opt8"}];
+    $("#chkbox_list").checklist(arr);
+ 
+	
+
+
+    // 滚动条
+    $('body').jScrollPane();
+    $api = $('body').data('jsp');
+
+
+	// 1 收费 0 免费
+	var  $input = $("#t_radio").find("input");
+	function radioChk() { 
+		var $charge_value = $("#charge_value");
+		var radioStatus = $("#t_radio").find("input[name='charge_type']:checked").val();
+		if(radioStatus == 1) {
+			$charge_value.show();
+		} else {
+			$charge_value.hide();
+		}
+
+	}
+
+	radioChk(); // 页面加载时判断 
+	$input.bind("change",function () {
+		radioChk();
+		$api.reinitialise();
+	})
+
+
+
+	 var opt = {
+			title: "aa213123",
+			content: "asdfasdfasdfasdf"
+
+	 }
+
+
+
+
+
+})
+</script>
+</html>

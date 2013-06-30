@@ -1,0 +1,92 @@
+<!doctype html> 
+<html lang="en">
+<head>
+	<meta charset="utf-8" />  
+	<script type="text/javascript" src="../../js/jquery-1.8.2.min.js"></script> 
+
+	<script type="text/javascript" src="../../js/artDialog.js"></script>
+	<script type="text/javascript" src="../../js/iframeTools.js"></script>  
+	<!-- jquery easyui -->
+	<link rel="stylesheet" type="text/css" href="../../plugins/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../plugins/themes/icon.css">
+	<script type="text/javascript" src="../../plugins/jquery.easyui.min.js"></script>
+	<!-- Bootstrap -->
+	<link href="../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
+	<!-- <link href="plugins/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" > -->
+	<script src="../../plugins/bootstrap/js/bootstrap.js"></script>  
+	<!-- --> 
+	<link href="../../css/page.css" rel="stylesheet" type="text/css" />
+ 
+</head>
+
+<body>
+	<div class="section"> 
+		<ul class="breadcrumb">
+		  <li><a href="../myapp.html">我的应用</a> <span class="divider">/</span></li> 
+		  <li class="active">上传应用</li>
+		</ul>
+		<div class="row-fluid">
+			<div class="span8">
+				<!-----提示 banner ---->	
+				<div class="alert alert-info">
+					我的应用上传/修改成功！<spna class="close" data-dismiss="alert">&times;</span>
+				</div>
+					
+				<div class="form-horizontal">
+					<form action="/upload" enctype="multipart/form-data" method="post"> 
+						<div class="control-group">
+					    	<label class="control-label" for="inputEmail"> 
+					    		上传应用  
+					    	</label>
+						    <div class="controls">
+						    	<input type="file" name="upload" multiple="multiple"> 
+								<input class="btn" type="submit" value="上传" /> 
+						    </div>
+					    </div> 
+			    	</form> 
+			    	<form action="/upload2" enctype="multipart/form-data" method="post"> 
+						<div class="control-group">
+					    	<label class="control-label" for="inputEmail"> 
+					    		上传应用图片
+					    	</label>
+						    <div class="controls">
+						    	<input type="file" name="upload" multiple="multiple"> 
+								<input class="btn" type="submit" value="上传" /> 
+						    </div>
+					    </div> 
+			    	</form>
+			    	<div class="control-group"> 
+						    <div class="controls">
+						    	<label>上传图片预览</label>
+						    	<img class="img-polaroid" src="../../img/myapp_default.png" />
+						    </div>
+					</div> 
+					<div class="control-group">
+					    	 
+						    <div class="controls">
+						    	 <a href="detail.html" class="btn">下一步</a>
+						    </div>
+					</div> 
+				</div>	    
+				
+			</div>
+			<div class="span4">
+
+ 				<div class="silder_right well">
+ 					<ul class="nav nav-list" id="tablist"> 
+				          <li class="nav-header">上传步骤</li> 
+				          <li class="active"><a href="#plan1"><i class="icon-arrow-up"></i> step:1 上传应用</a></li>
+				          <li><a href="#plan2"><i class="icon-pencil"></i>step:2 填写应用信息</a></li>  
+				          <li><a href="#plan3" class="cookie-delete"><i class=" icon-ok"></i>step:3 上传成功</a></li>
+
+				          <li class="nav-header">获取帮助</li>
+				          <li><a href="#"><i class="icon-question-sign"></i> 上传遇到问题?</a></li>
+				    </ul>
+ 				</div>
+			
+			</div>
+		</div> <!--row-fluid--> 
+	</div>	
+</body>
+
+</html>

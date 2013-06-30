@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>用户资料</title>
+	<link href="../css/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+	<script  type="text/javascript" src="../js/jquery-ui-1.8.24.custom.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-powerFloat-min.js"></script>
+	<script type="text/javascript" src="../js/artDialog.js"></script>
+	<script type="text/javascript" src="../js/iframeTools.js"></script>
+
+	<!-- Bootstrap -->
+	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
+	<!-- <link href="plugins/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" > -->
+	<script src="../plugins/bootstrap/js/bootstrap.js"></script>
+
+	<!-- jquery easyui -->
+	<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
+	<script type="text/javascript" src="../plugins/jquery.easyui.min.js"></script>
+
+	<link href="../css/page.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript"> 
+// 横向滑动菜单
+$(function () {
+	$.fn.sMenu = function( opts ) {
+		var win= $(this);
+		var $silder = $("#silder");
+		var $menu = this;
+		var $section = $("#layout");
+
+		var move = function () {
+			if( $section.hasClass("close_layout")) {
+				$section.animate({
+					right : 0 
+				}, 1000, function() {
+						 // feedback  
+						}
+						);
+				$section.removeClass("close_layout");
+			} else {  
+				$section.animate({
+					right :"-=" +  ( $section.width() -50  ) 
+				}, 1000, function() {
+						 // feedback  
+						}
+						);
+				$section.addClass("close_layout");
+			}
+		}
+		 	// bind event
+		 	$menu.click(function () {
+		 		var $icon = $(this).find("i");
+		 		if ($icon.hasClass("icon-arrow-right")) {
+		 			$icon.removeClass().addClass("icon-arrow-left");
+		 		} else {
+		 			$icon.removeClass().addClass("icon-arrow-right");
+		 		} 
+		 		move();
+		 	}) 
+		 }
+		 $("#silder_menu").sMenu();
+
+		})
+</script>
+
+<script type="text/javascript"> 
+		var obj_usergrid = {"total":28,"rows":[
+							{username:"amdin",regdate:"2013-01-20",ROLE:"管理员",userpwd:"001002","userstatus":"未激活"},
+							{username:"小明",regdate:"2013-02-20",ROLE:"普通用户",userpwd:"001002","userstatus":"锁定"},
+							{username:"hehe",regdate:"2013-03-20",ROLE:"高级用户",userpwd:"001002","userstatus":"已删除"},
+							{username:"机器人",regdate:"2013-04-20",ROLE:"普通用户",userpwd:"001002","userstatus":"正常"},
+							{username:"amdin",regdate:"2013-01-20",ROLE:"管理员",userpwd:"001002","userstatus":"未激活"},
+							{username:"小明",regdate:"2013-02-20",ROLE:"普通用户",userpwd:"001002","userstatus":"锁定"},
+							{username:"hehe",regdate:"2013-03-20",ROLE:"高级用户",userpwd:"001002","userstatus":"已删除"},
+							{username:"机器人",regdate:"2013-04-20",ROLE:"普通用户",userpwd:"001002","userstatus":"正常"},
+							{username:"amdin",regdate:"2013-01-20",ROLE:"管理员",userpwd:"001002","userstatus":"未激活"},
+							{username:"小明",regdate:"2013-02-20",ROLE:"普通用户",userpwd:"001002","userstatus":"锁定"},
+							{username:"hehe",regdate:"2013-03-20",ROLE:"高级用户",userpwd:"001002","userstatus":"已删除"},
+							{username:"机器人",regdate:"2013-04-20",ROLE:"普通用户",userpwd:"001002","userstatus":"正常"},
+							{username:"amdin",regdate:"2013-01-20",ROLE:"管理员",userpwd:"001002","userstatus":"未激活"},
+							{username:"小明",regdate:"2013-02-20",ROLE:"普通用户",userpwd:"001002","userstatus":"锁定"},
+							{username:"hehe",regdate:"2013-03-20",ROLE:"高级用户",userpwd:"001002","userstatus":"已删除"},
+							{username:"机器人",regdate:"2013-04-20",ROLE:"普通用户",userpwd:"001002","userstatus":"正常"}
+							 
+						]};
+$(function () {   
+		// 用户表
+
+		var $tabUserinfo = $('#table_userinfo').datagrid({  
+			// url:'usergrid.json',   改用 loadData 方法载入数据对象 
+			singleSelect: true,
+			striped:true,
+			 rownumbers:true,//行号  
+			pagination:true,//分页控件  
+			columns:[[  
+			{field:"ck",checkbox:true},
+			{field:'username',title:'用户名'
+			,width:100,align:"center"
+			},  
+			{field:'regdate',title:'注册日期'
+			,width:200,align:"center"
+			},  
+			{field:'ROLE',title:'权限'
+			,width:200 
+			},
+			{field:'userpwd',title:'密码'
+			,width:100 
+			},
+			{field:'userstatus',title:'状态'
+			,width:100  
+			}  
+			]], 
+			// toolbar:"#tb",
+			onClickRow:function(idx,rowData) {
+				updataRow(rowData);	
+			}
+		}); 
+		  //设置分页控件  
+	    var p = $('#table_userinfo').datagrid('getPager');  
+	    $(p).pagination({  
+	        pageSize: 5,//每页显示的记录条数，默认为10  
+	        pageList: [5,10,15],//可以设置每页记录条数的列表  
+	        beforePageText: '第',//页数文本框前显示的汉字  
+	        afterPageText: '页    1共 {pages} 页',  
+	        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+	        // ,  
+	        /*onBeforeRefresh:function(){ 
+	            $(this).pagination('loading'); 
+	            alert('before refresh'); 
+	            $(this).pagination('loaded'); 
+	        }*/ 
+	    }); 
+
+	    $('#table_userinfo').datagrid('loadData',obj_usergrid);  
+
+
+
+        // 选中用户权限表
+        var $table_userRole = $('#table_userRole').datagrid({   
+        	singleSelect: true,
+	        // striped:true,
+	        columns:[[  
+	        {field:"ck",checkbox:true},
+	        {field:'username',title:'用户'  },
+	        {field:'ROLE',title:'角色'  } 
+	        ]] ,
+	        onSelectAll : function () {
+	        	alert("没作用啊全选 ");
+	        }
+	    });
+        
+        //跟新用户权限表
+        function updataRow(o) {
+        	var newData =  {"total":21,"rows":[]}
+        	newData.rows.push(o);
+        	$table_userRole.datagrid('loadData',newData); 
+        }
+
+
+        function addRow(rowdata) { 
+        	var Rows = $table_userRole.datagrid('getData').rows;
+  	    	for(var i=0; i<Rows.length; i++) { // 去重
+  	    		if ( rowdata.ROLE == Rows[i].ROLE ) { return } 
+  	    	} 
+  	    $table_userRole.datagrid('appendRow',rowdata); 
+  	}
+
+  	function delRow(idx) {
+  		if(idx == -1) { return }
+  			$table_userRole.datagrid("deleteRow", idx);
+  		}
+
+        // 权限表
+        $('#table_role').datagrid({  
+        	url:'role.json',
+	        // singleSelect: true,
+	        // striped:true,
+	        columns:[[  
+	        {field:"ck",checkbox:true},
+	        {field:'ROLE',title:'用户角色'  } 
+	        ]],
+	        onSelectAll : function () { 	 
+	        	// 全选 
+	        }
+	    });
+
+        $("#mov_left").click(function () { 
+        	var selectRow = $('#table_role').datagrid('getSelections');
+        	for(var i=0; i<selectRow.length; i++) {
+        		addRow(selectRow[i]);
+        	}
+
+        });
+
+        $("#mov_right").click(function () { 
+        	var selectRow =$table_userRole.datagrid('getSelected');
+        	var selectIdx = $table_userRole.datagrid('getRowIndex',selectRow)
+        	delRow(selectIdx);
+
+        }) 
+
+    }); 
+</script>
+
+</head> 
+<body class="body_silder" >
+ 
+	<div id="layout" >   
+		<div class="top"> 
+			<span class="title">用户管理</span>
+		</div>
+		<div class="section">
+			<div class="datagrid-toolbar"> <!-- id="editUser" -->  
+				<!--折叠 控件 按钮-->
+				<span class="btn btn-small"  id="silder_menu" > <i class="icon-arrow-right"></i>编辑</span>  
+		       	<!-- 搜索 控件 -->
+		      
+
+				 <span class="input-append">
+			    	<input class="span2" id="" type="text">
+			    	<button class="btn" type="button">搜索用户</button>
+			    </span>
+			</div>
+			<div style="height:200px; width:800px; overflow-y:auto" id="table_userinfo"> 
+			</div>  
+
+			<div class="top">
+				<div class="top_shadow"></div>
+				<span class="title">权限分配</span>
+			</div> 
+
+			<div class="clearfix" style="text-align:center" >
+				<div class="listBox"> 
+					<div id="table_role"> 
+					</div>	 
+				</div>
+				<div class="listbtn" >
+				     
+					 <span></span>
+					 <span class="btn" id="mov_right" style="margin-bottom:5px;"> <i class="icon-chevron-left"></i> 增加</span>
+					 <span style="margin-bottom:10px;" id="mov_left" class="btn"><i class="icon-chevron-right"></i> 删除</span>
+
+					 
+				</div>
+				<div class="listBox"> 
+					<div id="table_userRole"> 
+					</div>
+				</div>
+			</div>
+
+			<div class="form-actions"> <span class="btn btn-success" > <i class="icon-ok"></i>保存</span>  </div>  
+		</div> 
+	</div><!-- layout --> 
+	<div class="silder" id="silder">
+		<div class="silder_box form-horizontal">
+			<div class="row-fluid section" > 
+				<div class="span6" >
+				 
+						<div class="top">注册信息 </div> 
+						<div class="control-group">
+							<label class="control-label" for="inputEmail">邮箱地址</label>
+							<div class="controls">
+								<input type="text" id="mail" >  
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label"  >用户名</label>
+							<div class="controls">
+								<input type="text">  
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" >密码</label>
+							<div class="controls">
+								<input type="text" >  
+							</div>
+						</div>
+						<div class="control-group" style="display:none">
+							<label class="control-label"  >确认密码</label>
+							<div class="controls">
+								<input type="text" id="mail" >  
+							</div>
+						</div>
+				<!-- 	</fieldset> -->
+
+
+					<!-- <fieldset> -->
+						<div class="top">安全信息 </div>
+						<div class="control-group" >
+							<label class="control-label" >安全问题</label>
+							<div class="controls">
+								<input type="text" id=""   >  
+							</div>
+						</div>
+						<div class="control-group" >
+							<label class="control-label" >问题答案</label>
+							<div class="controls">
+								<input type="text" id=""   >  
+							</div>
+						</div>
+					<!-- </fieldset>  -->
+				</div> <!-- span6 -->
+
+				<div class="span6">
+				<!-- 	<fieldset> -->
+						<div class="top">个人信息 </div>
+						<div class="control-group">
+							<label class="control-label" >姓名</label>
+							<div class="controls">
+								<input type="text">  
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" >电话</label>
+							<div class="controls">
+								<input type="text" >  
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" >地址</label>
+							<div class="controls">
+								<input type="text" >  
+							</div>
+						</div> 
+					<!-- </fieldset> -->
+
+					<!-- <fieldset> -->
+						<div class="top">企业信息 </div> 
+						<div class="control-group">
+							<label class="control-label" >企业名称</label>
+							<div class="controls">
+								<input type="text"   >  
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" >联系电话</label>
+							<div class="controls">
+								<input type="text"  >  
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" >地址</label>
+							<div class="controls">
+								<input type="text"  >  
+							</div>
+						</div> 
+
+					<!-- </fieldset> -->
+				</div> 
+			</div>
+			<div class="form-actions"><button class="btn btn-primary" type="submit">保存修改</button> </div>  	
+		</div> 
+	</div> 
+</body>
+
+</html>

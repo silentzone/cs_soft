@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>注册</title> 
+
+	<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>  
+	<script type="text/javascript" src="../js/artDialog.js"></script>
+	<script type="text/javascript" src="../js/iframeTools.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Bootstrap -->
+	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
+	<!-- <link href="plugins/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" > -->
+	<script src="../plugins/bootstrap/js/bootstrap.js"></script>  
+	<!----> 
+	<link href="../css/page.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+	<!-- scrollbar-->  
+	 <link rel="stylesheet" href="css/website.css" type="text/css" media="screen"/>
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tinyscrollbar.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#scrollbar1').tinyscrollbar();	
+		});
+	</script>	
+
+
+</head>
+
+<body style=" border:#ccc solid 2px;">
+	
+	<div class="top"> 
+		<span class="title">注册</span>
+	</div>
+	<div class="section"  id="scrollbar1" >
+		<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+<div class="viewport">
+	<div class="overview">
+		<div class="row-fluid"> 
+			<div class="span6">
+				<fieldset>
+					<legend>注册信息 </legend> 
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">邮箱地址</label>
+						<div class="controls">
+							<input type="text" id="mail" >  
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"  >用户名</label>
+						<div class="controls">
+							<input type="text" >  
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" >密码</label>
+						<div class="controls">
+							<input type="text" >  
+						</div>
+					</div>
+					<div class="control-group" style="display:none">
+						<label class="control-label"  >确认密码</label>
+						<div class="controls">
+							<input type="text" id="mail" >  
+						</div>
+					</div>
+				</fieldset>
+
+
+				<fieldset>
+					<legend>安全信息 </legend>
+					<div class="control-group" >
+						<label class="control-label" >安全问题</label>
+						<div class="controls">
+							<input type="text" id=""   >  
+						</div>
+					</div>
+					<div class="control-group" >
+						<label class="control-label" >问题答案</label>
+						<div class="controls">
+							<input type="text" id=""   >  
+						</div>
+					</div>
+
+				</fieldset>
+
+			</div> <!-- span6 -->
+
+			<div class="span6">
+				<fieldset>
+					<legend>个人信息 </legend>
+					<div class="control-group">
+						<label class="control-label" >姓名</label>
+						<div class="controls">
+							<input type="text">  
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" >电话</label>
+						<div class="controls">
+							<input type="text" >  
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" >地址</label>
+						<div class="controls">
+							<input type="text" >  
+						</div>
+					</div> 
+				</fieldset>
+
+				<fieldset>
+					<legend>企业信息 </legend>
+
+					<div class="control-group">
+						<label class="control-label" >企业名称</label>
+						<div class="controls">
+							<input type="text"   >  
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" >联系电话</label>
+						<div class="controls">
+							<input type="text"  >  
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" >地址</label>
+						<div class="controls">
+							<input type="text"  >  
+						</div>
+					</div> 
+
+				</fieldset>
+			</div>  	
+		</div>
+		<div class="form-actions">
+			<button class="btn btn-primary" type="submit">注册</button>
+		</div>		  
+	</div>
+</div> 
+		</div>
+</body>
+<script type="text/javascript"> 
+	// 输入框 入焦时隐藏描述 
+	 // $(".login_list .ipt").each(function (idx) {
+	 // 	if($(this).val() != "") { 
+	 // 		$(this).prev("label").hide();	
+	 // 	}
+	 // }).bind("focus",function () {  
+	 // 	$(this).prev("label").hide();
+	 // 	$(this).addClass("current");
+	 // }).bind("blur",function () { 
+	 // 	if($(this).val() == "") {
+	 // 		$(this).prev("label").show();
+	 // 	}
+	 // 	$(this).removeClass("current");
+	 // });
+	 // $(".ipt_label").click(function () { $(this).next(".ipt").focus(); }); 
+
+	 $("#reg_btn").click(function () {   art.dialog.close() });
+	 </script> 
+	 </html>

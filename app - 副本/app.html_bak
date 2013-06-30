@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>云应用</title> 
+
+	<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>  
+	<script type="text/javascript" src="../js/artDialog.js"></script>
+	<script type="text/javascript" src="../js/iframeTools.js"></script>
+
+
+	<!-- Bootstrap -->
+	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
+	<!-- <link href="plugins/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" > -->
+	<script src="../plugins/bootstrap/js/bootstrap.js"></script>  
+	<!-- --> 
+	<link href="../css/page.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body> 
+	<div class="top">
+		<div class="title"> 应用列表 </div>
+	</div> 
+	<div class="section"> 
+		<div class="row-fluid">
+			<div class="span3">
+				<ul class="nav nav-list bs-docs-sidenav">
+					<li><a href="#"><i class="icon-map-marker"></i> 最新应用</a></li>
+					<li  class="active"><a href="#"><i class="icon-search"></i> 热门应用 </a></li>
+					<li><a href="#"><i class="icon-film"></i>媒体应用</a></li>
+					<li><a href="#"><i class="icon-chevron-right"></i> 免费应用</a></li> 
+				</ul> 
+			</div>
+			<div class="span9">
+				<div class="box-content"> 
+
+					<div class="navbar" >
+						<ul class="nav nav-pills pull-right btn_right"> 
+								<li class="dropdown">
+									<a href="#" data-toggle="dropdown" class="dropdown-toggle bg_gray">排了个序 <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li><a href="#">按更新时间</a></li>
+										<li><a href="#">按下载次数</a></li>
+										<li><a href="#">呵呵</a></li> 
+									</ul>
+								</li>
+							</ul>   
+
+	          				<div class="btn-group">
+								<button class="btn active"><i class="icon-th"></i></button>
+								<button class="btn"><i class="icon-align-left"></i> </button>
+								<button class="btn"><i class="icon-wrench"></i></button>
+							</div>
+
+
+							
+	           		</div>
+ 
+					
+					<div class="app_list">  
+						<ul>
+							<li>
+								<div class="thumbnail">
+									  <img  src="../img/icon/icon_app.png"  >  
+										<div class="caption">
+											<h4>APP NAME 1</h4>
+											<p class="info"> 我擦类。。描述。 22211111111112 </p>
+											<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+										</div>
+								</div>
+							</li> 
+							<li>
+								<div class="thumbnail">
+									 <img  src="../img/icon/icon_app.png"  >  
+									<div class="caption">
+										<h4>app name 2</h4>
+										<p class="info"> i am  hehe  111111</p>
+										<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+									</div>
+								</div>
+							</li> 
+							<li>
+								<div class="thumbnail">
+									 <img  src="../img/icon/icon_app.png"  />  
+									<div class="caption">
+										<h4>app name 3</h4>
+										<p class="info"> i am  hehe  3322222222222</p>
+										<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+									</div>
+								</div>
+							</li> 
+							<li>
+								<div class="thumbnail">
+									  <img  src="../img/icon/icon_app.png"  />  
+										<div class="caption">
+											<h4>APP NAME 1</h4>
+											<p class="info"> 我擦类。。。。。 </p>
+											<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+										</div>
+								</div>
+							</li> 
+							<li>
+								<div class="thumbnail">
+									 <img  src="../img/icon/icon_app.png"  />  
+									<div class="caption">
+										<h4>app name 2</h4>
+										<p class="info"> i am  hehe  111111</p>
+										<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+									</div>
+								</div>
+							</li> 
+							<li>
+								<div class="thumbnail">
+									 <img  src="../img/icon/icon_app.png"  >  
+									<div class="caption">
+										<h4>app name 3</h4>
+										<p class="info"> i am  hehe  33</p>
+										<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="thumbnail">
+									 <img  src="../img/icon/icon_app.png"  >  
+									<div class="caption">
+										<h4>app name 3</h4>
+										<p class="info"> i am  hehe  33</p>
+										<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="thumbnail">
+									 <img  src="../img/icon/icon_app.png"  >  
+									<div class="caption">
+										<h4>app name 3</h4>
+										<p class="info"> i am  hehe  33</p>
+										<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="thumbnail">
+									 <img  src="../img/icon/icon_app.png"  >  
+									<div class="caption">
+										<h4>app name 3</h4>
+										<p class="info"> i am  hehe  33</p>
+										<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="thumbnail">
+									 <img  src="../img/icon/icon_app.png"  >  
+									<div class="caption">
+										<h4>app name 3</h4>
+										<p class="info"> i am  hehe  33</p>
+										<p><a class="btn btn-primary" href="#">下载</a> <a class="btn" href="#">试用</a></p>
+									</div>
+								</div>
+							</li>
+						</ul>
+
+
+
+
+
+					</div>
+				</div>
+			</div> 
+		</div>
+
+	</div> <!-- 左侧边NAV  -->	 
+
+</body> 
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

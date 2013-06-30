@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zsmart>
+  <ServiceName>UBOSS_DESKTOP_USER_001</ServiceName>
+  <Type>1</Type>
+  <Data>
+    <OP_TYPE>1</OP_TYPE>
+    <zsmart_session>
+      <sp-id>0</sp-id>
+      <remote-ip></remote-ip>
+    </zsmart_session>
+    <USER>
+      <USER_REG_TYPE>1</USER_REG_TYPE>
+      <INPUT_PWD>11</INPUT_PWD>
+      <USER_CODE>xiaoluoli</USER_CODE>
+      <USER_NAME>小萝莉</USER_NAME>
+      <USER_BILL>
+        <BILL_BANK>
+          <CARD_TYPE>0</CARD_TYPE>
+          <BANK_USER>长沙软件园</BANK_USER>
+          <BANK_CODE>01234576</BANK_CODE>
+          <NOTES>主卡片</NOTES>
+          <BANK_NAME>中国银行</BANK_NAME>
+        </BILL_BANK>
+        <BILL_BANK>
+          <CARD_TYPE>1</CARD_TYPE>
+          <BANK_USER>长沙软件园财务部</BANK_USER>
+          <BANK_CODE>8888888</BANK_CODE>
+          <NOTES>附卡片</NOTES>
+          <BANK_NAME>工商银行</BANK_NAME>
+        </BILL_BANK>
+        <BILL_NAME>第一账户</BILL_NAME>
+      </USER_BILL>
+      <USER_TYPE>01</USER_TYPE>
+      <IS_LOCKED>0</IS_LOCKED>
+    </USER>
+  </Data>
+</zsmart>
