@@ -1,15 +1,15 @@
-// 输出图标
- 
-$(function() { 
+var DATA = {};
+function portalInit(){
 	desk.init();  
 	//任务栏 
 	bottomBar.init();
    //消息 和 开始菜单 
     bottomMenu.init();
 
-     startMenu.init();
-	// alert($("#bottomBar"));
-    // 判断浏览器的支持 
+	dataInit();
+}
+function dataInit(){
+	startMenu.init();
     if(isIE) { 
     	$("#impress").hide();
     	$("#view").hide();
@@ -30,7 +30,7 @@ $(function() {
     	 // 启动 3D 视图
 		impress().init();
     } 
-});
+}
 
 
 // 任务栏 me 作用是 使用 正确 对象作用域 
@@ -463,8 +463,6 @@ var app = function(me) {
 	} //self
 }();
  
-
-
 // 关闭按钮受到影响
 function showDialog(id) {
     // 检测 当前窗口 隐藏或者是关闭 
@@ -482,52 +480,6 @@ function showDialog(id) {
     } 
 } 
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var isIE = (function () {
 	if(document.all) {
 		return true;
@@ -536,29 +488,6 @@ var isIE = (function () {
 	}
 	
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // ie 的呈现方式 
@@ -656,9 +585,6 @@ var appIE = function(me) {
 }();
 
 
-
-// 任
-
 var portal = new function(){};
 portal.init = function(){
 	this.elemEventBind();
@@ -713,26 +639,34 @@ portal.showTalk = function(){
 	win.openApp("talk_001","在线客服","./app/talk.jsp","",[],"","");
 }
 portal.toggle = function(obj){
- 
-	 $loginNo = obj.loginNo;
-	 // $('.icon_user').toggle();
-	// alert(chkUserStatus);
- 
-		// alert(obj.userName);
+	$loginNo = obj.loginNo;
 	chkUserStatus(obj.userName); 
-	
-	
- 
-
+	portal.refreshAppData();
+	portalInit();
 }
-
-
-
-
-
-
-
-
-
-
-
+portal.refreshAppData = function(){
+	var dict = new DynamicDict("UBOSS_DESKTOP_USER_003");
+    dict.setValue("OP_TYPE","3");
+    if(!dict.callService()){
+        alert(dict.error.Desc);
+        return;
+    }
+    var count = dict.getDataObjCnt("ATOM_DATA");
+    var app = {};
+    if(count>0){
+    	var atomData = {};
+    	for(var i=0;i<count;i++){
+    		var obj = {};
+    		var bo = dict.getBOValue("ATOM_DATA",i);
+    		obj.appid = bo.getValue("APP_ID");
+    		obj.icon = bo.getValue("APP_ICON");
+    		obj.name = bo.getValue("APP_NAME");
+    		obj.url = bo.getValue("APP_ACTION");
+    		obj.idx = bo.getValue("APP_SORT");
+    		app[bo.getValue("APP_CODE")] = obj;
+    	}
+    }
+    DATA.app = app;
+}
+portal.refreshAppData();
+portalInit();

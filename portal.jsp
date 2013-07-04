@@ -70,6 +70,8 @@
     <link href="plugins/tool/jquery.toolbars.css" rel="stylesheet" />  
 
     <link rel="stylesheet" type="text/css" href="css/page.css">  
+    <script language="javascript" src="sys/js/request.js"></script>
+    <script language="javascript" src="sys/js/dict.js"></script>
 </head>
 
 <body class="desktop"> 
@@ -136,7 +138,7 @@
 <!-- impress -->
 <script src="js/impress.js"></script>
 <!-- 处理 app数据 -->
-<script type="text/javascript"  src="js/data.js"></script> 
+<!-- <script type="text/javascript"  src="js/data.js"></script>  -->
 <script type="text/javascript"  src="js/app.js"></script>
 <script type="text/javascript">
     
