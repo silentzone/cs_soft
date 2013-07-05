@@ -687,7 +687,7 @@ a:focus {
 
 /* 需要点击事件 需要绑定 // 取消 .impress-enabled  pointer-events: none; 否则会造成chrom 里面 位于后面的层无法点击 */
 .impress-enabled          {  pointer-events: none;} 
-.impress-enabled #impress { pointer-events: auto }
+.impress-enabled .impress { pointer-events: auto }
 .impress-enabled div { pointer-events: auto  }
  
 .impress-enabled .artdialog,.impress-enabled .aui_state_focus { pointer-events: auto }

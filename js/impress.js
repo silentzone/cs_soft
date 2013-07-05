@@ -264,7 +264,7 @@
         // canvas.className = "im_canvas"
         
         var initialized = false;
-         // var initialized = true;
+      
         
         // STEP EVENTS
         //
@@ -364,6 +364,7 @@
         
         // `init` API function that initializes (and runs) the presentation.
         var init = function () {
+            // alert("initialized :" + initialized);
             if (initialized) { return; }
             
             // First we set up the viewport for mobile devices.

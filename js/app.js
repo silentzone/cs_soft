@@ -1,14 +1,14 @@
-var DATA = {};
-function portalInit(){
+// var DATA = {};
+function portalInit(user){
 	desk.init();  
 	//任务栏 
 	bottomBar.init();
    //消息 和 开始菜单 
     bottomMenu.init();
 
-	dataInit();
+	dataInit(user);
 }
-function dataInit(){
+function dataInit(user){
 	startMenu.init();
     if(isIE) { 
     	$("#impress").hide();
@@ -26,9 +26,10 @@ function dataInit(){
     } else { 
     	// 初始化 3D 视图
     	// 载入3D 试图中 的 APP 层
-    	app.init(); 
+
+    	app.init(user); 
     	 // 启动 3D 视图
-		impress().init();
+		impress("impress_" + user).init();
     } 
 }
 
@@ -352,7 +353,7 @@ var win = function (me) {
         		// $("#impress").attr("style","position: absolute; transform-origin: left top 0px; transition: all 0ms ease-in-out 0ms; transform-style: preserve-3d; top: 45%; left: 52%; transform: perspective(1244.73px) scale(0.803385);");
         		 
         		 $("#impress").show();
-        		  $("#impress_ie").hide();
+        		 $("#impress_ie").hide();
         		 // app.init();
         		 // impress().init();
 					
@@ -381,10 +382,16 @@ var desk = function () {
 var app = function(me) {
 	var o = { "data-x" :0, "data-y" :0, "data-z" :0 } 
 	return me = {
-			init : function(){ 
-				this.app = DATA.app; 
-				for(a in this.app) {
-					this.create(this.app[a]);
+
+		    idx : 0,
+			init : function(id){ 
+				alert(id)
+				me.data = DATA;
+				win.body.find(".impress").each(function () { $(this).remove();  })
+				var $impress = $("<div id='impress_"+ id + "' class='impress' />");
+				win.body.append($impress);
+				for(a in me.data[id]) { 
+					$impress.append(me.create(me.data[id][a]));  
 				}  
 			}, 
 			create:function(data){ 
@@ -422,7 +429,8 @@ var app = function(me) {
 				var shadow = $("<img src='img/appShadow.png' class='app_shadow' />");
 				box.append(img).append(name).append(shadow);
 				me.bindEvent(box);
-				$("#impress").append(box);
+				return box;
+				
 			},
 			bindEvent:function(box){//绑定事件  
 
@@ -641,8 +649,9 @@ portal.showTalk = function(){
 portal.toggle = function(obj){
 	$loginNo = obj.loginNo;
 	chkUserStatus(obj.userName); 
-	portal.refreshAppData();
-	portalInit();
+	// portal.refreshAppData();
+	 
+	portalInit("app");
 }
 portal.refreshAppData = function(){
 	var dict = new DynamicDict("UBOSS_DESKTOP_USER_003");
@@ -668,5 +677,5 @@ portal.refreshAppData = function(){
     }
     DATA.app = app;
 }
-portal.refreshAppData();
-portalInit();
+// portal.refreshAppData();
+portalInit("admin");

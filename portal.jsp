@@ -81,7 +81,7 @@
     <span class="icon-th-large icon-white" id="view" ><!-- 视图 --></span> 
 </div>
 
-<div id="impress"> 
+<div id="impress" class="impress"> 
     <!-- 云背景效果 -->
     <!-- <div class="cloud_icon01" > <img src="img/cloud_bg_01.png" /></div>
     <div class="cloud_icon02" > <img src="img/cloud_bg_01.png" /></div>
@@ -138,7 +138,7 @@
 <!-- impress -->
 <script src="js/impress.js"></script>
 <!-- 处理 app数据 -->
-<!-- <script type="text/javascript"  src="js/data.js"></script>  -->
+<script type="text/javascript"  src="js/data.js"></script> 
 <script type="text/javascript"  src="js/app.js"></script>
 <script type="text/javascript">
     

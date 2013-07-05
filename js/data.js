@@ -150,7 +150,7 @@
 
 DATA={
  
-	app:{//桌面1
+	app:{//桌面1 
 		'grzx':{
 			appid:'001',
 			icon:'grzx.png',
@@ -235,8 +235,30 @@ DATA={
 			idx :5,
 			w:800,
 			h:550
+		} 
+	} ,
+
+	 admin : {'xtjk':{
+			appid:'005',
+			icon:'xtjk.png',
+			name:'系统监控',
+			url:'app/system.html',
+			idx :4,
+			w:900,
+			h:600
+		},
+		'test':{
+			appid:'006',
+			icon:'yhgl.png',
+			name:'用户管理',
+			url:'app/role.jsp',
+			idx :5,
+			w:800,
+			h:550
 		}
-	} 
+	  }
+	
+	
 };
 
  
