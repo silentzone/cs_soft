@@ -138,7 +138,7 @@
 <!-- impress -->
 <script src="js/impress.js"></script>
 <!-- 处理 app数据 -->
-<script type="text/javascript"  src="js/data.js"></script> 
+<!-- <script type="text/javascript"  src="js/data.js"></script>  -->
 <script type="text/javascript"  src="js/app.js"></script>
 <script type="text/javascript">
     

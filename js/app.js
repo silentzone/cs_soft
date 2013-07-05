@@ -1,35 +1,40 @@
-// var DATA = {};
-function portalInit(user){
+var DATA = {};
+function portalInit(){
 	desk.init();  
 	//任务栏 
 	bottomBar.init();
    //消息 和 开始菜单 
     bottomMenu.init();
 
-	dataInit(user);
+	dataInit(); 
+	win.setView(win.viewstatus);
 }
-function dataInit(user){
+function dataInit(){
 	startMenu.init();
+
     if(isIE) { 
-    	$("#impress").hide();
+    	$(".impress").hide();
     	$("#view").hide();
     	
     	appIE.init();
     	//  切换成IE 视图
+      //已存在 清空 
+      $(".live-tile").liveTile("destroy");
+      
       $(".live-tile").liveTile({  
       		playOnHover:true,
 		    repeatCount: 0,
 		    delay: 0,
 		    startNow:false 
       });
-    	return;
+      return;
     } else { 
     	// 初始化 3D 视图
     	// 载入3D 试图中 的 APP 层
-
-    	app.init(user); 
+        var _idx = app.idx
+    	app.init(); 
     	 // 启动 3D 视图
-		impress("impress_" + user).init();
+		impress("impress_" + _idx ).init();
     } 
 }
 
@@ -98,8 +103,7 @@ var bottomBar = function (me) {
 			var id =  item[0].id
 			item.bind("click", function () { 
 				win.showApp(id);
-				bottomBar.addCurrent(id);
-
+				bottomBar.addCurrent(id); 
 			}) 
 		} 
  	
@@ -237,7 +241,9 @@ var bottomMenu = function (me) {
 }();
 
 var win = function (me) {
+	 
 	return me = {
+		viewstatus : "3d",
 		body: $("body"),
 		showApp : function(id){//art弹出 
 		
@@ -322,25 +328,21 @@ var win = function (me) {
 		closeAll : function () {},
 		closeElse : function () {},
 		changeView : function () {
-			if(isIE) { return ; }
+			// change view 方法需要 在用户切换之后保存下来 
+			if(me.viewstatus == "3d") {
+				me.setView();  	
+			} else {
+				me.setView("3d"); 
+			}
+			 	
 			 
-			if(me.body.hasClass("impress-enabled")) {
 
-				me.body.removeClass();
-            	me.body.addClass("desktop impress-not-supported");
-        	 
-        		 $("#view").addClass("icon-3dview");
-        		 $("#impress").hide();
-        		 $("#impress_ie").html("");
-        		 $("#impress_ie").show(); 
-        		 appIE.init();
-        		 $(".live-tile").liveTile({ 
-        		 	playOnHover:true,
-				    repeatCount: 0,
-				    delay: 0,
-				    startNow:false 
-        		 }); 
-			}else {
+		},
+		setView : function (status) {
+			if(isIE) { return; } // ie 只有唯一视图 
+			if(status == "3d") {
+				//设置3d 状态显示
+				// 销毁绑定 IE
 				 $(".live-tile").liveTile("destroy");
 				 
 				 $("#view").removeClass("icon-3dview");
@@ -352,13 +354,33 @@ var win = function (me) {
         		// $("#impress").attr("style",style);
         		// $("#impress").attr("style","position: absolute; transform-origin: left top 0px; transition: all 0ms ease-in-out 0ms; transform-style: preserve-3d; top: 45%; left: 52%; transform: perspective(1244.73px) scale(0.803385);");
         		 
-        		 $("#impress").show();
+        		 $(".impress").show();
         		 $("#impress_ie").hide();
         		 // app.init();
         		 // impress().init();
-					
-			}
+        		 me.viewstatus = "3d";
 
+			} else { 
+				//设置为ie 状态显示
+				// 切换成IE 状态
+				me.body.removeClass();
+            	me.body.addClass("desktop impress-not-supported");
+        	    //ie 背景
+        		 $("#view").addClass("icon-3dview");
+        		 // 3d 状态隐藏
+        		 $(".impress").hide();
+        		 // 载入IE 视图
+        		 $("#impress_ie").html("");
+        		 $("#impress_ie").show(); 
+        		 appIE.init();
+        		 $(".live-tile").liveTile({ 
+        		 	playOnHover:true,
+				    repeatCount: 0,
+				    delay: 0,
+				    startNow:false 
+        		 }); 
+        		 me.viewstatus = "ie";
+			}
 		}
 
 	}
@@ -381,22 +403,25 @@ var desk = function () {
 // css3 浏览器                         
 var app = function(me) {
 	var o = { "data-x" :0, "data-y" :0, "data-z" :0 } 
-	return me = {
-
+	return me = { 
 		    idx : 0,
+		    iconIdx :0,
 			init : function(id){ 
-				alert(id)
-				me.data = DATA;
+				// alert(id)
+				me.data = DATA.app;
 				win.body.find(".impress").each(function () { $(this).remove();  })
-				var $impress = $("<div id='impress_"+ id + "' class='impress' />");
+				var $impress = $("<div id='impress_"+ me.idx + "' class='impress' />");
+				me.idx++;
 				win.body.append($impress);
-				for(a in me.data[id]) { 
-					$impress.append(me.create(me.data[id][a]));  
+				for(a in me.data) { 
+					$impress.append(me.create(me.data[a]));  
 				}  
 			}, 
 			create:function(data){ 
-				var box = $("<div class='app step slide'></div>");   
-				 	if ( (data.idx + 2) % 2 !=  0) {
+
+				var box = $("<div class='app step slide'></div>");  
+					 
+				 	if ( (me.iconIdx + 2) % 2 !=  0) {
 	             	 	// 单数  
 	 					o["data-x"] = 300;
 	             	 	o["data-z"] -= 1000;
@@ -405,12 +430,13 @@ var app = function(me) {
 	 					o["data-x"] = 0;
 	             	 	o["data-z"] -= 1000;
 		            }
-		         
- 			 
+		         	
+ 			 	
 				box.attr({
 					id:"app_"+ data.appid,
 					// appid:this.app.appid,
 					// fileid : this.app.appid, 
+					// idx : data.idx,
 					title:data.name,
 					url:data.url,
 					sonMenu:data.sonMenu,
@@ -418,6 +444,7 @@ var app = function(me) {
 					h: data.h,
 					appid : data.appid
 				});
+				// alert(o["data-x"]);
 				box.attr(o);
 				
 				var img = $("<img>",{
@@ -429,6 +456,7 @@ var app = function(me) {
 				var shadow = $("<img src='img/appShadow.png' class='app_shadow' />");
 				box.append(img).append(name).append(shadow);
 				me.bindEvent(box);
+				me.iconIdx++;
 				return box;
 				
 			},
@@ -507,7 +535,8 @@ var appIE = function(me) {
 
 	return me = {
 			init : function(){ 
-				this.app = DATA.app; 
+				this.app = DATA.app;
+				$("#impress_ie").html("");
 				for(a in this.app) {
 					this.create(this.app[a]);
 				}  
@@ -649,9 +678,8 @@ portal.showTalk = function(){
 portal.toggle = function(obj){
 	$loginNo = obj.loginNo;
 	chkUserStatus(obj.userName); 
-	// portal.refreshAppData();
-	 
-	portalInit("app");
+	portal.refreshAppData(); 
+	portalInit();
 }
 portal.refreshAppData = function(){
 	var dict = new DynamicDict("UBOSS_DESKTOP_USER_003");
@@ -677,5 +705,5 @@ portal.refreshAppData = function(){
     }
     DATA.app = app;
 }
-// portal.refreshAppData();
-portalInit("admin");
+portal.refreshAppData();
+portalInit();
