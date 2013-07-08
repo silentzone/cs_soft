@@ -571,7 +571,7 @@ var appIE = function(me) {
 				});
 				var name = $("<span class='app_name tile-title'>" + data.name+ "</span>");
 				var shadow = $("<img src='img/appShadow.png' class='app_shadow' />");
-				var info = $("<p> 这里写一些APP 相关描述</p>")
+				var info = $("<p> " + data.desc +"</p>")
 				iconBox.append(img).append(name);
 				infoBox.append(info);
 				box.append(iconBox).append(infoBox);
@@ -700,6 +700,7 @@ portal.refreshAppData = function(){
     		obj.name = bo.getValue("APP_NAME");
     		obj.url = bo.getValue("APP_ACTION");
     		obj.idx = bo.getValue("APP_SORT");
+    		obj.desc = bo.getValue("APP_NOTE");
     		app[bo.getValue("APP_CODE")] = obj;
     	}
     }

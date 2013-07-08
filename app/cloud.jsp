@@ -86,11 +86,11 @@ return;
   
 </head>
 
-<body style="width:800px; height:550px" onLoad="insertMenu()"> 
+<body class="sidebg_sp2" style="width:800px; height:550px" onLoad="insertMenu()"> 
 	<div class="section"> 
 		<div class="row-fluid"> 
 			<div class="span2 box-content" >
-				<ul class="nav nav-list bs-docs-sidenav">
+				<ul class="nav nav-list sideMenu">  <!-- bs-docs-sidenav -->
 					<li class="active"><a href="cloud.jsp"><i class="icon-plus"></i>新建服务</a></li>
 					<li><a href="cloud_buy.jsp"><i class="icon-shopping-cart"></i>已购服务</a></li>
 					<li ><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
@@ -98,19 +98,14 @@ return;
 				</ul> 
 			</div> 
 
-			<div class="span3 box-content">
+			<div class="span2 box-content">
 				<div class="tabbable tabs-left" > 
-					<ul class="nav nav-tabs" id="tablist"   > 
+					<ul class="list_btn" id="tablist"   > 
 					</ul> 
 				</div>  
-			</div>
-
-			<div class="span7 box-content" id="tabgroups">
 			</div> 
-
-			
-
-
+			<div class="span8 box-content form_optimize" id="tabgroups" >
+			</div> 
 		</div>
 	</div>
 </body> 

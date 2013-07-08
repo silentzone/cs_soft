@@ -14,18 +14,16 @@ addEvent(window,"load",initPage());
 
 function initPage(){
 	//加载 服务器模板推荐 及 tab 页
-//	insertMenu();
-	
+	//	insertMenu(); 
 }
 //插入菜单
-function insertMenu(){
-	
+function insertMenu(){ 
 	loadData();  //取得数据
 }
 
 //取得数据
 function loadData(){
-	$("#tablist").append('<li class="nav-header">服务器模板推荐</li>');
+	// $("#tablist").append('<li class="nav-header">服务器模板推荐</li>');
 	
 	var dict = new DynamicDict("UBOSS_USERMGR_001");
 	dict.setValue("ANSYC_FLAG","1"); //初始化数据
@@ -44,7 +42,7 @@ function loadData(){
 		var tab_id = templist.getBOValue("TEMPLETITEM",i).getValue("CONF_ID");
 		var state = templist.getBOValue("TEMPLETITEM",i).getValue("STATE");
 		if (left(tab_id,8) =='USERINST' && judge==0){
-//			$("#tablist").append('<li class="nav-header">已购服务</li>');
+		//	$("#tablist").append('<li class="nav-header">已购服务</li>');
 			judge =1;
 		}
 		//插入tablist

@@ -5,7 +5,7 @@ function createTabGroups(aDict,tab_id){
 		//生成 tab 页
 		var mydiv= document.createElement("div");
 		mydiv.id = "WH" + tab_id;
-		// mydiv.setAttribute("class","form-horizontal");
+		mydiv.setAttribute("class","form-horizontal");
 		//得到控件组的值
 		var controlCnt = aDict.getDataObjCnt("TEMCONTROL");
 		var controlI =0;
