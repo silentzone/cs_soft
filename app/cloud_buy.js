@@ -44,28 +44,25 @@ function loadData(){
 		var tab_id = templist.getBOValue("TEMPLETITEM",i).getValue("CONF_ID");
 		var state = templist.getBOValue("TEMPLETITEM",i).getValue("STATE");
 		if (left(tab_id,8) =='USERINST' && judge==0){
-			$("#tablist").append('<li class="nav-header">已购服务</li>');
+			// $("#tablist").append('<li class="nav-header">已购服务</li>');
 			judge =1;
 		}
 		//插入tablist
+
 		var tab_name_2 =tab_name;
 		if (judge ==1){
 			if (state =='1') tab_name_2='<span class="label label-info">已审</span>' + tab_name;
 			if (state =='0') tab_name_2='<span class="label label-success">新制</span>' + tab_name; 
 			//设置默认激活
 	 
-			if(i == 5) {
-				$("#tablist").append(' <li class="active"><a href="#WH'+tab_id+'">'+tab_name_2+' </a></li> ');
-			}else {
-				$("#tablist").append(' <li><a href="#WH'+tab_id+'">'+tab_name_2+' </a></li> ');
-			}
-			
+			$("#tablist").append(' <li><a  data-placement="top" data-toggle="tooltip"  data-original-title="' + tab_name_2 +'" href="#WH'+tab_id+'">'+tab_name_2+' </a></li> ');
+		 
 			tempItem = templist.getBOValue("TEMPLETITEM",i);
 			createTabGroups(tempItem,tab_id);  //生成组件
 		}
 		
 	}
-	
+	$('#tablist').tooltip()
 	$("#tablist").sildeTab(); 
 }
 
