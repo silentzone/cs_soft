@@ -78,9 +78,9 @@ if(sysLoginDto==null){
 					%>
 					<li ><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
                     <% } %>
-                    <li ><a onClick="openConsole();" ><i class="icon-lock"></i>我的桌面</a></li> 
-                    <li class="active"><a href="cloudShowLinuVm.jsp"><i class="icon-lock"></i>我的主机</a></li> 
-                    
+                    <li ><a onClick="openConsole();" ><i class="icon-share"></i>我的桌面</a></li> 
+                    <li class="active"><a href="cloudShowLinuVm.jsp"><i class="icon-hdd"></i>我的主机</a></li>
+                    <li><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>监控</a></li> 
 				</ul> 
 		  </div>
 

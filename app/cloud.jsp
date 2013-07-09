@@ -68,7 +68,7 @@ if(sysLoginDto==null){
   
 </head>
 
-<body class="sidebg_sp2" style="width:800px; height:550px" onLoad="insertMenu()"> 
+<body class="sidebg_sp2" style="width:800px; height:550px" > <!-- onLoad="insertMenu()" -->
 	<div class="section"> 
 		<div class="row-fluid"> 
 			<div class="span2 box-content" >
@@ -98,14 +98,15 @@ if(sysLoginDto==null){
 					%>
 					<li ><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
                     <% }%>
-                    <li ><a onClick="openConsole();" ><i class="icon-lock"></i>我的桌面</a></li> 
-                    <li ><a href="cloudShowLinuVm.jsp"><i class="icon-lock"></i>我的主机</a></li> 
+                    <li ><a onClick="openConsole();" ><i class="icon-share"></i>我的桌面</a></li> 
+                    <li ><a href="cloudShowLinuVm.jsp"><i class="icon-hdd"></i>我的主机</a></li>
+                    <li><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>监控</a></li>
 				</ul> 
 			</div> 
 
 			<div class="span3 box-content">
-				<div class="tabbable tabs-left" > 
-					<ul class="list_btn" id="tablist" > <!-- nav nav-tabs -->
+				<div class="tabbable tabs-left jscroll_nav" > 
+					<ul class="list_btn" id="tablist" > <!-- nav nav-tabs --> 
 					</ul> 
 				</div>  
 			</div>
@@ -157,6 +158,12 @@ $(function() {
 		// $('#jscrollNav').jScrollPane();
 		
 
+		$(".jscroll_nav").jScrollPane();
+		var jcAPI = $(".jscroll_nav").data('jsp');   
+		insertMenu();
+		// jcAPI  动态刷新滚动条区域
+		jcAPI.reinitialise();
+   
 
 
 

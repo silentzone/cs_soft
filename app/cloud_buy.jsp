@@ -69,12 +69,12 @@ if(sysLoginDto==null){
   
 </head>
 
-<body class="sidebg_sp2" style="width:800px; height:550px" onLoad="insertMenu()"> 
+<body class="sidebg_sp2" style="width:800px; height:550px">   <!-- onLoad="insertMenu()" -->
 	<div class="section"> 
 		<div class="row-fluid"> 
 			<div class="span2 box-content" >
 				<ul class="nav nav-list sideMenu">
-					<li ><a href="cloud.jsp"><i class="icon-plus"></i>新建服务</a></li>
+					<li><a href="cloud.jsp"><i class="icon-plus"></i>新建服务</a></li>
 					<li class="active"><a href="cloud_buy.jsp"><i class="icon-shopping-cart"></i>已购服务</a></li>
 					<%
 						//判断用户id是否是管理员
@@ -97,25 +97,23 @@ if(sysLoginDto==null){
 					%>
 					<li ><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
                     <% } %>
-                    <li ><a onClick="openConsole();" ><i class="icon-lock"></i>我的桌面</a></li> 
-                    <li ><a href="cloudShowLinuVm.jsp"><i class="icon-lock"></i>我的主机</a></li> 
+                    <li ><a onClick="openConsole();" ><i class="icon-share"></i>我的桌面</a></li> 
+                    <li ><a href="cloudShowLinuVm.jsp"><i class="icon-hdd"></i>我的主机</a></li>
+                    <li ><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>监控</a></li>  
 				</ul> 
 		  </div> 
 
 			<div class="span3 box-content">
 
-				<div class="tabbable tabs-left" > 
-					<ul class="list_btn" id="tablist"   > 
+				<div class="tabbable jscroll_nav" > 
+					<ul class="list_btn" id="tablist"> 
 					</ul> 
 				</div>  
 			</div>
 
 			<div class="span7 box-content form_optimize" id="tabgroups">
 			</div> 
-
-			
-
-
+ 
 		</div>
 	</div>
 </body> 
@@ -146,6 +144,12 @@ $(function() {
 		// // 滚动条 需要在内部元素高度确定之后再创建 比较合适
 		// $('body').jScrollPane();
 		// $('#jscrollNav').jScrollPane();
+
+		$(".jscroll_nav").jScrollPane();
+		var jcAPI = $(".jscroll_nav").data('jsp');   
+		insertMenu();
+		// jcAPI  动态刷新滚动条区域
+		jcAPI.reinitialise();
 	 
 	});
 
@@ -154,6 +158,7 @@ $(function() {
 	  function openConsole(){
 		  httpsRemoteClientLogin();
 	  }
+
 
       </script> 
 

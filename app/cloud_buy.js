@@ -10,16 +10,16 @@ function addEvent( obj, type, fn ) {
      } 
 } 
 
-addEvent(window,"load",initPage());
+// addEvent(window,"load",initPage());
 
 function initPage(){
 	//加载 服务器模板推荐 及 tab 页
-//	insertMenu();
+	// insertMenu();
 	
 }
 //插入菜单
 function insertMenu(){
-	
+	// alert(insertMenu.caller)
 	loadData();  //取得数据
 }
 
@@ -32,7 +32,7 @@ function loadData(){
 	
 	if(!dict.callService()){
 		$.messager.alert('温馨提醒',dict.error.Desc,'info');
-		return ;
+		return ; 
 	}
 	//得到数据
 	var judge =0;
@@ -55,15 +55,16 @@ function loadData(){
 			if (state =='0') tab_name_2='<span class="label label-success">新制</span>' + tab_name; 
 			//设置默认激活
 	 
-			$("#tablist").append(' <li><a  data-placement="top" data-toggle="tooltip"  data-original-title="' + tab_name_2 +'" href="#WH'+tab_id+'">'+tab_name_2+' </a></li> ');
+			$("#tablist").append('<li><a title="'+ tab_name +'" href="#WH'+tab_id+'">'+tab_name_2+' </a></li> ');
 		 
 			tempItem = templist.getBOValue("TEMPLETITEM",i);
 			createTabGroups(tempItem,tab_id);  //生成组件
 		}
 		
 	}
-	$('#tablist').tooltip()
-	$("#tablist").sildeTab(); 
+	
+	$("#tablist").sildeTab();
+	// $(".jscroll_nav").jScrollPane();
 }
 
 
