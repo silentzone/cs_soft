@@ -72,6 +72,7 @@
     <link rel="stylesheet" type="text/css" href="css/page.css">  
     <script language="javascript" src="sys/js/request.js"></script>
     <script language="javascript" src="sys/js/dict.js"></script>
+   
 </head>
 
 <body class="desktop"> 
@@ -134,7 +135,7 @@
 </div>
 
 </body>
-
+ 
 <!-- impress -->
 <script src="js/impress.js"></script>
 <!-- 处理 app数据 -->
