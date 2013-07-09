@@ -4,38 +4,21 @@
 <%@page import="com.ztesoft.zsmart.core.service.DynamicDict" %> 
 <%
 String strWebRoot = "";
-if(strWebRoot==null||strWebRoot.length()==0)
-	{
-strWebRoot = request.getScheme();
-strWebRoot += "://";
-strWebRoot += request.getServerName();
-int port = request.getServerPort();
-if (port != 80){
-strWebRoot += ":" + port;
-}
-strWebRoot +=  request.getContextPath()+"/";
+if(strWebRoot==null||strWebRoot.length()==0){
+	strWebRoot = request.getScheme();
+	strWebRoot += "://";
+	strWebRoot += request.getServerName();
+	int port = request.getServerPort();
+	if (port != 80){
+		strWebRoot += ":" + port;
+	}
+	strWebRoot +=  request.getContextPath()+"/";
 }
 DynamicDict sysLoginDto = (DynamicDict)session.getAttribute("SYS_LOGIN_INFO");
 if(sysLoginDto==null){
-request.getSession().setAttribute("OLD_URL",strWebRoot+"app/cloud.jsp");
-response.sendRedirect(strWebRoot+"app/login.jsp");
-return;
-}else{
-DynamicDict detailsBO = sysLoginDto.getBOByName("UserDetailsDto");
-int roleNum = detailsBO.getCountByName("USER_ROLE");
-boolean havePower = false;
-for(int i=0;i<roleNum;i++){
-HashMap roleDict = (HashMap)detailsBO.getValueByName("USER_ROLE", i);
-String roleId = (String)roleDict.get("ROLE_ID");
-if(roleId.equals("sys00001")){
-havePower = true;
-break;
-}
-}
-if(!havePower){
-response.sendRedirect(strWebRoot+"portal.jsp");
-return;
-}
+	request.getSession().setAttribute("OLD_URL",strWebRoot+"app/cloud.jsp");
+	response.sendRedirect(strWebRoot+"app/login.jsp");
+	return;
 }
 
 %>
@@ -59,7 +42,7 @@ return;
 	<script language="javascript" src="../sys/js/dict.js"></script>
 	<script language="javascript" src="cloud_buy.js"></script>
     <script language="javascript" src="Cloud_componet.js"></script>
-
+	<script language="javascript" src="cloud_login.js"></script>
 
 	<!-- chosen  ie 9- 不支持-->
   <!--<link rel="stylesheet" href="../plugins/chosen/chosen.css" />
@@ -86,27 +69,48 @@ return;
   
 </head>
 
-<body style="width:800px; height:550px" onLoad="insertMenu()"> 
+<body class="sidebg_sp2" style="width:800px; height:550px" onLoad="insertMenu()"> 
 	<div class="section"> 
 		<div class="row-fluid"> 
 			<div class="span2 box-content" >
-				<ul class="nav nav-list bs-docs-sidenav">
+				<ul class="nav nav-list sideMenu">
 					<li ><a href="cloud.jsp"><i class="icon-plus"></i>新建服务</a></li>
 					<li class="active"><a href="cloud_buy.jsp"><i class="icon-shopping-cart"></i>已购服务</a></li>
+					<%
+						//判断用户id是否是管理员
+						String theUserId = "";
+						if(sysLoginDto!=null){
+							   theUserId= sysLoginDto.getString("UserId");
+						 }
+						boolean havePower = false;
+						DynamicDict detailsBO = sysLoginDto.getBOByName("UserDetailsDto");
+					 	int roleNum = detailsBO.getCountByName("USER_ROLE");
+						for(int i=0;i<roleNum;i++){
+							HashMap roleDict = (HashMap)detailsBO.getValueByName("USER_ROLE", i);
+							String roleId = (String)roleDict.get("ROLE_ID");
+							if(roleId.equals("sys00001")){
+								havePower = true;
+								break;
+							}
+						}
+						if(havePower){
+					%>
 					<li ><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
-                    <li ><a onClick="openConsole();" ><i class="icon-lock"></i>控制台窗口</a></li> 
+                    <% } %>
+                    <li ><a onClick="openConsole();" ><i class="icon-lock"></i>我的桌面</a></li> 
+                    <li ><a href="cloudShowLinuVm.jsp"><i class="icon-lock"></i>我的主机</a></li> 
 				</ul> 
-			</div> 
+		  </div> 
 
 			<div class="span3 box-content">
 
-				<div class="tabbable tabs-left tab_menu" > 
-					<ul class="nav nav-tabs" id="tablist"   > 
+				<div class="tabbable tabs-left" > 
+					<ul class="list_btn" id="tablist"   > 
 					</ul> 
 				</div>  
 			</div>
 
-			<div class="span7 box-content" id="tabgroups">
+			<div class="span7 box-content form_optimize" id="tabgroups">
 			</div> 
 
 			
@@ -142,17 +146,13 @@ $(function() {
 		// // 滚动条 需要在内部元素高度确定之后再创建 比较合适
 		// $('body').jScrollPane();
 		// $('#jscrollNav').jScrollPane();
-		
-
-
-
-
+	 
 	});
 
       // $(".mselect").chosen({});
 	  
 	  function openConsole(){
-		  window.open("https://113.247.222.118/Citrix/CSSP-Cloud/site/default.aspx","mywindow",'height=800,width=800,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=yes,location=no, status=no');
+		  httpsRemoteClientLogin();
 	  }
 
       </script> 

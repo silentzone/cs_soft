@@ -1,4 +1,34 @@
 var DATA = {};
+
+var bindwheel = function () {
+			var array = art.dialog.list;
+			var blocker = 0; // display block 状态的dialog
+			for( a in array) { 
+				  if( "block" == array[a].DOM.wrap[0].style.display ) {
+				  	 // alert(a + " --" + array[a].DOM.wrap[0].style.display );
+				  	 blocker++; // 统计所有 block 状态的dialog 
+				  } 
+			}
+			// 显示窗口数量大于1 则不绑定滚轮事件
+	        if(blocker > 1) { return; }
+			
+			if(!impressAPI) { return; }
+		    // 滚轮事件
+	        $(window).bind('mousewheel', function(event, delta) {  
+	             // 上滚
+	             if(delta == 1) {
+	                impressAPI.next();
+	             } else {
+	                // -1
+	                impressAPI.prev();
+	             }
+	        });  
+} 
+var unbindwheel  = function () { 
+	$(window).unbind('mousewheel');
+}
+
+
 function portalInit(){
 	desk.init();  
 	//任务栏 
@@ -6,9 +36,16 @@ function portalInit(){
    //消息 和 开始菜单 
     bottomMenu.init();
 
+
+    // bind 滚轮  
+
 	dataInit(); 
 	win.setView(win.viewstatus);
+
+
+
 }
+var impressAPI = null;
 function dataInit(){
 	startMenu.init();
 
@@ -34,7 +71,9 @@ function dataInit(){
         var _idx = app.idx
     	app.init(); 
     	 // 启动 3D 视图
-		impress("impress_" + _idx ).init();
+    	impressAPI = impress("impress_" + _idx ); 
+		impressAPI.init();
+		bindwheel();
     } 
 }
 
@@ -214,6 +253,8 @@ var bottomMenu = function (me) {
 					if(dialoglist[id]) {
 						dialoglist[id].show();
 					} else { 
+						// 取消滚轮
+						 unbindwheel();
 						art.dialog.open(url,{   
 					            id : id,
 					            title: title,     
@@ -229,7 +270,10 @@ var bottomMenu = function (me) {
 				            				break;
 				            			  }  
 				            		}
-				            	   
+				            		bindwheel();
+					            },
+					            hide_feedback: function () {
+					            	bindwheel();
 					            }
 					           	
 						}); 
@@ -275,6 +319,8 @@ var win = function (me) {
 					api.show();
 				}
 			}
+				//打开窗口后 锁定 背景滚轮
+			  	 unbindwheel();
 
 			bottomBar.addCurrent(id);	
 		},
@@ -293,6 +339,9 @@ var win = function (me) {
 			  	}; 
 			  	var box = bottomBar.create(o);
 			  	bottomBar.addItem(box);
+			  	//打开窗口后 锁定 背景滚轮
+			  	 unbindwheel();
+
 			  	// 不存在 新开窗口
 			  	art.dialog.open(url,/** 弹出ART窗体*/
 			        {   
@@ -307,7 +356,12 @@ var win = function (me) {
 			            close : function () { 
 			        	   // 清除任务栏 的target 
 			        	   bottomBar.removeItem(id);
-
+			        	    // rebind 滚轮事件
+					        bindwheel();
+			       		},
+			       		hide_feedback : function () {
+			       			 // rebind 滚轮事件
+					         bindwheel();
 			       		}
 			       		
 			        }  
@@ -708,3 +762,4 @@ portal.refreshAppData = function(){
 }
 portal.refreshAppData();
 portalInit();
+

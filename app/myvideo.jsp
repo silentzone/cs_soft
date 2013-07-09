@@ -37,6 +37,10 @@
 		break;
 	}
  }
+ if(!havePower){
+	out.println("对不起,您没有操作权限");
+	return;
+ }
  String userId = sysLoginDto.getString("UserId");
  String userCode = sysLoginDto.getString("UserCode");
  String loginNo = sysLoginDto.getString("LoginNo");
@@ -44,6 +48,7 @@
  dict.setServiceName("UBOSS_DESKTOP_APP_001");
  dict.setValueByName("OP_TYPE","4");
  dict.setValueByName("QRY_TYPE","0");
+ dict.setValueByName("APP_MODEL","02");
  dict.setValueByName("USER_ID",userId);
  try{
 	DesktopPublic.webCallExternal(dict);
@@ -60,7 +65,7 @@
 <meta http-equiv="pragma" content="no-cache"> 
 <meta http-equiv="cache-control" content="no-cache"> 
 <meta http-equiv="expires" content="0">
-<title>个人中心-我的应用 </title>
+<title>个人中心-我的视频 </title>
 <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
 <link href="../css/page.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
@@ -74,17 +79,15 @@
 			<ul class="nav nav-list bs-docs-sidenav">
 				<li><a href="user.jsp"><i class="icon-user"></i>个人信息</a></li>
 				<li><a href="account.jsp"><i class="icon-bookmark"></i>账户信息 </a></li>
-				<li class="active"><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li> 
-				<%if(havePower){%>
-				<li><a href="myvideo.jsp"><i class="icon-inbox"></i>我的视频</a></li> 
-				<%}%>
+				<li><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li>
+				<li class="active"><a href="myvideo.jsp"><i class="icon-inbox"></i>我的视频</a></li>  
 				<li><a href="modifyPWD.jsp"><i class="icon-comment"></i>密码修改</a></li>
 			</ul> 
 		</div>
 		<div class="span9">
 			<div class="box-content">
-				<div class="top"> <a href="myapp/updata.jsp" class="btn btn_right"> <i class="icon-arrow-up"></i>上传新应用</a><!-- <a href="#" class="btn btn_right"> <i class="icon-upload"></i>应用推广</a> --> 我的应用</div>	 
-				<div class="app_list_mini" style="width: 100%; height: 200px; overflow: auto;"> 
+				<div class="top"> <a href="myapp/upMid.jsp" class="btn btn_right"> <i class="icon-arrow-up"></i>上传新视频</a>我的视频</div>	 
+				<div class="app_list_mini"> 
 					<ul class="clearfix">
 						<%for(int i=0;i<appCount;i++){
 							HashMap map = (HashMap)dict.getValueByName("APP", i);
@@ -98,21 +101,7 @@
 						<%}%>
 					</ul>
 				</div>
-				<div class="top">已购应用</div>
-				<div class="app_list_mini" style="width: 100%; height: 200px; overflow: auto;"> 
-					<ul class="clearfix">
-						<%for(int i=0;i<ordCount;i++){
-							HashMap map = (HashMap)dict.getValueByName("ORD", i);
-						%>
-						<li> 
-							<img src="<%=map.get("APP_PIC")%>" />
-							 <p>
-							 	<a href="javascript:void(0)" class="btn btn-mini" appId="<%=map.get("APP_ID")%>" appVersions="<%=map.get("APP_VERSIONS")%>"><%=map.get("APP_NAME")%></a>
-							 </p>
-						</li> 
-						<%}%> 
-					</ul>
-				</div>
+				<!--已购视频-->
 			</div>
 		
 		</div>
@@ -121,6 +110,7 @@
 <form method="post" name="detailForm" id="detailForm">
 	<input type="hidden" id="appId" name="appId" value="">
 	<input type="hidden" id="appVersions" name="appVersions" value="">
+	<input type="hidden" id="appModel" name="appModel" value="02">
 </form>
 <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="../plugins/jquery.easyui.min.js"></script>

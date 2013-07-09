@@ -160,7 +160,7 @@ function creatButton(mydiv){
 	
 	var cgDiv = document.createElement("div");
 	cgDiv.className = "control-group"
-	cpuControlDiv.innerHTML =' <button style="margin-right:4px;" type="submit" class="btn btn-primary" onClick="saveMGE(this);">保存</button><button type="button" class="btn">重置</button> ';
+	cpuControlDiv.innerHTML =' <button style="margin-right:4px;" type="submit" class="btn btn-primary" onClick="openThdSaveWin(this);">保存</button><button type="button" class="btn">重置</button> ';
 	cgDiv.appendChild(cpuControlDiv);
 	mydiv.appendChild(cgDiv);
 }

@@ -21,6 +21,17 @@
 	response.sendRedirect(strWebRoot+"app/login.jsp");
 	return;
  }
+ DynamicDict detailsBO = sysLoginDto.getBOByName("UserDetailsDto");
+ int roleNum = detailsBO.getCountByName("USER_ROLE");
+ boolean havePower = false;
+ for(int i=0;i<roleNum;i++){
+	HashMap roleDict = (HashMap)detailsBO.getValueByName("USER_ROLE", i);
+	String roleId = (String)roleDict.get("ROLE_ID");
+	if(roleId.equals("video00001")){
+		havePower = true;
+		break;
+	}
+ }
  String userId = sysLoginDto.getString("UserId");
  String userCode = sysLoginDto.getString("UserCode");
  String loginNo = sysLoginDto.getString("LoginNo");
@@ -47,6 +58,9 @@
 					<li class="active"><a href="user.jsp"><i class="icon-user"></i>个人信息</a></li>
 					<li><a href="account.jsp"><i class="icon-bookmark"></i>账户信息 </a></li>
 					<li><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li> 
+					<%if(havePower){%>
+					<li><a href="myvideo.jsp"><i class="icon-inbox"></i>我的视频</a></li> 
+					<%}%>
 					<li><a href="modifyPWD.jsp"><i class="icon-comment"></i>密码修改</a></li>
 				</ul> 
 			</div>
@@ -189,7 +203,7 @@ $(function () {
 				}else{
 		    		$.messager.alert('温馨提醒',resp.msg,'error');
 		    	}
-		    }, 
+		    },
 		    cache: false
 		});
 	});

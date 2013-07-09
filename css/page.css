@@ -69,10 +69,10 @@ a:focus {  outline:none; }
 
 /* my app */
 .jscroll_list {  width: 100%; height: 260px; overflow: auto; margin: 10px 0 5px 0; } /* for jscroll */
-.app_list_mini img { width: 64px; height: 64px; margin: 10px 0;}
+.app_list_mini img { width: 64px; height: 64px; margin:auto auto 5px auto;}
 .app_list_mini ul { margin: 0;}
 .app_list_mini li { float:left; margin:5px 5px 5px 0; padding:5px 20px;}
-
+.app_list_mini li p { margin-bottom: 0;}
 legend { margin-bottom: 10px; font-size: 15px; color:#888;}
 
 /* 桌面图标 尺寸*/

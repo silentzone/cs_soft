@@ -5,23 +5,22 @@
 <%@page import="com.ztesoft.zsmart.core.service.DynamicDict" %> 
 <%
 String strWebRoot = "";
-if(strWebRoot==null||strWebRoot.length()==0)
- {
+if(strWebRoot==null||strWebRoot.length()==0){
 	strWebRoot = request.getScheme();
 	strWebRoot += "://";
 	strWebRoot += request.getServerName();
- 	int port = request.getServerPort();
- 	if (port != 80){
- 		strWebRoot += ":" + port;
- 	}
- 	strWebRoot +=  request.getContextPath()+"/";
- }
- DynamicDict sysLoginDto = (DynamicDict)session.getAttribute("SYS_LOGIN_INFO");
- if(sysLoginDto==null){
- 	request.getSession().setAttribute("OLD_URL",strWebRoot+"app/cloudCheck.jsp");
+	int port = request.getServerPort();
+	if (port != 80){
+		strWebRoot += ":" + port;
+	}
+	strWebRoot +=  request.getContextPath()+"/";
+}
+DynamicDict sysLoginDto = (DynamicDict)session.getAttribute("SYS_LOGIN_INFO");
+if(sysLoginDto==null){
+	request.getSession().setAttribute("OLD_URL",strWebRoot+"app/cloud.jsp");
 	response.sendRedirect(strWebRoot+"app/login.jsp");
 	return;
- }else{
+}/*else{
  	DynamicDict detailsBO = sysLoginDto.getBOByName("UserDetailsDto");
  	int roleNum = detailsBO.getCountByName("USER_ROLE");
  	boolean havePower = false;
@@ -34,11 +33,11 @@ if(strWebRoot==null||strWebRoot.length()==0)
 		}
 	}
 	if(!havePower){
-		response.sendRedirect(strWebRoot+"portal.jsp");
+		//response.sendRedirect(strWebRoot+"portal.jsp");
+		out.println("对不起,您没有操作权限");
 		return;
-	}
- }
- %>
+	}*/
+%>
 <!DOCTYPE html>
 <html lang="zh_CN">
 <head>
@@ -61,7 +60,7 @@ if(strWebRoot==null||strWebRoot.length()==0)
 	<script type="text/javascript" src="./js/public.js"></script>
 	<script type="text/javascript" src="./cloudCheck.js"></script>
     <script type="text/javascript" src="./datagrid-detailview.js"></script>  
-
+	<script language="javascript" src="cloud_login.js"></script>
     <link href="../css/page.css" rel="stylesheet" type="text/css" /> 
 
 </head> 
@@ -72,11 +71,11 @@ if(strWebRoot==null||strWebRoot.length()==0)
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li><a href="cloud.jsp"><i class="icon-plus"></i>新建服务</a></li>
 					<li><a href="cloud_buy.jsp"><i class="icon-shopping-cart"></i>已购服务</a></li>
-					<li class="active"><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
-                    <li ><a onClick="openConsole();" ><i class="icon-lock"></i>控制台窗口</a></li> 
-                    
+					<li ><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
+                    <li ><a onClick="openConsole();" ><i class="icon-lock"></i>我的桌面</a></li> 
+                    <li ><a href="cloudShowLinuVm.jsp"><i class="icon-lock"></i>我的主机</a></li> 
 				</ul> 
-			</div>
+		  </div>
 
 			<div class="span10 box-content" >
 				 
@@ -86,8 +85,15 @@ if(strWebRoot==null||strWebRoot.length()==0)
 						</div>
 						<div class="section">
 							<div class="datagrid-toolbar"> <!-- id="editUser" -->  
-									查询日期<input id="start_date" data-options="formatter:myformatter " class="easyui-datebox" value=""></input>  至
-				                    <input id="end_date" class="easyui-datebox"  data-options="formatter:myformatter " ></input>  
+									查询日期<input id="start_date" data-options="formatter:myformatter " class="easyui-datebox" value="" style=" width:100px"></input>  至
+				                    <input id="end_date" class="easyui-datebox"  data-options="formatter:myformatter "  style=" width:100px"></input>  
+                                    审核状态<select id="querystate" class="easyui-combobox" name="querystate" style="width:100px;">  
+                                                <option value=".">全部</option>  
+                                               <option value="0">新制</option>  
+                                                <option value="1">已审核</option>  
+                                                <option value="2">已创建</option>
+                                                <option value="9">创建失败</option>   
+                                            </select>  
 							    	<input class="btn" type="button" value="查询" id="qry_btn">
 							 
 				               
@@ -99,10 +105,12 @@ if(strWebRoot==null||strWebRoot.length()==0)
 								    <thead>  
 								        <tr>  
 								            <th field="inst_id" width="0" hidden="true"></th>
-				                            <th field="user_id" width="100" sortable="true">用户</th>  
-				                    		<th field="notes" width="170">机器名称</th>  
-								            <th field="created_date" width="170" sortable="true">创建日期</th>  
-								            <th field="state" width="170">状态</th>  
+                                              <th field="state" width="0" hidden="true"></th>
+				                            <th field="user_id" width="60" sortable="true">用户</th>  
+                                            <th field="user_vm_name" width="80" sortable="true">机器名称</th>  
+								            <th field="created_date" width="80" sortable="true">创建日期</th>  
+								            <th field="statedesc" width="50">状态</th>  
+                                            <th field="notes" width="120">备注</th>  
 								        </tr>  
 								    </thead>  
 								</table> 
@@ -122,7 +130,7 @@ if(strWebRoot==null||strWebRoot.length()==0)
 </body>
 <script>
 	  function openConsole(){
-		  window.open("https://113.247.222.118/Citrix/CSSP-Cloud/site/default.aspx","mywindow",'height=800,width=800,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=yes,location=no, status=no');
+		  httpsRemoteClientLogin();
 	  }
 </script>
 </html>

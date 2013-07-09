@@ -859,16 +859,8 @@
         }, 250), false);
 
 
-         // 滚轮事件
-        $(window).bind('mousewheel', function(event, delta) {  
-             // 上滚
-             if(delta == 1) {
-                 api.next();
-             } else {
-                // -1
-                api.prev();
-             }
-        }); 
+
+    
 
          //
 

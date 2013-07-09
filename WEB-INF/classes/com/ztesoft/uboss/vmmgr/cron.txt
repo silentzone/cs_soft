@@ -1,0 +1,1 @@
+* * * * *  /home/ztesoft/cs_soft/WEB-INF/classes/com/ztesoft/uboss/vmmgr/crontabShell.sh >> /home/ztesoft/cs_soft/WEB-INF/classes/com/ztesoft/uboss/vmmgr/log/crontab.log 

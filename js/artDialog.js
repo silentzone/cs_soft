@@ -926,8 +926,6 @@ artDialog.fn = artDialog.prototype = {
 		// 添加最小化
 		DOM.min[config.min === false ? "hide": "show"]();
 		//
-
-
 		DOM.icon[0].style.display = icon ? '' : 'none';
 		DOM.iconBg.css(iconBg || {background: 'none'});
 		DOM.se.css('cursor', config.resize ? 'se-resize' : 'auto');
@@ -1283,6 +1281,12 @@ artDialog.fn = artDialog.prototype = {
 	
 	/** 隐藏对话框 */
 	hide: function () {
+
+		var that = this;
+		var fn = that.config.hide_feedback;  
+		if (typeof fn === 'function' && fn.call(that, window) === false) {
+			return that;
+		};
 		this.DOM.wrap.hide();
 		!arguments[0] && this._lockMaskWrap && this._lockMaskWrap.hide();
 		return this;
@@ -1805,10 +1809,10 @@ if (_skin) {
 
 // 触发浏览器预先缓存背景图片
 _$window.bind('load', function () {
-	setTimeout(function () {
-		if (_count) return;
-		artDialog({left: '-9999em',time: 9,fixed: false,lock: false,focus: false});
-	}, 150);
+	// setTimeout(function () {
+	// 	if (_count) return;
+	// 	artDialog({left: '-9999em',time: 9,fixed: false,lock: false,focus: false});
+	// }, 150);
 });
 
 
@@ -1891,6 +1895,7 @@ artDialog.defaults = {
 	cancel: null,				// 取消按钮回调函数
 	init: null,					// 对话框初始化后执行的函数
 	close: null,				// 对话框关闭前执行的函数
+	hide_feedback:null,
 	okVal: '\u786E\u5B9A',		// 确定按钮文本. 默认'确定'
 	cancelVal: '\u53D6\u6D88',	// 取消按钮文本. 默认'取消'
 	width: 'auto',				// 内容宽度
