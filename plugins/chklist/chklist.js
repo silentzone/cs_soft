@@ -1,9 +1,16 @@
 // 多选
 $.fn.extend({  
+   //arr 为select 的 option 
+   // input value 为 设置默认选中
 
    checklist:  function (arr,opt) {
         $node = this;
-        if(!$node) { console.log(this + " undefinde checklist"); return; } 
+        if(!$node) { console.log(this + " undefinde checklist"); return; }
+        var api = {
+            checkedAll : null,
+            unchecked : null,
+            onchecked : null
+        };
 
         $node.css({ position: "relative"});
         var $content = $node.find(".ipt");
@@ -27,8 +34,7 @@ $.fn.extend({
         $node.append($hideipt);
      
         var list = (function() {
-            //create
-           
+            //create 
             var $chklist = $("<ul class='chklist' />");
             for(var i =0; i<arr.length; i++) {
                 var $item = $("<li />");
@@ -44,6 +50,7 @@ $.fn.extend({
                         var $span = $("<span class='label label-info' />");
                         $span.attr("value",$(this).val()).html($(this).attr("title"));
                         $content.append($span);
+ 
                         // $hideipt 
                     } else {
                         var that = $(this);
@@ -63,25 +70,45 @@ $.fn.extend({
                  //根据 chkList 设置默认选中
                 for(var j=0; j<chkList.length; j++) { 
                     if(arr[i].value == chkList[j]) {
-                        alert(arr[i].value);
+                        // alert(arr[i].value);
                          $inneript.attr("checked","checked");
                          $inneript.trigger('change');
-                    }
-                      
+                    }   
                 }
             }  
 
             $chklist.css({ top : 35 , left : 205 }); 
             $node.append($chklist);
-            $chklist.hide();
-
-
+            $chklist.hide(); 
 
             return $chklist;
         })();
         $btn.click(function () {
             list.toggle();
         });
+        api.checkedAll = function () {
+            list.find("input[type='checkbox']").each(function () {
+                $(this).attr("checked","checked");
+                $(this).trigger('change');   
+            });
+        };
+        api.unchecked = function (val) {
+            list.find("input[type='checkbox']").each(function () {
+               if($(this).attr("value") == val ) {
+                // 测试点1 是否需要 remove  多浏览器中 
+                // 测试点2  change  在checked 状态不变情况下  重复调用情况下 是否触发 
+                    $(this).removeAttr("checked");
+                    $(this).trigger('change'); 
+                } 
+            });
+        };
+        api.onchecked = function (fn) {
+            list.find("input[type='checkbox']").on("change",function () {
+                fn($(this));
+            }) 
+        }
+
+        return api;
     }
 
 });

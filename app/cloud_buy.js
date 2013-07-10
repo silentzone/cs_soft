@@ -51,9 +51,11 @@ function loadData(){
 
 		var tab_name_2 =tab_name;
 		if (judge ==1){
+			alert(state)
 			if (state =='1') tab_name_2='<span class="label label-info">已审</span>' + tab_name;
 			if (state =='0') tab_name_2='<span class="label label-success">新制</span>' + tab_name; 
-			//设置默认激活
+			if (state =='2') tab_name_2='<span class="label">创建</span>' + tab_name; 
+			 
 	 
 			$("#tablist").append('<li><a title="'+ tab_name +'" href="#WH'+tab_id+'">'+tab_name_2+' </a></li> ');
 		 

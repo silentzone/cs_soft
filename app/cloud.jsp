@@ -137,7 +137,7 @@ $(function() {
 		// function jScroll () {
 		// 	var $nav = $('#siderNav'); 
 		// 	$nav.jScrollPane();
-		// 	return $nav.data('jsp'); 
+		// 	return $nav.data('jsp');  // api.reinitialise();
 		// }
 		// var refresh =  function () {
 		// 			alert(api + " --- refresh" );

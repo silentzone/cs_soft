@@ -49,7 +49,7 @@
 
     <!-- 浏览器能力检测  -->
     <!-- <script src="plugins/showCase/js/modernizr.custom.js"></script>  -->
-    <!-- smart menu -->
+    <!-- smart menu --> 
     <link href="css/smartMenu.css" rel="stylesheet"  type="text/css" />
     <script type="text/javascript" src="js/jquery-smartMenu-min.js"></script>
     
@@ -69,6 +69,7 @@
     <!--  <script src="plugins/tool/jquery.toolbar.js"></script>  -->
     <link href="plugins/tool/jquery.toolbars.css" rel="stylesheet" />  
 
+    <link href="plugins/lightbox/lightbox.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/page.css">  
     <script language="javascript" src="sys/js/request.js"></script>
     <script language="javascript" src="sys/js/dict.js"></script>

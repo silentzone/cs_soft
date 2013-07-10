@@ -353,16 +353,8 @@ legend { margin-bottom: 10px; font-size: 15px; color:#888;}
  #chkbox_list .ipt {
    /* border-radius: 4px 4px 4px 4px;*/
     width:200px;
-    padding: 5px; 
-    margin-right: 5px;
-  /*  color: #555555;
-    display: inline-block;
-    font-size: 14px;
-    height: auto;
-    line-height: auto;
-    margin-bottom: 10px;
-    padding: 4px 6px;
-    vertical-align: middle;*/
+    padding:5px 5px 0 5px; 
+    margin-right: 5px; 
  }
 #chkbox_list .ipt {
     background-color: #FFFFFF;
@@ -370,7 +362,30 @@ legend { margin-bottom: 10px; font-size: 15px; color:#888;}
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
  }
-  #chkbox_list .ipt span { margin:0 5px 5px 0;}
+#chkbox_list .ipt span { margin:0 5px 5px 0;}
+
+
+
+
+.chkbox_list .ipt {
+   /* border-radius: 4px 4px 4px 4px;*/
+    width:200px;
+    padding:5px 5px 0 5px; 
+    margin-right: 5px; 
+ }
+.chkbox_list .ipt {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+ }
+.chkbox_list .ipt span { margin:0 5px 5px 0;}
+.chkbox_list .btn { margin-right: 5px;}
+
+
+
+  
+
   .list  { margin: 0;}
   .list li { padding:5px 0;}
 
@@ -388,7 +403,7 @@ legend { margin-bottom: 10px; font-size: 15px; color:#888;}
  .avatar {  position: absolute; top:0; left: -46px; width:36px; height: 36px; }
  .post_content { margin-bottom: 10px; border:#efefef solid 1px;  padding:5px; }
   .post_content textarea { width: 97%;}
-  .btn { }
+/*  .btn { }*/
 
 
  .avatar { float:left; }
@@ -742,3 +757,30 @@ blockquote p { font-size: 14px; margin: 5px 0; }
  
 .jscroll_nav {  width: 100%; height:540px; overflow: auto;   }
 
+/* moniter */
+.moniter_toolbar { }
+.moniter_toolbar select { margin-bottom: 0;}
+ 
+.widget {
+    background: url("../img/cream.png") repeat scroll 0 0 #FAFAFA;
+    border: 1px solid #C9C9C9;
+    border-radius: 3px 3px 3px 3px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.widget .widget-head {
+    background: -moz-linear-gradient(center top , #F8F8F8, #F2F2F2) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #FFFFFF;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: #666666;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-shadow: 0 1px #FFFFFF;
+}
+.widget .widget-head a { color:#555;}
+.widget .widget-head a:hover { color:#ccc;}
+.widget .widget-content { padding: 5px;}
+ 
