@@ -357,7 +357,7 @@ var win = function (me) {
 			  	bottomBar.addItem(box);
 			  	//打开窗口后 锁定 背景滚轮
 			  	 unbindwheel();
-
+			  	 
 			  	// 不存在 新开窗口
 			  	art.dialog.open(url,/** 弹出ART窗体*/
 			        {   
@@ -533,10 +533,9 @@ var app = function(me) {
 			bindEvent:function(box){//绑定事件  
 
 				box.click(function(e){ 
-
 					var _this = $(this);
 					var id = _this.attr("appid");
-					var title = $.trim(_this.text());
+					var title =   _this.attr("title"); 
 					var url =_this.attr("url");
 					var icon =_this.find("img").attr("src").split("/")[2];
 					var sonMenu =_this.attr("sonMenu");//获取子菜单
@@ -559,6 +558,7 @@ var app = function(me) {
 					}
 				 	var w = parseFloat(_this.attr("w"));
 				 	var h =	parseFloat(_this.attr("h")); 
+				 	
 					win.openApp(id,title,url,icon,jsonSonMenu,w,h); 
 					//  #impress  隐藏 让3D 元素失去点击事件   (还需要解除3d 滚轮事件) 
 					// $("#impress").addClass("noevent")

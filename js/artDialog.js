@@ -858,9 +858,10 @@ var artDialog = function (config, ok, cancel) {
 	var api,
 		defaults = artDialog.defaults,
 		elem = config.follow = this.nodeType === 1 && this || config.follow;
-		
+		 	
 	// 合并默认配置
 	for (var i in defaults) {
+
 		if (config[i] === undefined) config[i] = defaults[i];		
 	};
 	
@@ -932,8 +933,8 @@ artDialog.fn = artDialog.prototype = {
 		DOM.title.css('cursor', config.drag ? 'move' : 'auto');
 		DOM.content.css('padding', config.padding);
 		
+	 
 		// alert(config.title);
-		
 		that[config.show ? 'show' : 'hide'](true)
 		that.button(config.button)
 		.title(config.title)
@@ -1034,7 +1035,7 @@ artDialog.fn = artDialog.prototype = {
 	 * @param	{String, Boolean}	标题内容. 为false则隐藏标题栏
 	 * @return	{this, HTMLElement}	如果无参数则返回内容器DOM对象
 	 */
-	title: function (text) {
+	title: function (text) { 
 		var DOM = this.DOM,
 			wrap = DOM.wrap,
 			title = DOM.title,
