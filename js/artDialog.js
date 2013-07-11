@@ -932,6 +932,8 @@ artDialog.fn = artDialog.prototype = {
 		DOM.title.css('cursor', config.drag ? 'move' : 'auto');
 		DOM.content.css('padding', config.padding);
 		
+		// alert(config.title);
+		
 		that[config.show ? 'show' : 'hide'](true)
 		that.button(config.button)
 		.title(config.title)

@@ -2,15 +2,19 @@ var DATA = {};
 
 var bindwheel = function () {
  			$(window).unbind('mousewheel');
-			var array = art.dialog.list;
-			var blocker = 0; // display block 状态的dialog
+ 			var blocker = 0; // display block 状态的dialog
+			var array = art.dialog.list; 
 			for( a in array) { 
+		 
 				  if( "block" == array[a].DOM.wrap[0].style.display ) {
+
 				  	 // alert(a + " --" + array[a].DOM.wrap[0].style.display );
 				  	 blocker++; // 统计所有 block 状态的dialog 
 				  } 
 			}
-			// 显示窗口数量大于1 则不绑定滚轮事件
+			// 显示窗口数量大于1 则不绑定滚轮事件 
+			// alert(blocker)
+		    // 
 	        if(blocker > 1) { return; }
 			
 			if(!impressAPI) { return; }
@@ -78,7 +82,14 @@ function dataInit(){
 		
 		
 		// unbindwheel();// 防止登录时候 portalInit  bindwheel 运行两次
+		var dialoglist = art.dialog.list; 
+		for( a in dialoglist) {  
+			if( "block" == dialoglist[a].DOM.wrap[0].style.display ) {
+				return ;//以存在dialog 不在绑定滚动事件 
+			} 
+		}
 		bindwheel();
+		
     } 
 }
 
