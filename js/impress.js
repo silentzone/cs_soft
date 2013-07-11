@@ -364,9 +364,18 @@
         
         // `init` API function that initializes (and runs) the presentation.
         var init = function () {
-            // alert("initialized :" + initialized); 
+                
+
             if (initialized) { return; }
-            
+            if (!document.getElementById("app_title")){ 
+                 var  titlebox = document.createElement("div");
+               titlebox.className = "app_title";
+               titlebox.id = "app_title"
+               document.body.appendChild(titlebox);
+            }
+
+              
+                        
             // First we set up the viewport for mobile devices.
             // For some reason iPad goes nuts when it is not done properly.
             var meta = $("meta[name='viewport']") || document.createElement("meta");
@@ -595,6 +604,10 @@
                 onStepEnter(activeStep);
             }, duration + delay);
             
+           // document.getElementById("app_title").style.display = "block";
+            document.getElementById("app_title").innerHTML = el.getAttribute("title");
+            // setTimeout(function () {   document.getElementById("app_title").style.display = "none"; } ,2000);
+           
             return el;
         };
         
@@ -724,6 +737,8 @@
     };
     // ie 浏览器不支持  addEventListener 
     // if(document.all) { return;} 
+    // 当前APP 标题
+
 
     // wait for impress.js to be initialized
     document.addEventListener("impress:init", function (event) {
@@ -830,7 +845,8 @@
                     (target !== document.documentElement) ) {
                 target = target.parentNode;
             }
-            
+
+           
             if ( api.goto(target) ) {
                 event.preventDefault();
             }

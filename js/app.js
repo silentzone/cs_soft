@@ -6,8 +6,7 @@ var bindwheel = function () {
 			var array = art.dialog.list; 
 			for( a in array) { 
 		 
-				  if( "block" == array[a].DOM.wrap[0].style.display ) {
-
+				  if( "block" == array[a].DOM.wrap[0].style.display ) { 
 				  	 // alert(a + " --" + array[a].DOM.wrap[0].style.display );
 				  	 blocker++; // 统计所有 block 状态的dialog 
 				  } 

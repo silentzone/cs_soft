@@ -784,3 +784,5 @@ blockquote p { font-size: 14px; margin: 5px 0; }
 .widget .widget-head a:hover { color:#ccc;}
 .widget .widget-content { padding: 5px;}
  
+
+.app_title { height:30px; line-height: 30px; width:auto; text-align: center; padding: 0 15px;  border-radius:6px; background:rgba(0, 0, 0, 0.6); box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); position: absolute; z-index: 999; bottom: 68px; left: 45%; color:#fff;}
