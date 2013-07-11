@@ -112,8 +112,8 @@ if(sysLoginDto==null){
 						</ul> -->
 					</li>
 				</ul>
-				<div id="jscroll" style="width:100%; height:500px; overflow:auto;" class="tab_content"> 
-					<div id="cpu" >
+				<div id="jscroll" style="width:100%; height:500px; overflow:hidden;" class="tab_content"> 
+					<div id="cpu" style="  width:100%;" >
 						<div class="moniter_toolbar clearfix">
 							<!--  checkbox  多选列表 -->
 							<div id="chkbox_list" class="chkbox_list pull-left" >
@@ -194,7 +194,7 @@ if(sysLoginDto==null){
 					</div> 
 				</div> 
 
-				 <select name="moniterpar" id="moniterpar" onchange="drawMonitorPic();"></select>
+				<!-- <select name="moniterpar" id="moniterpar" onchange="drawMonitorPic();"></select> -->
 			  
 			</div>
 	</div>

@@ -63,14 +63,10 @@ function loadData(){
 	$("#tablist").sildeTab(); 
 }
 
-//保存
-function saveMGE(obj){
-	
-	var dict = new DynamicDict("UBOSS_USERMGR_001");
-	
+function getAllControlValue(dict){
 	
 	//得到网页上的值
-	var tags = obj.parentNode.parentNode.getElementsByTagName("*");
+	var tags = obj_parent.parentNode.parentNode.parentNode.getElementsByTagName("*");
 	var os = "";
     if (tags != null && tags.length > 0) {
         for (var i = 0; i < tags.length; i++) {  
@@ -99,23 +95,64 @@ function saveMGE(obj){
 				}
         }  
     }  
+}
+//判断名称是否有重复
+function jugegDupName(dict){
 	//判断名称是否有重复
 	dict.setValue("ANSYC_FLAG","6"); //判断是否有重复
 	if(!dict.callService()){
 		$.messager.alert('温馨提醒',dict.error.Desc,'info');
-		return ;
+		return 1;
 	}else{
 		var cnt = dict.getValue("CNT");  //重复
 		if (cnt !='0') {
 			$.messager.alert('温馨提醒','已经存在该名称','info');
-			return ;
+			return 1;
 		}
 	}
+	return 0
+}
+
+function countBill(dict){
+	dict.setValue("ANSYC_FLAG","2"); //保存
+	dict.setValue("OPERTYPE","0");
+	if(!dict.callService()){
+		$.messager.alert('温馨提醒',dict.error.Desc,'info');
+	}else{
+		billNum = dict.getValue("TOTAL_PRICE");
+		balanceNum = dict.getValue("BILL_BALANCE");
+		actBill =parseFloat(billNum) /100;
+		actBalance = parseFloat(balanceNum) /100;
+		$("#BILLNUM").val(actBill+'  云币');
+		$("#BALANCENUM").val(actBalance+'  云币');
+	}
 	
-	 if( !confirm("确定要保存配置吗？")) return ;
+}
+//保存
+function saveMGE(obj){
+	
+	var dict = new DynamicDict("UBOSS_USERMGR_001");
+
+	getAllControlValue(dict)
+	
+	//得到支付密码
+	var intPwd = $("#INT_PWD").trimval();
+	if(intPwd==""){
+		alert("请输入消费密码！");
+		$("#INT_PWD").focus();
+		return;
+	}
+	var base64Pwd = Base64.base64encode(Base64.utf16to8(intPwd));
+	var md5Pwd = MD5.toMD5(base64Pwd);
+	dict.setValue("MD5_PWD",md5Pwd);
+	$('#win').window('close'); 
+	//转换成
+	
+	if( !confirm("确定要保存配置吗？")) return ;
 	 
 	//保存
 	dict.setValue("ANSYC_FLAG","2"); //保存
+	dict.setValue("OPERTYPE","1");
 	if(!dict.callService()){
 		$.messager.alert('温馨提醒',dict.error.Desc,'info');
 	}else{
@@ -145,3 +182,18 @@ return mainStr.substr(starnum,endnum)
 }else{return null} 
 //mainStr.length 
 } 
+
+//打开支付密码窗口
+var obj_parent;
+function openThdSaveWin(obj){
+	obj_parent = obj;
+	//得到费用总额
+	var dict = new DynamicDict("UBOSS_USERMGR_001");
+	getAllControlValue(dict);
+	if (jugegDupName(dict) ==1) return ;
+	countBill(dict);
+	$('#win').window('open'); 
+}
+function closePopwin(){
+	$('#win').window('close'); 
+}

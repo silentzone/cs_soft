@@ -119,12 +119,14 @@ if(sysLoginDto==null){
 
 		</div>
         </div>
-            <div id="win" class="easyui-window" title="请输入支付密码" style=" top:200px;left:200px;width:300px;height:180px"  data-options="iconCls:'icon-save',modal:true" closed ="true">  
-            <form style="padding:10px 20px 10px 40px;" id="saveform">  
+            <div id="win" class="easyui-window" title="请输入支付密码" style=" top:100px;left:200px;width:400px;height:280px"  data-options="iconCls:'icon-save',modal:true" closed ="true">  
+            <form style="padding:10px 20px 10px 40px;" id="saveform"> 
+	            <p>帐户余额:<input  type="text" id="BALANCENUM" disabled ></p>  
+            	 <p>费用总额:<input  type="text" id="BILLNUM" disabled ></p>  
                 <p>支付密码:<input  type="password" id="INT_PWD"></p>  
                 <div style="padding:5px;text-align:center;">  
-                    <a href="#" class="easyui-linkbutton" icon="icon-ok" onClick="saveMGE();">Ok</a>  
-                    <a href="#" class="easyui-linkbutton" icon="icon-cancel">Cancel</a>  
+                    <a href="#" class="easyui-linkbutton" onClick="saveMGE();">确定</a>  
+                    <a href="#" class="easyui-linkbutton" onClick="closePopwin()">取消</a>  
                 </div>  
             </form>  
         </div> 
@@ -137,7 +139,7 @@ $(function() {
 		// function jScroll () {
 		// 	var $nav = $('#siderNav'); 
 		// 	$nav.jScrollPane();
-		// 	return $nav.data('jsp');  // api.reinitialise();
+		// 	return $nav.data('jsp'); 
 		// }
 		// var refresh =  function () {
 		// 			alert(api + " --- refresh" );
