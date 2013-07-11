@@ -364,7 +364,7 @@
         
         // `init` API function that initializes (and runs) the presentation.
         var init = function () {
-            // alert("initialized :" + initialized);
+            // alert("initialized :" + initialized); 
             if (initialized) { return; }
             
             // First we set up the viewport for mobile devices.
@@ -600,7 +600,7 @@
         
         // `prev` API function goes to previous step (in document order)
         var prev = function () {
-             
+            
             var prev = steps.indexOf( activeStep ) - 1;
 
             // prev = prev >= 0 ? steps[ prev ] : steps[ steps.length-1 ];
@@ -906,6 +906,17 @@
         // if(document.addEventListener){  
         //       document.addEventListener('DOMMouseScroll',scrollFunc,false); 
         // }//W3C
+
+            // 滚轮事件
+            // $(window).bind('mousewheel', function(event, delta) {  
+            //      // 上滚
+            //      if(delta == 1) {
+            //         api.next();
+            //      } else {
+            //         // -1
+            //         api.prev();
+            //      }
+            // }); 
        
               
         // window.onmousewheel=document.onmousewheel=scrollFunc;//IE/Opera/Chrome 

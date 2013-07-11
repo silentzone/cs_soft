@@ -1,6 +1,7 @@
 var DATA = {};
 
 var bindwheel = function () {
+ 			$(window).unbind('mousewheel');
 			var array = art.dialog.list;
 			var blocker = 0; // display block 状态的dialog
 			for( a in array) { 
@@ -14,6 +15,7 @@ var bindwheel = function () {
 			
 			if(!impressAPI) { return; }
 		    // 滚轮事件
+
 	        $(window).bind('mousewheel', function(event, delta) {  
 	             // 上滚
 	             if(delta == 1) {
@@ -73,6 +75,9 @@ function dataInit(){
     	 // 启动 3D 视图
     	impressAPI = impress("impress_" + _idx ); 
 		impressAPI.init();
+		
+		
+		// unbindwheel();// 防止登录时候 portalInit  bindwheel 运行两次
 		bindwheel();
     } 
 }
@@ -715,7 +720,7 @@ portal.loginout = function(){
 		    success: function (resp) {
 		    	if(resp.code=='0'){
 		    		// $.messager.alert('温馨提醒',resp.msg,'info');
-		    		alert("退出成功");
+		    		// alert("退出成功");
 		    		location.reload();
 				}else{
 		    		$.messager.alert('温馨提醒',resp.msg,'error');

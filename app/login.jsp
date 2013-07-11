@@ -88,10 +88,11 @@ function login(){
 	    	if(resp.code=='0'){
 	    		 
 	    		<%if(tg.equals("1")){%> 
+	    			 
 	    			art.dialog.opener.location.reload();
 	    		<%}else{%>
 	    			 
-	    			// alert(resp.url)
+	    		    // alert( "tg.equals != 1 " +  resp.url)
 		    		art.dialog.opener.portal.toggle(resp);
 		    		window.location.href=resp.url; 
 		    		// top.window.location.href = top.window.location.href 
