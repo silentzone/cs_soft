@@ -96,6 +96,7 @@
         if ( orgEvent.wheelDeltaY !== undefined ) { deltaY = orgEvent.wheelDeltaY; }
         if ( orgEvent.wheelDeltaX !== undefined ) { deltaX = orgEvent.wheelDeltaX * -1; }
 
+
         // Look for lowest delta to normalize the delta values
         absDelta = Math.abs(delta);
         if ( !lowestDelta || absDelta < lowestDelta ) { lowestDelta = absDelta; }
@@ -107,6 +108,7 @@
         delta  = Math[fn](delta / lowestDelta);
         deltaX = Math[fn](deltaX / lowestDeltaXY);
         deltaY = Math[fn](deltaY / lowestDeltaXY);
+ 
 
         // Add event and delta to the front of the arguments
         args.unshift(event, delta, deltaX, deltaY);

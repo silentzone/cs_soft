@@ -21,10 +21,13 @@ var bindwheel = function () {
 
 	        $(window).bind('mousewheel', function(event, delta) {  
 	             // 上滚
-	             if(delta == 1) {
+	             if(delta > 0) {
+
+	             	// mac 中会出现 delta 值不断累加的情况 
 	                impressAPI.next();
-	             } else {
+	             } else if (delta < 0) {
 	                // -1
+	                
 	                impressAPI.prev();
 	             }
 	        });  
@@ -341,10 +344,11 @@ var win = function (me) {
 		},
 		openApp : function (id,title,url,icon,jsonSonMenu,w,h) {  
 			  // if(showDialog(id)) { return; } 
+			  // 窗口缩略图的唯一id 
 			  var taskItem = bottomBar.getItem(id);
-			
+
 			  if(taskItem.length == 1 ) {
-			  	// 已存在 
+			  	// 已存在 切换 
 			  	win.showApp(id)
 				return; 
 			  } else {
@@ -450,7 +454,29 @@ var win = function (me) {
         		 }); 
         		 me.viewstatus = "ie";
 			}
-		}
+		},
+		chkUserStatus : function (username) {
+    
+        	var $loginBtn = $("#userStatus").find(".btn");
+         	// 绑定点击弹出登录框
+         	$("#userName").unbind("click");
+         	$("#userName").click(function () { 
+	            win.openApp('001','个人中心','app/user.jsp','grzx.png');   
+	         });
+	        // alert(<%=userName%>);
+
+	         if(username  ==  "") {  
+	                $("#userName").html("请登录");
+	                $loginBtn.each(function () {
+	                    $(this).addClass("disabled");
+	                }); 
+	         }else { 
+	                $("#userName").html("欢迎您," + username );
+	                $loginBtn.each(function () {
+	                    $(this).removeClass("disabled");
+	                });     
+	        } 
+	    }
 
 	}
 }();
@@ -746,7 +772,7 @@ portal.showTalk = function(){
 }
 portal.toggle = function(obj){
 	$loginNo = obj.loginNo;
-	chkUserStatus(obj.userName); 
+	win.chkUserStatus(obj.userName); 
 	portal.refreshAppData(); 
 	portalInit();
 }

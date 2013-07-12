@@ -5,8 +5,8 @@
 (function($){
 
 var mwheelI = {
-			pos: [-260, -260]
-		},
+		pos: [-260, -260]
+	},
 	minDif 	= 3,
 	doc 	= document,
 	root 	= doc.documentElement,

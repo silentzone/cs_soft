@@ -860,8 +860,7 @@ var artDialog = function (config, ok, cancel) {
 		elem = config.follow = this.nodeType === 1 && this || config.follow;
 		 	
 	// 合并默认配置
-	for (var i in defaults) {
-
+	for (var i in defaults) { 
 		if (config[i] === undefined) config[i] = defaults[i];		
 	};
 	

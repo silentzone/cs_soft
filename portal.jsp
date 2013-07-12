@@ -142,36 +142,14 @@
 <!-- 处理 app数据 -->
 <!-- <script type="text/javascript"  src="js/data.js"></script>  -->
 <script type="text/javascript"  src="js/app.js"></script>
-<script type="text/javascript">
-    
-     var chkUserStatus = function (username) {
-    
-        var $loginBtn = $("#userStatus").find(".btn");
-         // 绑定点击弹出登录框
-         $("#userName").click(function () {
-            win.openApp('001','个人中心','app/user.jsp','grzx.png');   
-         });
-        // alert(<%=userName%>);
-
-         if(username  ==  "") {  
-                $("#userName").html("请登录");
-                $loginBtn.each(function () {
-                    $(this).addClass("disabled");
-                }); 
-         }else { 
-                $("#userName").html("欢迎您," + username );
-                $loginBtn.each(function () {
-                    $(this).removeClass("disabled");
-                });     
-        } 
-    }
+<script type="text/javascript"> 
 
     <%if(userName!= null){%>
         var userName = "<%=userName%>";
         var $loginNo = "<%=loginNo%>";
-        chkUserStatus(userName);
+        win.chkUserStatus(userName);
     <%}else {%>
-         chkUserStatus("");
+         win.chkUserStatus("");
     <%}%>  
 
     //退出

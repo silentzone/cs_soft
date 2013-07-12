@@ -187,7 +187,32 @@ if(sysLoginDto==null){
 						
 					</div>
 					<div id="rom">
-						<p> 内存 </p>
+
+
+						<div class="moniter_toolbar clearfix">
+							<!--  checkbox  多选列表 -->
+							<div id="chkbox_list2" class="chkbox_list pull-left" >
+								<div class="ipt span7" name="typelist" value="opt1" ></div>
+								<span class="btn"> 选择 <span class="caret"></span></span>
+							</div> 
+							<span class="btn"><i class="icon-refresh"></i> 刷新</span> 
+						</div>
+						<!-- opt1 -->
+						<div  id="opt01" class="widget" > 
+							<div class="widget-head clearfix">
+								<span class="pull-right">
+									 <i class="icon_collapse icon-chevron-up"></i>
+								     <i class="icon-remove"></i>
+							    </span>
+								<span class="pull-left"> cpu1 </span> 
+							</div>
+							<div class="widget-content"> 
+								<a href="#" >
+									<img src="../img/moniter.png" />
+								</a>
+							</div> 
+						</div>
+						<!-- <p> 内存 </p> -->
 					</div>
 					<div id="hhd"> 
 						<p> 磁盘 </p>
@@ -212,6 +237,12 @@ $(function () {
 	// 多选控件的创建 
 	var arr = [{key:"cpu1",value: "opt1"},{key:"cpu2",value: "opt2"},{key:"cpu3",value: "opt3"},{key:"选项选项选项选项选项选项选项4",value: "opt4"}];
 	var api =$("#chkbox_list").checklist(arr);
+
+
+	// 多选控件的创建 
+	var arr2 = [{key:"cpu1",value: "opt01"},{key:"cpu2",value: "opt2"},{key:"cpu3",value: "opt3"},{key:"选项选项选项选项选项选项选项4",value: "opt4"}];
+	var api =$("#chkbox_list2").checklist(arr2);
+
 	// 多选控件 checkbox change 时触发
 	api.onchecked(function ($chkbox) {  
 		 var boxid = $chkbox.val(); // 获取选中 checkbox 的value 值

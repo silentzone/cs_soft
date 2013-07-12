@@ -423,7 +423,7 @@
             css(root, {
                 //top: "50%",
                 top: "45%", // add by li 顶部距离
-                left: "52%",
+                left: "49%",
                 transform: perspective( config.perspective/windowScale ) + scale( windowScale )
             });
             css(canvas, rootStyles);

@@ -45,14 +45,14 @@
         });
 
         $(_window).resize(function(){
-            lightBoxMask.css({
-                width : winWidth,
-                height : winHeight
+            $body.find('.lightBoxMask').css({
+                width : $(_window).width(),
+                height : $(_window).height()
             });
 
-            lightBox.css({
-                left : ( winWidth - lightBox.width() ) / 2,
-                top : ( winHeight - lightBox.height() ) / 2
+            $body.find('.lightBox').css({
+                left : ( $(_window).width() - $body.find('.lightBox').width() ) / 2,
+                top : ( $(_window).height() - $body.find('.lightBox').height() ) / 2
             });
             // alert(" left :" + ( $(_window).width() - $('.lightBox').width() ) / 2);
         });
