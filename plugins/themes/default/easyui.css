@@ -22,7 +22,7 @@
   overflow: auto;
   border-top-width: 0px;
   /* add by li */
-  border: none;
+  /*border: none;*/
 }
 .panel-body-noheader {
  

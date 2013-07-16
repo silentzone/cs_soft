@@ -9,16 +9,18 @@ $.fn.extend({
         var api = {
             checkedAll : null,
             unchecked : null,
-            onchecked : null
+            onchecked : null,
+            setChecked :null
         };
 
         $node.css({ position: "relative"});
         var $content = $node.find(".ipt");
         var _val = $content.attr("value");
-        var chkList =  _val.split(",");
+        var chkList = _val ? _val.split(",") : 0;
 
         var $btn = $node.find(".btn");
         var $hideipt = $("<input type='hidden' />");
+        
         $hideipt.attr("name",$content.attr("name"));
         var addlab = function () {
             var labstr = "";
@@ -77,7 +79,10 @@ $.fn.extend({
                 }
             }  
 
-            $chklist.css({ top : 35 , left : 205 }); 
+            //
+            btnPos = $btn.position();
+            
+            $chklist.css({ top : ( btnPos.top + 35 ), left : btnPos.left , position: "absolute" }); 
             $node.append($chklist);
             $chklist.hide(); 
 
@@ -106,7 +111,19 @@ $.fn.extend({
             list.find("input[type='checkbox']").on("change",function () {
                 fn($(this));
             }) 
+        };
+        api.setChecked = function (val,idx) {
+            list.find("input[type='checkbox']").each(function (index) {
+               if($(this).attr("value") == val || index == idx ) {
+                // 测试点1 是否需要 remove  多浏览器中 
+                // 测试点2  change  在checked 状态不变情况下  重复调用情况下 是否触发 
+                    $(this).attr("checked","checked");
+                    $(this).trigger('change');  
+                } 
+            });
+
         }
+
 
         return api;
     }

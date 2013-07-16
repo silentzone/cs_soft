@@ -95,198 +95,60 @@ if(sysLoginDto==null){
                     <% }%>
                     <li ><a onClick="openConsole();" ><i class="icon-share"></i>我的桌面</a></li> 
                     <li><a href="cloudShowLinuVm.jsp"><i class="icon-hdd"></i>我的主机</a></li>
-                    <li  class="active"><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>监控</a></li>
+                    <li  class="active"><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>服务器监控</a></li>  
+                    <li ><a href="cloudMoniterVM.jsp"><i class="icon-eye-open"></i>虚拟机监控</a></li>  
 				</ul> 
 	        </div> 
 
 			<div class="span10 box-content">
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="active"><a href="#cpu">cpu</a></li>
-					<li><a  href="#rom">内存</a></li>
+					<li class="active"><a href="#cpu_tab">cpu</a></li>
+					<li><a  href="#rom_tab">内存</a></li>
 					<li class="dropdown">
-						<a href="#hhd">磁盘<b class="caret"></b></a>  
-						<!-- data-toggle="dropdown" class="dropdown-toggle"  -->
-						<!-- <ul class="dropdown-menu">
-							<li><a data-toggle="tab" href="#ntfs">NTFS</a></li>
-							<li><a data-toggle="tab" href="#fat">FAT</a></li>
-						</ul> -->
+						<a href="#eth_tab">网络</a>  
 					</li>
 				</ul>
-				<div id="jscroll" style="width:100%; height:500px; overflow:hidden;" class="tab_content"> 
-					<div id="cpu" style="  width:100%;" >
+				<div id="jscroll" style="width:100%; height:500px; overflow:auto;" class="tab_content"> 
+					<div id="cpu_tab" >
 						<div class="moniter_toolbar clearfix">
 							<!--  checkbox  多选列表 -->
-							<div id="chkbox_list" class="chkbox_list pull-left" >
-								<div class="ipt span7" name="typelist" value="opt1" ></div>
+							<div id="cpu_chkbox_list" class="chkbox_list pull-left" >
+								<div class="ipt span7" style="display:none;" name="typelist" ></div>
 								<span class="btn"> 选择 <span class="caret"></span></span>
 							</div> 
-							<span class="btn"><i class="icon-refresh"></i> 刷新</span> 
+							<span class="btn" onclick="clearControl();"><i class="icon-refresh"></i> 刷新</span> 
 						</div>
-						<!-- opt1 -->
-						<div  id="opt1" class="widget" > 
-							<div class="widget-head clearfix">
-								<span class="pull-right">
-									 <i class="icon_collapse icon-chevron-up"></i>
-								     <i class="icon-remove"></i>
-							    </span>
-								<span class="pull-left"> cpu1 </span> 
-							</div>
-							<div class="widget-content"> 
-								<a href="#" >
-									<img src="../img/moniter.png" />
-								</a>
-							</div> 
-						</div>
-						<!-- opt2 -->
-						<div  id="opt2" class="widget" style="display:none;"> 
-							<div class="widget-head clearfix">
-								<span class="pull-right">
-									 <i class="icon_collapse icon-chevron-up"></i>
-								     <i class="icon-remove"></i>
-							    </span>
-								<span class="pull-left"> cpu2 </span> 
-							</div>
-							<div class="widget-content"> 
-								<a href="#" > 
-									<img src="../img/moniter.png" />
-								</a>
-							</div> 
-						</div>
-						<!-- opt3 -->
-						<div  id="opt3" class="widget"  style="display:none;"> 
-							<div class="widget-head clearfix">
-								<span class="pull-right">
-									 <i class="icon_collapse icon-chevron-up"></i>
-								     <i class="icon-remove"></i>
-							    </span>
-								<span class="pull-left"> cpu3 </span> 
-							</div>
-							<div class="widget-content"> 
-								<a href="#" > 
-									<img src="../img/moniter.png" />
-								</a>
-							</div> 
-						</div>
-
-						<!-- opt4 -->
-						<div  id="opt4" class="widget"  style="display:none;"> 
-							<div class="widget-head clearfix">
-								<span class="pull-right">
-									 <i class="icon_collapse icon-chevron-up"></i>
-								     <i class="icon-remove"></i>
-							    </span>
-								<span class="pull-left"> 选项4 </span> 
-							</div>
-							<div class="widget-content">
-								<a href="#" >	  
-									<img src="../img/moniter.png" />
-								</a>
-							</div> 
-						</div>
-
-						
+						<div id="cpu_tab_piclist"></div> 
 					</div>
-					<div id="rom">
-
-
+					<div id="rom_tab">
 						<div class="moniter_toolbar clearfix">
 							<!--  checkbox  多选列表 -->
-							<div id="chkbox_list2" class="chkbox_list pull-left" >
-								<div class="ipt span7" name="typelist" value="opt1" ></div>
+							<div id="rom_chkbox_list" class="chkbox_list pull-left" >
+								<div class="ipt span7" name="typelist"  style="display:none;" ></div>
 								<span class="btn"> 选择 <span class="caret"></span></span>
 							</div> 
-							<span class="btn"><i class="icon-refresh"></i> 刷新</span> 
+							<span class="btn" onclick="clearControl();"><i class="icon-refresh"></i> 刷新</span> 
 						</div>
-						<!-- opt1 -->
-						<div  id="opt01" class="widget" > 
-							<div class="widget-head clearfix">
-								<span class="pull-right">
-									 <i class="icon_collapse icon-chevron-up"></i>
-								     <i class="icon-remove"></i>
-							    </span>
-								<span class="pull-left"> cpu1 </span> 
-							</div>
-							<div class="widget-content"> 
-								<a href="#" >
-									<img src="../img/moniter.png" />
-								</a>
-							</div> 
-						</div>
-						<!-- <p> 内存 </p> -->
+                        <div id="rom_tab_piclist"></div>
 					</div>
-					<div id="hhd"> 
-						<p> 磁盘 </p>
+					<div id="eth_tab"> 
+						<div class="moniter_toolbar clearfix">
+							<!--  checkbox  多选列表 -->
+							<div id="eth_chkbox_list" class="chkbox_list pull-left" >
+								<div class="ipt span7" name="typelist"  style="display:none;" ></div>
+								<span class="btn"> 选择 <span class="caret"></span></span>
+							</div> 
+							<span class="btn" onclick="clearControl();"><i class="icon-refresh"></i> 刷新</span> 
+						</div>
+                         <div id="eth_tab_piclist"></div>
 					</div> 
-				</div> 
-
-				<!-- <select name="moniterpar" id="moniterpar" onchange="drawMonitorPic();"></select> -->
-			  
+				</div>
 			</div>
 	</div>
 </div>
 </body>
 <script>
-$(function () {
-	$("#myTab").sildeTab();
 
-	// 滚动条
-	 $("#jscroll").jScrollPane();
-	 var jscrollAPI = $("#jscroll").data('jsp'); 
-
-
-	// 多选控件的创建 
-	var arr = [{key:"cpu1",value: "opt1"},{key:"cpu2",value: "opt2"},{key:"cpu3",value: "opt3"},{key:"选项选项选项选项选项选项选项4",value: "opt4"}];
-	var api =$("#chkbox_list").checklist(arr);
-
-
-	// 多选控件的创建 
-	var arr2 = [{key:"cpu1",value: "opt01"},{key:"cpu2",value: "opt2"},{key:"cpu3",value: "opt3"},{key:"选项选项选项选项选项选项选项4",value: "opt4"}];
-	var api =$("#chkbox_list2").checklist(arr2);
-
-	// 多选控件 checkbox change 时触发
-	api.onchecked(function ($chkbox) {  
-		 var boxid = $chkbox.val(); // 获取选中 checkbox 的value 值
- 
-		 // alert(boxid);
-		 if($chkbox.attr('checked') == "checked") {
-		 	//控件中 checkbox 选中  
-		 	$("#" +boxid).fadeIn(); 
-		 } else {
-		 	//取消选中  
-		 	$("#" +boxid).fadeOut();  
-		 }
-		 // 计算滚动条 
-		 jscrollAPI.reinitialise();
-	});
-	
-	//监控图片折叠按钮事件 
-	$(".icon_collapse").toggle(function () {
-		$(this).parents(".widget-head").next(".widget-content").slideUp();
-		$(this).removeClass("icon-chevron-up").addClass("icon-chevron-down");
-	},function () {
-		$(this).parents(".widget-head").next(".widget-content").slideDown();
-		$(this).removeClass("icon-chevron-down").addClass("icon-chevron-up");
-	});
-
-	//监控图片关闭按钮事件  
-	$(".icon-remove").click( function () {  
-		var optionId = $(this).parents(".widget").attr("id");
-		// 点击关闭同事取消控件中 checkbox 的选中状态
-		api.unchecked(optionId); 
-	});
-	//light box 
-	if(window.top.win) {
-		$('.widget a').lightBox($(window.top.win.body));
-	} else {
-		$('.widget a').lightBox();
-	}
-	 
-	 
-	
-	
-
-
-})
 	
 </script>
 </html>

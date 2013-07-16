@@ -28,7 +28,7 @@ if(sysLoginDto==null){
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>云服务管理</title>
-	<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
 
 	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
@@ -80,35 +80,35 @@ if(sysLoginDto==null){
                     <% } %>
                     <li ><a onClick="openConsole();" ><i class="icon-share"></i>我的桌面</a></li> 
                     <li class="active"><a href="cloudShowLinuVm.jsp"><i class="icon-hdd"></i>我的主机</a></li>
-                    <li><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>监控</a></li> 
+                    <li ><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>服务器监控</a></li>  
+                    <li ><a href="cloudMoniterVM.jsp"><i class="icon-eye-open"></i>虚拟机监控</a></li>  
+
 				</ul> 
 		  </div>
 
-			<div class="span10 box-content" >
+			<div class="span10" >
 				 
-				 <div >   
-						<div class="top"> 
+				 <div class="box-content">   
+					<!-- 	<div class="top"> 
 							<span class="title">我的LINUX主机</span>
-						</div>
+						</div> -->
 						<div class="section">
 							<div class="datagrid-toolbar"> <!-- id="editUser" -->  
                           	  <input class="btn" type="button" value="刷新" id="qry_btn">
 							</div>
-								<table id="table_mgrinfo" cellspacing="0" cellpadding="0" style="height:400px;">  
-								    <thead>  
-								        <tr>  
-								            <th field="inst_id" width="0" hidden="true"></th>
-				                            <th field="user_id" width="50" sortable="true">用户</th>  
-				                    		<th field="user_linux_host" width="50">主机名称</th>
-                                           <th field="user_linux_ip" width="70">IP地址</th>
-                                           <th field="user_linux_port" width="40">端口号</th> 
-                                           <th field="user_linux_key" width="50">密码</th> 
-								            <th field="created_date" width="80" sortable="true">创建日期</th>  
-								            <th field="statedesc" width="40">状态</th>  
-                                             <th field="notes" width="100">备注</th>
-								        </tr>  
-								    </thead>  
-								</table> 
+							<table title="我的LINUX主机" id="table_mgrinfo" cellspacing="0" cellpadding="0" style="height:400px;">  
+							    <thead>  
+							        <tr>  
+			                           <th field="user_id" width="190" hidden="true">用户</th>  
+			                    	   <th field="user_linux_host" width="190" hidden="true">主机名称</th>
+                                       <th field="user_linux_ip" width="190" hidden="true">IP地址</th>
+                                       <th field="user_linux_port" width="190" hidden="true">端口号</th> 
+                                       <th field="user_linux_key" width="90" hidden="true">密码</th> 
+							           <th field="created_date" width="90" sortable="true" hidden="true">创建日期</th>  
+                                       <!--<th field="notes" width="100" hidden="true">备注</th>-->
+							        </tr>  
+							    </thead>  
+							</table> 
 						</div> 
 					</div><!-- layout --> 
      
@@ -124,6 +124,7 @@ if(sysLoginDto==null){
 
 </body>
 <script>
+	
 	  function openConsole(){
 		  httpsRemoteClientLogin();
 	  }

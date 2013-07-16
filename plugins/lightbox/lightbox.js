@@ -27,6 +27,7 @@
             var img = new Image();
             img.src = $(this).children('img').attr('src');
 
+            // alert("img src " +  img.src);
            
             $body.append('<div class="lightBoxMask" style="width:'+winWidth+'px;height:'+winHeight+'px;"></div>')
                      .append('<div class="lightBox" style="width:'+img.width+'px;height:'+img.height+'px;"><div class="lightBoxContainer" style="width:'+img.width+'px;height:'+img.height+'px;"><img src="'+img.src+'" /></div><div class="lightBoxClose">x关闭</div></div>');
