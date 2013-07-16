@@ -73,7 +73,7 @@ a:focus {  outline:none; }
 .app_list_mini ul { margin: 0;}
 .app_list_mini li { float:left; margin:5px 5px 5px 0; padding:5px 20px;}
 .app_list_mini li p { margin-bottom: 0;}
-legend { margin-bottom: 10px; font-size: 15px; color:#888;}
+legend { margin-bottom: 5px; font-size: 14px; color:#888; text-indent: 0.5em;}
 
 /* 桌面图标 尺寸*/
 /*.app { width:440px; height:440px; background:#333; position: relative; } 
@@ -100,7 +100,7 @@ legend { margin-bottom: 10px; font-size: 15px; color:#888;}
  
 
 /* login */
-.reg_box { margin-left:10px;}
+.reg_box { /*margin-left:10px;*/}
 .login_list { }
 .login_list li { padding:15px 5px; position:relative; z-index:0; height:24px; line-height: 24px; }
 
@@ -270,9 +270,9 @@ legend { margin-bottom: 10px; font-size: 15px; color:#888;}
  .form-actions { margin-bottom: 0;}
  .input-append { margin-bottom: 0;}
 
- legend { text-indent:0.8em;}
+/* legend { text-indent:0.8em;}*/
  legend + .control-group { margin-top:5px; } 
- .control-group { margin: 5px; padding-left: 8px; }
+ .control-group { margin: 5px; /* padding-left: 8px;*/ }
  /* btn 的 icon 位置 偏移 */
 /* .btn [class^="icon-"], .btn [class*=" icon-"] {
     margin:3px 2px 0 0;
@@ -789,3 +789,4 @@ blockquote p { font-size: 14px; margin: 5px 0; }
 
 /* */
 .datagrid-view p { margin-bottom: 0;}
+.datagrid-toolbar { border-bottom: 0;}

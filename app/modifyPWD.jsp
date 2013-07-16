@@ -21,6 +21,17 @@
 	response.sendRedirect(strWebRoot+"app/login.jsp");
 	return;
  }
+ DynamicDict detailsBO = sysLoginDto.getBOByName("UserDetailsDto");
+ int roleNum = detailsBO.getCountByName("USER_ROLE");
+ boolean havePower = false;
+ for(int i=0;i<roleNum;i++){
+	HashMap roleDict = (HashMap)detailsBO.getValueByName("USER_ROLE", i);
+	String roleId = (String)roleDict.get("ROLE_ID");
+	if(roleId.equals("video00001")){
+		havePower = true;
+		break;
+	}
+ }
  String userId = sysLoginDto.getString("UserId");
  String userCode = sysLoginDto.getString("UserCode");
 %>
@@ -31,7 +42,7 @@
 <title>个人中心 </title>
 <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
 <link href="../css/page.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
 </head>
 <body style="width:800px; margin:0 auto;" onload="appPWD.init();"> 
@@ -45,6 +56,9 @@
 					<li><a href="user.jsp"><i class="icon-user"></i>个人信息</a></li>
 					<li><a href="account.jsp"><i class="icon-bookmark"></i>账户信息 </a></li>
 					<li><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li> 
+					<%if(havePower){%>
+					<li><a href="myvideo.jsp"><i class="icon-film"></i>我的视频</a></li> 
+					<%}%>
 					<li class="active"><a href="modifyPWD.jsp"><i class="icon-comment"></i>密码修改</a></li>
 				</ul> 
 			</div>
@@ -72,7 +86,12 @@
 								</div> 
 
 							</fieldset>
-							<span class="btn btn-info m_btn" id="modify_btn">确认修改</span><span id="modifyResult"></span>
+							<div class="control-group">
+									<div class="controls">
+										<span class="btn btn-info m_btn" id="modify_btn">确认修改</span><span id="modifyResult"></span>
+									</div>
+							</div>
+							
 						</div>  	
 					</div>	
 				</div>

@@ -76,7 +76,7 @@
 				<li><a href="account.jsp"><i class="icon-bookmark"></i>账户信息 </a></li>
 				<li class="active"><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li> 
 				<%if(havePower){%>
-				<li><a href="myvideo.jsp"><i class="icon-inbox"></i>我的视频</a></li> 
+				<li><a href="myvideo.jsp"><i class="icon-film"></i>我的视频</a></li> 
 				<%}%>
 				<li><a href="modifyPWD.jsp"><i class="icon-comment"></i>密码修改</a></li>
 			</ul> 
@@ -95,7 +95,11 @@
 								<a href="javascript:void(0)" class="btn btn-mini" appId="<%=map.get("APP_ID")%>" appVersions="<%=map.get("APP_VERSIONS")%>"><%=map.get("APP_NAME")%></a>
 							 </p> 
 						</li>
-						<%}%>
+						<%}%> 
+
+
+
+
 					</ul>
 				</div>
 				<div class="top">已购应用</div>

@@ -659,6 +659,7 @@ $.each(['Height', 'Width'], function (i, name) {
  * });
  */
 $.ajax = function (config) {
+	 
 	var ajax = window.XMLHttpRequest ?
 			new XMLHttpRequest() :
 			new ActiveXObject('Microsoft.XMLHTTP'),

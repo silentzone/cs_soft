@@ -84,21 +84,29 @@ function login(){
 	    	$.messager.alert('温馨提醒','执行出错：'+msg.responseText,'error');
         },
 	    success: function (resp) {
-	    	 
-	    	if(resp.code=='0'){
+	    	var code = resp.code; 
+	    	if(code=='0'){
 	    		 
 	    		<%if(tg.equals("1")){%> 
-	    			 
 	    			art.dialog.opener.location.reload();
 	    		<%}else{%>
-	    			 
-	    		    // alert( "tg.equals != 1 " +  resp.url)
-		    		art.dialog.opener.portal.toggle(resp);
-		    		window.location.href=resp.url; 
-		    		// top.window.location.href = top.window.location.href 
+	    			art.dialog.opener.portal.toggle(resp);
+		    		window.location.href=resp.url;
 	    		<%}%>
 			}else{
-	    		$.messager.alert('温馨提醒',resp.msg,'error');
+				var msg = resp.msg;
+				if(code=="-1"){
+					msg = "达到密码重试错误次数,用户被锁定";
+				}else if(code=="-2"){
+					msg = "密码错误";
+				}else if(code=="-3"){
+					msg = "用户名不存在";
+				}else if(code=="-4"){
+					msg = "用户被锁定";
+				}else if(code=="-6"){
+					msg = "系统忙，请稍后再试";
+				}
+	    		$.messager.alert('温馨提醒',msg,'error');
 	    	}
 	    },
 	    cache: false

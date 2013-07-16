@@ -59,7 +59,7 @@
 					<li><a href="account.jsp"><i class="icon-bookmark"></i>账户信息 </a></li>
 					<li><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li> 
 					<%if(havePower){%>
-					<li><a href="myvideo.jsp"><i class="icon-inbox"></i>我的视频</a></li> 
+					<li><a href="myvideo.jsp"><i class="icon-film"></i>我的视频</a></li> 
 					<%}%>
 					<li><a href="modifyPWD.jsp"><i class="icon-comment"></i>密码修改</a></li>
 				</ul> 
@@ -114,6 +114,14 @@
 									</div>
 								</div> 
 							</fieldset>
+							<div class="control-group">
+								<div class="controls">
+									<span class="btn btn-info m_btn" id="cancel_btn" style="display:none;">取消修改</span>
+									<span class="btn btn-success" id="save_btn" style="display:none;">保存修改</span>
+									<span class="btn btn-info m_btn" id="modify_btn">修改用户</span><span id="modifyResult"></span>
+									<span class="btn m_btn" id="exit_btn">登出</span>
+								</div>
+							</div>
 
 						</div> <!-- span6 -->
 
@@ -155,11 +163,7 @@
 									</div>
 								</div> 
 
-							</fieldset>
-							<span class="btn btn-info m_btn" id="cancel_btn" style="display:none;">取消修改</span>
-							<span class="btn btn-success" id="save_btn" style="display:none;">保存修改</span>
-							<span class="btn btn-info m_btn" id="modify_btn">修改用户</span><span id="modifyResult"></span>
-							<span class="btn btn-info m_btn" id="exit_btn">登出</span>
+							</fieldset> 
 						</div>  	
 					</div>	
 				</div>

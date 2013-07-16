@@ -80,14 +80,18 @@
 				<li><a href="user.jsp"><i class="icon-user"></i>个人信息</a></li>
 				<li><a href="account.jsp"><i class="icon-bookmark"></i>账户信息 </a></li>
 				<li><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li>
-				<li class="active"><a href="myvideo.jsp"><i class="icon-inbox"></i>我的视频</a></li>  
+				<li class="active"><a href="myvideo.jsp"><i class="icon-film"></i>我的视频</a></li>  
 				<li><a href="modifyPWD.jsp"><i class="icon-comment"></i>密码修改</a></li>
 			</ul> 
 		</div>
 		<div class="span9">
 			<div class="box-content">
-				<div class="top"> <a href="myapp/upMid.jsp" class="btn btn_right"> <i class="icon-arrow-up"></i>上传新视频</a>我的视频</div>	 
-				<div class="app_list_mini"> 
+				<div class="top"> 
+					<a href="myapp/upMid.jsp" class="btn btn_right">
+						<i class="icon-arrow-up"></i>上传新视频</a>
+						我的视频
+				</div>	 
+				<div class="app_list_mini" style="width: 100%; height: 400px; overflow: auto;"> 
 					<ul class="clearfix">
 						<%for(int i=0;i<appCount;i++){
 							HashMap map = (HashMap)dict.getValueByName("APP", i);
@@ -99,6 +103,10 @@
 							 </p> 
 						</li>
 						<%}%>
+
+
+
+
 					</ul>
 				</div>
 				<!--已购视频-->
@@ -124,7 +132,10 @@
 <script type="text/javascript">
 var $userId = "<%=userId%>";
 var $loginNo = "<%=loginNo%>";
-$('.app_list_mini').jScrollPane();
+$(function () {
+	$('.app_list_mini').jScrollPane(); 
+});
+
 </script>
 </body> 
 </html>
