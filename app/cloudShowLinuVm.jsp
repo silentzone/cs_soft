@@ -68,8 +68,8 @@ if(sysLoginDto==null){
 						<div class="section">
 							<div class="datagrid-toolbar"> <!-- id="editUser" -->  
                           	  <input class="btn" type="button" value="刷新" id="qry_btn">
-							</div>
-							<table title="我的LINUX主机" id="table_mgrinfo" cellspacing="0" cellpadding="0" style="height:400px;">  
+							</div> 
+							<table title="我的LINUX主机" id="table_mgrinfo" cellspacing="0" cellpadding="0">  
 							    <thead>  
 							        <tr>  
 			                           <th field="user_id" width="190" hidden="true">用户</th>  
