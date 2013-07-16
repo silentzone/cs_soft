@@ -28,7 +28,7 @@ if(sysLoginDto==null){
 	<title>云应用</title> 
 	<link rel="stylesheet" type="text/css" href="../css/page.css"> 
 	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
-	<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
 
 	<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>  

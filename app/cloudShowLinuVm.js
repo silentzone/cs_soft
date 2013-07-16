@@ -1,9 +1,9 @@
 var cardview = $.extend({}, $.fn.datagrid.defaults.view, {
     renderRow: function(target, fields, frozen, rowIndex, rowData){
 		var cc = [];
-		cc.push('<td colspan=' + fields.length + ' style="padding:2px 1px;border-bottom:1px solid #efefef;">');
+		cc.push('<td colspan=' + fields.length + ' style="padding:2px 1px; ">');
 		if (!frozen){
-			cc.push('<img src="../img/whcomputer.jpg" style="height:80px; width:80px; float:left"> ');
+			cc.push('<img src="../img/whcomputer.png" style="height:80px; width:80px; float:left"> ');
 			cc.push('<div style="float:left;margin-left:10px; width:550px;">');
 			for(var i=0; i<fields.length; i++){
 				var copts = $(target).datagrid('getColumnOption', fields[i]); 
