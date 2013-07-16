@@ -54,35 +54,8 @@ if(sysLoginDto==null){
 <div class="section"> 
 		<div class="row-fluid"> 
 			<div class="span2 box-content" >
-				<ul class="nav nav-list sideMenu">
-					<li><a href="cloud.jsp"><i class="icon-plus"></i>新建服务</a></li>
-					<li><a href="cloud_buy.jsp"><i class="icon-shopping-cart"></i>已购服务</a></li>
-                    <%
-						//判断用户id是否是管理员
-						String theUserId = "";
-						if(sysLoginDto!=null){
-							   theUserId= sysLoginDto.getString("UserId");
-						 }
-						boolean havePower = false;
-						DynamicDict detailsBO = sysLoginDto.getBOByName("UserDetailsDto");
-					 	int roleNum = detailsBO.getCountByName("USER_ROLE");
-						for(int i=0;i<roleNum;i++){
-							HashMap roleDict = (HashMap)detailsBO.getValueByName("USER_ROLE", i);
-							String roleId = (String)roleDict.get("ROLE_ID");
-							if(roleId.equals("sys00001")){
-								havePower = true;
-								break;
-							}
-						}
-						if(havePower){
-					%>
-					<li ><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
-                    <% } %>
-                    <li ><a onClick="openConsole();" ><i class="icon-share"></i>我的桌面</a></li> 
-                    <li class="active"><a href="cloudShowLinuVm.jsp"><i class="icon-hdd"></i>我的主机</a></li>
-                    <li ><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>服务器监控</a></li>  
-                    <li ><a href="cloudMoniterVM.jsp"><i class="icon-eye-open"></i>虚拟机监控</a></li>  
-
+				<ul class="nav nav-list sideMenu" alt="myserver">
+					 <jsp:include page="includ/nav.jsp" flush="true" /> 
 				</ul> 
 		  </div>
 
@@ -124,7 +97,11 @@ if(sysLoginDto==null){
 
 </body>
 <script>
-	
+	$(function () {
+		var markid = $(".nav-list").attr("alt")
+		$("#"+markid).addClass("active") 
+	});
+
 	  function openConsole(){
 		  httpsRemoteClientLogin();
 	  }

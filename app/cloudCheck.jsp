@@ -43,7 +43,7 @@ if(sysLoginDto==null){
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>云服务管理</title>
-	<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
 
 	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -68,13 +68,8 @@ if(sysLoginDto==null){
 <div class="section"> 
 		<div class="row-fluid"> 
 			<div class="span2 box-content" >
-				<ul class="nav nav-list sideMenu">
-					<li><a href="cloud.jsp"><i class="icon-plus"></i>新建服务</a></li> 
-					<li><a href="cloud_buy.jsp"><i class="icon-shopping-cart"></i>已购服务</a></li>
-					<li class="active"><a href="cloudCheck.jsp"><i class="icon-lock"></i>管理员审核</a></li> 
-                    <li ><a onClick="openConsole();" ><i class="icon-share"></i>我的桌面</a></li> 
-                    <li ><a href="cloudShowLinuVm.jsp"><i class="icon-hdd"></i>我的主机</a></li> 
-                    <li><a href="cloudMoniter.jsp"><i class="icon-eye-open"></i>监控</a></li>
+				<ul class="nav nav-list sideMenu" alt="adminchk">
+					  <jsp:include page="includ/nav.jsp" flush="true" /> 
 				</ul> 
 		  </div>
 
@@ -125,7 +120,12 @@ if(sysLoginDto==null){
 
 
 </body>
-<script>
+<script type="text/javascript">
+	$(function () {
+	 
+		var markid = $(".nav-list").attr("alt")
+		$("#"+markid).addClass("active") 
+	}) 
 	  function openConsole(){
 		  httpsRemoteClientLogin();
 	  }
