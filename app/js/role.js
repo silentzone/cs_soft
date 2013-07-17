@@ -6,6 +6,7 @@ appRole.init = function(){
 	this.initSysRoleTable();
 	this.initMenu();
 	this.elemEventBind();
+	this.queryUser('1','5');
 }
 /* user table init*/
 appRole.initUserTable = function(){
@@ -225,6 +226,10 @@ appRole.elemEventBind = function(){
 	$("#modify_btn").click(function() { appRole.modifyUser()});
 	/* modify user password button*/
 	$("#pwd_btn").click(function() { appRole.modifyPwd()});
+	/* bill recharge button*/
+	$("#recharge").click(function() { appRole.recharge()});
+	$("#account_btn").click(function() { appRole.popDivToggle()});
+	$("#norecharge").click(function() { appRole.popDivToggle()});
 }
 /* save role information modify*/
 appRole.saveRole = function(){
@@ -278,6 +283,7 @@ appRole.initUserInfo = function(row){
 	/* clear the old informations*/
 	$("#USER_ID").val("");
 	$("#PWD_ID").val("");
+	$("#BILL_ID").val("");
 	$("#USER_CODE").val("");
 	$("#USER_NAME").val("");
 	$("#USER_PWD").val("");
@@ -294,6 +300,7 @@ appRole.initUserInfo = function(row){
 	// user basic informations
 	$("#USER_ID").val(row.user_id);
 	$("#PWD_ID").val(row.pwd_id);
+	$("#BILL_ID").val(row.bill_id);
 	$("#USER_CODE").val(row.user_code);
 	$("#USER_NAME").val(row.user_name);
 	$("#E_MAIL").val(row.e_mail);
@@ -336,6 +343,14 @@ appRole.initUserInfo = function(row){
 			continue;
 		}
 	}
+	var bnum = dict.getDataObjCnt("USER_BILL");
+	if(bnum>0){
+        var bo = dict.getBOValue("USER_BILL",0);
+        var ba = parseFloat(bo.getValue("BILL_BALANCE"));
+        ba = ba/100;
+        $("#moneyspan").html(ba.toFixed(2));
+    }
+
 }
 /* modify user informations*/
 appRole.modifyUser = function(){
@@ -398,4 +413,54 @@ appRole.modifyPwd = function(){
 	else
 		$("#pwd_btn").val("修改密码");
 	$("#pwd_span").toggle();
+}
+appRole.recharge = function(){
+    var money = $("#MONEY").trimval();
+    if(money==''){
+    	alert("请输入充值金额！");
+    	$("#MONEY").focus();
+    	return;
+    }
+	if(!confirm("您确定要充值"+money+"云币吗？")) return;
+	$.messager.defaults = { ok: "确定"};
+    var userId = $("#USER_ID").val();
+    var billId = $("#BILL_ID").val();
+
+    var dict = new DynamicDict("UBOSS_DESKTOP_USER_002");
+    dict.setValue("OP_TYPE","7");
+    dict.setValue("BILL_ID",billId);
+    dict.setValue("USER_ID",userId);
+    dict.setValue("VER_CARD","1");
+    dict.setValue("MONEY",money);
+    dict.setValue("NOTES","管理员充值");
+    if(!dict.callService()){
+        $.messager.alert('温馨提醒','充值失败：'+dict.error.Desc,'error');
+        return;
+    }
+    $.messager.alert('温馨提醒','充值成功','info');
+    this.popDivToggle();
+    this.queryBillInfo(userId,billId);
+    $("#modifyResult").html("<font color='green'>&nbsp;充值["+money+"云币]成功</font>");
+}
+appRole.popDivToggle = function(){
+	$(".pop-window").toggle();
+}
+appRole.queryBillInfo = function(userId,billId){
+    $("#moneyspan").empty();
+    var dict = new DynamicDict("UBOSS_DESKTOP_USER_002");
+    dict.setValue("OP_TYPE","9");
+    dict.setValue("BILL_ID",billId);
+    dict.setValue("USER_ID",userId);
+    $.messager.defaults = { ok: "确定"};
+    if(!dict.callService()){
+        $.messager.alert('温馨提醒','账户信息查询失败：'+dict.error.Desc,'error');
+        return;
+    }
+    var num = dict.getValue("BILL_COUNT");
+    if(num>0){
+        var bo = dict.getBOValue("BILL",0);
+        var ba = parseFloat(bo.getValue("BILL_BALANCE"));
+        ba = ba/100;
+        $("#moneyspan").html(ba.toFixed(2));
+    }
 }

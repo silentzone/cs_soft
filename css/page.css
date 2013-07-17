@@ -195,7 +195,7 @@ legend { margin-bottom: 5px; font-size: 14px; color:#888; text-indent: 0.5em;}
 .body_silder { height:550px; width:800px; position:relative; overflow:hidden; }
 .silder {position:absolute; width: 100%; height: 100%; background: #efefef; z-index: 1; top: 0; left:0;   }
 .silder_box { width:92%; height:100%; overflow-y:auto; overflow-x:hidden;  }
-#layout {position:absolute;  z-index: 2;  width: 100%; height: 100%; background:#fff; }
+#layout {position:absolute;  z-index: 2;  width: 100%; height: 100%; background:#fff; box-shadow: -2px 0px 3px 2px rgba(0, 0, 0, 0.2); }
 
 #layout .section { background:#fff; }
 
@@ -787,6 +787,12 @@ blockquote p { font-size: 14px; margin: 5px 0; }
 
 .app_title { height:30px; line-height: 30px; width:auto; text-align: center; padding: 0 15px;  border-radius:6px; background:rgba(0, 0, 0, 0.6); box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); position: absolute; z-index: 999; bottom: 68px; left: 45%; color:#fff;}
 
+.reg_radio { height: 32px;}
 /* */
 .datagrid-view p { margin-bottom: 0;}
+.datagrid_p { white-space:nowrap; }  /* 设置 我的主机中显示的文字不换行  */ 
 .datagrid-toolbar { border-bottom: 0;}
+
+.pop-window { box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
+.pop-inner { width:350px;height:90px; background-color:#efefef; padding-top: 50px; }
+.form_actions {  border-top: 1px solid #E5E5E5;  margin-top: 10px; padding:10px;}

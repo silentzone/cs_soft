@@ -43,7 +43,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>应用定单审核</title>
-	<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
 	<link href="../css/page.css" rel="stylesheet" type="text/css" />
 	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
@@ -55,10 +55,10 @@
 		<div class="datagrid-toolbar"> 
 	      <span class="input-append">
 		    	<input class="span2" id="condition_value" type="text" value="" maxlength="50">
-		    	<input class="btn" type="button" value="定单号搜索" id="qry_btn">
+		    	<span class="btn"  id="qry_btn">定单号搜索</span>
 		    </span>
 		</div>
-			<table id="table_orderinfo" cellspacing="0" cellpadding="0" style="width:800px;height:200px;">  
+			<table id="table_orderinfo" cellspacing="0" cellpadding="0" style="width:800px;height:400px;">  
 			    <thead>  
 			        <tr> 
 			            <th field="order_no" width="20%" sortable="true">定单号</th>  

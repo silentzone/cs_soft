@@ -90,13 +90,13 @@
 						</div>
 						<label class="control-label" >用户类型</label>
 						<div class="controls">
-							<label class="radio inline">
+							<label class="radio inline reg_radio">
 								<input  type="radio" name="USER_TYPE" value="01" checked>普通用户
 							</label>
-							<label class="radio inline">
+							<label class="radio inline reg_radio">
 								<input type="radio" name="USER_TYPE" value="02">园区企业用户
 							</label>
-							<label class="radio inline">
+							<label class="radio inline reg_radio">
 								<input type="radio" name="USER_TYPE" value="03">区外企业用户
 							</label> 
 						</div>

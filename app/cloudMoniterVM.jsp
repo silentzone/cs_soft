@@ -159,6 +159,12 @@ $(function () {
 		var markid = $(".nav-list").attr("alt")
 		$("#"+markid).addClass("active") 
 });
+
+	  function openConsole(){
+		 httpsRemoteClientLogin();
+	  }
+
+
 	
 </script>
 </html>

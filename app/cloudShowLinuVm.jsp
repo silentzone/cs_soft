@@ -74,8 +74,8 @@ if(sysLoginDto==null){
 							        <tr>  
 			                           <th field="user_id" width="190" hidden="true">用户</th>  
 			                    	   <th field="user_linux_host" width="190" hidden="true">主机名称</th>
-                                       <th field="user_linux_ip" width="190" hidden="true">IP地址</th>
-                                       <th field="user_linux_port" width="190" hidden="true">端口号</th> 
+                                       <th field="user_linux_ip" width="190" hidden="true">内网IP</th>
+                                       <th field="user_linux_port" width="190" hidden="true">登录方式</th> 
                                        <th field="user_linux_key" width="90" hidden="true">密码</th> 
 							           <th field="created_date" width="90" sortable="true" hidden="true">创建日期</th>  
                                        <!--<th field="notes" width="100" hidden="true">备注</th>-->

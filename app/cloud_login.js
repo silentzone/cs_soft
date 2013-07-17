@@ -10,9 +10,8 @@ function httpsRemoteClientLogin(){
 		preLoginOpenw(url);
 		loginByAction(url);
 	}else{
-		 window.open(url , 'popupPlayer', 'width=1000,height=500, resizable=yes,status=no') ;
+		window.open(url , 'openpopwin', 'width=1000,height=500, resizable=yes,status=no') ;
 	}
-	
 }
 
 function judgeDeskTopReady(){
@@ -41,7 +40,7 @@ function judgeDeskTopReady(){
 function preLoginOpenw(url){
 	
 	var playerUrl = url;
-	var popupPlayer= window.open('', 'popupPlayer', 'width=0,height=0') ;
+	var popupPlayer= window.open('', '登录中......', 'width=50,height=50, resizable=yes,status=no') ;
 	if(popupPlayer.location == 'about:blank' ){
 	    popupPlayer.location = url;
 	}
@@ -80,13 +79,29 @@ function loginByAction(url){
 		winparent.document.getElementById("password").value ="123456";
 		//alert("用户:"+loinguser+"  密码:");
 		winparent.document.forms["CitrixForm"].target="_blank";
+		winparent.document.forms["CitrixForm"].autocomplete="true"
 		//winparent.document.forms["CitrixForm"].submit();
-		setTimeout("getTopFrame(window).document.forms['CitrixForm'].submit();",2000);
+		//增加一个 submit 按钮
+		var submitButton = document.createElement("input");
+		submitButton.type = "submit";
+		submitButton.id="subbutt"
+		winparent.document.forms["CitrixForm"].appendChild(submitButton);
+		setTimeout("loginFormSubmit();",5000);
+
 		
 		//删除div
 	}
 	
 }
+
+function loginFormSubmit(){
+
+	var winparent = getTopFrame(window);
+	winparent.document.getElementById("CitrixForm").value;
+	winparent.document.forms["CitrixForm"].submit();
+	
+}
+
 function getTopFrame(w) {
     if (w != w.parent) {
 		return w.parent;

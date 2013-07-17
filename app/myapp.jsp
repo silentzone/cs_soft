@@ -63,7 +63,7 @@
 <title>个人中心-我的应用 </title>
 <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
 <link href="../css/page.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
 <link type="text/css" href="../plugins/jscroll/jscroll.css" rel="stylesheet" media="all" /> 
 </head>

@@ -4,7 +4,7 @@ var cardview = $.extend({}, $.fn.datagrid.defaults.view, {
 		var cc = [];
 		cc.push('<td colspan=' + fields.length + ' style="padding:10px 5px;">');
 		if (!frozen){
-			cc.push('<img src="../img/whcomputer.png" style="width:80px; height:80px; float:left">');
+			cc.push('<img src="../img/whcomputer.png" style="width:72px; height:72px; float:left">');
 			cc.push('<div style="float:left; margin-left:10px; width:540px;>');
 			for(var i=0; i<fields.length; i++){
 				var copts = $(target).datagrid('getColumnOption', fields[i]);

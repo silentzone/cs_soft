@@ -28,43 +28,87 @@ appAccount.elemEventBind = function(){
     $("#qry_btn").click(function(){appAccount.queryInfo('1','5')});
     $("#czspan").click(function(){appAccount.changeDiv('1')});
     $("#cxspan").click(function(){appAccount.changeDiv('2')});
+    $("#xfmm").click(function(){appAccount.changeDiv('3')});
     $("#save_btn").click(function(){appAccount.recharge()});
+    $("#pwd_btn").click(function() { appAccount.modifyPwd()});
 }
 appAccount.changeDiv = function(type){
     if(type=='1'){
         $("#recharge_div").show();
         $("#qry_div").hide();
-    }else{
+        $("#pwd_div").hide();
+    }else if(type=='2'){
         $("#qry_div").show();
         $("#recharge_div").hide();
+        $("#pwd_div").hide();
+    }else if(type=='3'){
+        $("#qry_div").hide();
+        $("#recharge_div").hide();
+        if(this.isPayPwd()){
+            $("#tip_span").empty();
+        }
+        $("#pwd_div").show();
     }
 }
-appAccount.recharge = function(){
-    $.messager.defaults = { ok: "确定"};
+appAccount.cardValidator = function(){
+    $("#MONEY").val("");
     var cardNo = $("#CARD_NO").trimval();
     if(cardNo == ''){
         $.messager.alert('温馨提醒','卡片编号不能为空','warning');
         $("#CARD_NO").focus();
-        return;
+        return false;
     }
     var cardSn = $("#CARD_SN").trimval();
     if(cardSn == ''){
         $.messager.alert('温馨提醒','卡片密码不能为空','warning');
         $("#CARD_SN").focus();
-        return;
+        return false;
     }
-    // 先不验证直接充30元钱
+    var len = cardNo.length;
+    var bit_1 = cardNo.substr(len-2,1);
+    var bit_2 = cardNo.substr(len-1,1);
+    var m = cardSn.substr(bit_1,bit_2);
+    var reg = new RegExp("^[0-9]*$");
+    if(m==""||!reg.test(m)){
+        $.messager.alert('温馨提醒','卡片密码不正确','warning');
+        $("#CARD_SN").focus();
+        return false;
+    }
+    
+    $("#MONEY").val(m);
+
+    return true;
+}
+appAccount.recharge = function(){
+
+    if(!this.cardValidator()) return;
+    
+    $.messager.defaults = { ok: "确定"};
+    var cardNo = $("#CARD_NO").trimval();
+    var cardSn = $("#CARD_SN").trimval();
+    var money = $("#MONEY").trimval();
+    var ba = parseFloat(money);
+    ba = ba/100;
+
+    var base64Pwd = Base64.base64encode(Base64.utf16to8(cardSn));
+    var md5Pwd = MD5.toMD5(base64Pwd);
+
+    var base64M = Base64.base64encode(Base64.utf16to8(money));
+    var md5M = MD5.toMD5(base64M);
+
     var dict = new DynamicDict("UBOSS_DESKTOP_USER_002");
     dict.setValue("OP_TYPE","7");
     dict.setValue("BILL_ID",$billId);
     dict.setValue("USER_ID",$userId);
-    dict.setValue("MONEY","30");
+    dict.setValue("CRAD_NO",cardNo);
+    dict.setValue("MD5_PWD",md5Pwd);
+    dict.setValue("MD5_MONEY",md5M);
     dict.setValue("NOTES","卡号:"+cardNo+"|密码:"+cardSn);
     if(!dict.callService()){
         $.messager.alert('温馨提醒','充值失败：'+dict.error.Desc,'error');
         return;
     }
-    $("#saveResult").html("<font color='green'>充值[30元]成功</font>");
+    $("#saveResult").html("<font color='green'>&nbsp;充值["+ba+"云币]成功</font>");
     this.queryBillInfo();
 }
 /* information table init*/
@@ -140,4 +184,56 @@ appAccount.queryBillInfo = function(){
         ba = ba/100;
         $("#moneyspan").html(ba.toFixed(2));
     }
+}
+appAccount.modifyPwd = function(){
+    var billId = $billId;
+    var oldPwd = $.trim($("#OLD_PWD").val());
+    var newPwd = $.trim($("#NEW_PWD").val());
+    var newPwdRe = $.trim($("#NEW_PWD_RE").val());
+
+    $.messager.defaults = { ok: "确定"};
+    if(oldPwd =="")
+    {
+        $.messager.alert('温馨提醒','原密码不能为空','warning');
+        $("#OLD_PWD").focus();
+        return; 
+    }
+    if(newPwd =="")
+    {
+        $.messager.alert('温馨提醒','新密码不能为空','warning');
+        $("#NEW_PWD").focus();
+        return; 
+    }
+    if(newPwdRe !=newPwd)
+    {
+        $.messager.alert('温馨提醒','确认密码与新密码不一致','warning');
+        $("#NEW_PWD_RE").focus();
+        return; 
+    }
+    var base64Pwd = Base64.base64encode(Base64.utf16to8(oldPwd));
+    var md5Pwd = MD5.toMD5(base64Pwd);
+
+    var dict = new DynamicDict("UBOSS_DESKTOP_USER_002");
+    dict.setValue("OP_TYPE","10");
+    dict.setValue("BILL_ID",billId);
+    dict.setValue("MD5_PWD",md5Pwd);
+    dict.setValue("INPUT_PWD",newPwd);
+    $.messager.defaults = { ok: "确定"};
+    if(!dict.callService()){
+        $.messager.alert('温馨提醒','设置失败：'+dict.error.Desc,'error'); 
+        $("#pwdResult").html("<font color='red'>&nbsp;消费密码设置失败</font>");
+        return;
+    }
+    $.messager.alert('温馨提醒','消费密码设置成功','info'); 
+    $("#pwdResult").html("<font color='green'>&nbsp;消费密码设置成功</font>");
+    
+}
+appAccount.isPayPwd = function(){
+    var dict = new DynamicDict("UBOSS_DESKTOP_USER_003");
+    dict.setValue("OP_TYPE","4");
+    dict.setValue("BILL_ID",$billId);
+    if(!dict.callService()){
+        return false;
+    }
+    return true;
 }

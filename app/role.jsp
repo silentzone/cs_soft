@@ -33,7 +33,8 @@
 		}
 	}
 	if(!havePower){
-		response.sendRedirect(strWebRoot+"portal.jsp");
+		//response.sendRedirect(strWebRoot+"portal.jsp");
+		out.println("对不起,您没有操作权限");
 		return;
 	}
  }
@@ -43,11 +44,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>用户角色权限</title>
-	<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
-	<link href="../css/page.css" rel="stylesheet" type="text/css" />
+	
 	<link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
 	<link href="../css/validform.css" rel="stylesheet" type="text/css" />
+
+	<link href="../css/page.css" rel="stylesheet" type="text/css" />
 
 	<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="../plugins/jquery.easyui.min.js"></script>
@@ -59,18 +62,77 @@
 	<script src="../plugins/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="./js/public.js"></script>
 	<script type="text/javascript" src="./js/role.js"></script>
+<style>
+  * {
+    margin:0;
+    padding:0;
+  }
+  .pop-window {
+    position: absolute;
+    top:50%;
+    left:50%;
+    border:1px solid #000;
+  }
 
+  .pop-window-head {
+    background-color:#333;
+    position: absolute;
+    height:30px;
+    width: 100%;
+  }
+
+  .pop-window-head h3 {
+    color:#ffffff;
+    font-weight:bold;
+    margin-top:-5px;
+    margin-left:5px;
+    font-size: 12px;
+  }
+
+  .pop-window-ctr {
+    position: absolute;
+    right:0;
+    top:50%;
+    overflow: hidden;
+    zoom:1;
+    margin-top:-13px;
+  }
+
+  .pop-window-ctr a {
+
+    display:block;
+    width:15px;
+    height:15px;
+    float: left;
+    background-color: #fff;
+    margin:5px;
+    text-indent: -100em;
+    overflow: hidden;
+  }
+  .pop-window-body {
+    margin-top:30px;
+  }
+  .button-region {
+    border-top:1px solid #ccc;
+    text-align: right;
+    padding:5px;
+    background-color: #eee;
+  }
+  .button-region button {
+    padding:2px 10px;
+  }
+ </style>
 </head> 
 <body class="body_silder" style=" width:800px; height:550px;" onload="appRole.init();">
 	<div id="layout" >
 		<div class="section">
 			<div class="datagrid-toolbar"> <!-- id="editUser" -->  
 				<!--折叠 控件 按钮-->
-				<span class="btn btn-small"  id="silder_menu" > <i class="icon-arrow-right"></i>编辑</span>  
+				<span class="btn"   id="silder_menu" > <i class="icon-arrow-right"></i>编辑</span>  
 		       	<!-- 搜索 控件 -->
-		      <span class="input-append">
+		       <span class="input-append">
 			    	<input class="span2" id="condition_value" type="text" value="" maxlength="50">
-			    	<input class="btn" type="button" value="搜索用户" id="qry_btn">
+			    	<span class="btn"  id="qry_btn">搜索用户</span>
 			    </span>
 			</div>
 				<table id="table_userinfo" cellspacing="0" cellpadding="0" style="height:200px;">  
@@ -121,44 +183,54 @@
 				</div>
 			</div>
 
-			<div class="form-actions"> <span class="btn btn-success" id="save_btn"> <i class="icon-ok"></i>保存角色</span><span id="saveResult"></span></div>  
+			<div class="form_actions"> <span class="btn btn-success" id="save_btn"> <i class="icon-ok icon-white"></i>保存角色</span><span id="saveResult"></span></div>  
 		</div> 
 	</div><!-- layout --> 
+
 	<div class="silder" id="silder">
 		<div class="silder_box form-horizontal">
 			<div class="row-fluid">
 
 				<div class="span6">
 					<fieldset>
-						<legend>注册信息 </legend>
-
+						<legend>注册信息 </legend> 
 						<div class="control-group">
 							<label class="control-label" for="inputEmail">用户账号</label>
 							<div class="controls">
 								<input type="hidden" id="USER_ID" name="USER_ID" value="">
 								<input type="hidden" id="PWD_ID" name="PWD_ID" value="">
+								<input type="hidden" id="BILL_ID" name="BILL_ID" value="">
 								<input type="text" id="USER_CODE" name="USER_CODE" disabled>
-							</div>
+							</div> 
+						</div>
+						<div class="control-group">
 							<label class="control-label"  >用户名</label>
 							<div class="controls">
 								<input type="text" id="USER_NAME" name="USER_NAME" datatype="s6-18" nullmsg="请输入您的用户名！" errormsg="用户名为6-18个字符！" ><span class="Validform_checktip help-inline"></span>
-							</div>
+							</div> 
+						</div>
+						<div class="control-group">
 							<div class="controls" id="pwd_div">
 								<input type="button" class="btn btn-primary" value="修改密码" id="pwd_btn">
 							</div>
-							<span id="pwd_span" style="display:none;">
-	                        <label class="control-label" >新密码</label>
-							<div class="controls">
-								<input type="password" id="USER_PWD" name="USER_PWD" datatype="*6-10" nullmsg="请设置密码！" errormsg="密码为6~10位之间！"maxlength="10">  
-							</div>
-							<label class="control-label"  >确认新密码</label>
-							<div class="controls">
-								<input type="password" id="USER_PWD_CF" recheck="USER_PWD" name="USER_PWD_CF" datatype="*" maxlength="10" nullmsg="请输入确认密码！" errormsg="确认密码不正确！">  
-							</div>
-							</span>
 						</div>
-					</fieldset>
 
+						<!--  -->
+						<div id="pwd_span" style="display:none;" >
+							<div class="control-group" >
+								<label class="control-label" >新密码</label>
+								<div class="controls">
+									<input type="password" id="USER_PWD" name="USER_PWD" datatype="*6-10" nullmsg="请设置密码！" errormsg="密码为6~10位之间！"maxlength="10">  
+								</div>
+							</div>
+							<div class="control-group" >
+								<label class="control-label"  >确认新密码</label>
+								<div class="controls">
+									<input type="password" id="USER_PWD_CF" recheck="USER_PWD" name="USER_PWD_CF" datatype="*" maxlength="10" nullmsg="请输入确认密码！" errormsg="确认密码不正确！">  
+								</div>
+							</div>
+						</div>   
+					</fieldset> 
 
 					<fieldset>
 						<legend>安全信息 </legend>
@@ -170,16 +242,22 @@
 									<option value="001">父亲生日</option>
 									<option value="002">母亲的名字</option>
 								</select> 
-							</div>
+							</div> 
+						</div>
+
+						<div class="control-group">
 							<label class="control-label" >问题答案</label>
 							<div class="controls">
 								<input type="text" id="01_SAFETY_ANSWER" name="01_SAFETY_ANSWER" maxlength="40" datatype="*1-40" nullmsg="请填写问题答案！">
-							</div>
+							</div> 
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="inputEmail">邮箱地址</label>
 							<div class="controls">
 								<input type="text" id="E_MAIL" name="E_MAIL" datatype="e" nullmsg="请输入您的邮箱！" errormsg="请输入正确邮箱"><span class="Validform_checktip help-inline"></span>  
 							</div>
 						</div>
+
 
 					</fieldset>
 
@@ -192,15 +270,50 @@
 							<label class="control-label" >姓名</label>
 							<div class="controls">
 								<input type="text" id="02_NAME" name="02_NAME" maxlength="20">  
-							</div>
+							</div> 
+						</div>
+						<div class="control-group">
 							<label class="control-label" >电话</label>
 							<div class="controls">
 								<input type="text" id="02_TEL" name="02_TEL" maxlength="20">  
 							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label" >地址</label>
 							<div class="controls">
 								<input type="text" id="02_ADDR" name="02_ADDR" maxlength="200">
 							</div>
+						</div>
+						 
+					</fieldset>
+
+					<fieldset>
+						<legend>企业信息 </legend>
+						<div class="control-group">
+							<label class="control-label" >企业名称</label>
+							<div class="controls">
+								<input type="text" id="03_NAME" name="03_NAME" maxlength="200">  
+							</div> 
+						</div> 
+						<div class="control-group">
+							<label class="control-label" >联系电话</label>
+							<div class="controls">
+								<input type="text" id="03_TEL" name="03_TEL" maxlength="20">  
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" >地址</label>
+							<div class="controls">
+								<input type="text" id="03_ADDR" name="03_ADDR" maxlength="200">  
+							</div>
+						</div> 
+					</fieldset>
+				</div><!-- span6 -->	
+			</div>
+			<div> 
+				<fieldset>
+						<!--  个人 --><legend> </legend>
+						<div class="control-group">
 							<label class="control-label" >用户类型</label>
 							<div class="controls">
 								<label class="radio inline">
@@ -213,32 +326,45 @@
 									<input type="radio" name="USER_TYPE" value="03">区外企业用户
 								</label> 
 							</div>
-						</div>
-					</fieldset>
-
-					<fieldset>
-						<legend>企业信息 </legend>
-						<div class="control-group">
-							<label class="control-label" >企业名称</label>
-							<div class="controls">
-								<input type="text" id="03_NAME" name="03_NAME" maxlength="200">  
-							</div>
-							<label class="control-label" >联系电话</label>
-							<div class="controls">
-								<input type="text" id="03_TEL" name="03_TEL" maxlength="20">  
-							</div>
-							<label class="control-label" >地址</label>
-							<div class="controls">
-								<input type="text" id="03_ADDR" name="03_ADDR" maxlength="200">  
-							</div>
 						</div> 
-
-					</fieldset>
-				</div>  	
+						<div class="control-group">
+							<label class="control-label" >账户余额</label>
+							<div class="controls">
+							  	<strong id="moneyspan">0.00</strong> <span>云币</span> 
+							 	<span class="btn btn-small btn-warning"  id="account_btn">账户充值</span>
+							</div>
+						</div>
+				</fieldset> 
 			</div>
-			<div class="form-actions"><input type="button" class="btn btn-primary" value="保存修改" id="modify_btn"><span id="modifyResult"></span></div>  	
+ 
+			<div class="form_actions">
+				<span class="btn btn-primary"  id="modify_btn">保存修改</span> 
+				<span id="modifyResult"></span>
+			</div>  
+
+		</div>
+
+
+		<div class="pop-window" style="margin:-130px 0 0 -175px;display:none;">
+		  <div class="pop-window-head">
+		    <h3>账户充值</h3>
+		  </div>
+		  <div class="pop-window-body">
+		    <div class="pop-inner">
+		    	<div class="control-group"  >
+					<div class="controls">
+						 充值金额 <input type="text" id="MONEY" name="MONEY" maxlength="10" onkeyup="Pb.clearNumberFix(this)">云币 
+					</div>
+				</div>
+		   </div>
+		    <div class="button-region">
+		      <button class="btn btn-success" id="recharge">确定</button>
+		      <button class="btn btn-warning cancel" id="norecharge">取消</button>
+		    </div>
+		  </div>
 		</div>
 	</div>
+
 </body>
 
 </html>

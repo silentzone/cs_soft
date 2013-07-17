@@ -3,11 +3,11 @@ var cardview = $.extend({}, $.fn.datagrid.defaults.view, {
 		var cc = [];
 		cc.push('<td colspan=' + fields.length + ' style="padding:2px 1px; ">');
 		if (!frozen){
-			cc.push('<img src="../img/whcomputer.png" style="height:80px; width:80px; float:left"> ');
+			cc.push('<img src="../img/whcomputer.png" style="height:72px; width:72px; float:left"> ');
 			cc.push('<div style="float:left;margin-left:10px; width:550px;">');
 			for(var i=0; i<fields.length; i++){
 				var copts = $(target).datagrid('getColumnOption', fields[i]); 
-				cc.push('<p style="width:45%; float:left;"><span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '</p>'); //
+				cc.push('<p class="datagrid_p" style="width:49.5%; float:left;"><span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + ' </p>'); //
 				// cc.push('<span><span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '</span>'); 
 			}
 			cc.push('</div>');
