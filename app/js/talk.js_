@@ -1,11 +1,4 @@
-window.onbeforeunload=function (){
- // if(event.clientX>document.body.clientWidth && event.clientY < 0 || event.altKey){
- //      alert("你关闭了浏览器");
- // }else{
- //      alert("你正在刷新页面");
- // }
- appTalk.logout('1');
-}
+
 var appTalk = new function(){};
 appTalk.sendFlag = '';
 appTalk.entryNo = '';
@@ -54,20 +47,23 @@ appTalk.loadLeave = function(){
 	$("#zxjk_p").load("leave.jsp",{entryNo:this.entryNo,userName:this.entryUserName}); 
 }
 appTalk.logout = function(flag){
-	if(flag!='1')
-	if(!confirm("您确定要退出IM吗？")) return;
+	// if(flag!='1')
+	// if(!confirm("您确定要退出IM吗？")) return;
 	
-	$.messager.defaults = { ok: "确定"};
+	// $.messager.defaults = { ok: "确定"};
 	var dict = new DynamicDict("UBOSS_DESKTOP_IM_001");
 	dict.setValue("OP_TYPE","1");
 	dict.setValue("SV_TYPE","2");
 	dict.setValue("ENTRY_NO",this.entryNo);
 	dict.setValue("USER_TYPE",this.sendFlag);
 	if(!dict.callService()){
-		$.messager.alert('温馨提醒','用户注销失败：'+dict.error.Desc,'error');
+		// $.messager.alert('温馨提醒','用户注销失败：'+dict.error.Desc,'error');
+		alert("用户注销失败："+dict.error.Desc);
 		return;
 	}
-	$.messager.alert('温馨提醒','用户注销成功','info');
+	// $.messager.alert('温馨提醒','用户注销成功','info');
+	// alert("用户注销成功");
+	if(flag!='1')
 	Tools.CloseWin('talk_001');
 }
 appTalk.interval = function(){
@@ -88,8 +84,9 @@ appTalk.login = function(){
 	dict.setValue("OP_TYPE","1");
 	dict.setValue("SV_TYPE","1");
 	if(!dict.callService()){
-		$.messager.defaults = { ok: "确定"};
-		$.messager.alert('温馨提醒','用户登录IM失败：'+dict.error.Desc,'error');
+		// $.messager.defaults = { ok: "确定"};
+		// $.messager.alert('温馨提醒','用户登录IM失败：'+dict.error.Desc,'error');
+		alert("用户登录IM失败："+dict.error.Desc);
 		Tools.CloseWin('talk_001');
 		return;
 	}
@@ -112,8 +109,9 @@ appTalk.login = function(){
 			this.servicePerson.push(this.vEntryUserName);
 			this.servicePerson.push(this.vUserType);
 			this.renewContact('1');
-			$.messager.defaults = { ok: "确定"};
-			$.messager.alert('温馨提醒',appTalk.vEntryUserName+' 接待了您，您可与他通话。','info');
+			// $.messager.defaults = { ok: "确定"};
+			// $.messager.alert('温馨提醒',appTalk.vEntryUserName+' 接待了您，您可与他通话。','info');
+			alert(appTalk.vEntryUserName+" 接待了您，您可与他通话。");
 		}
 	}
 	
@@ -189,8 +187,9 @@ appTalk.queryVserviceUser = function(){
 	dict.setValue("ENTRY_NO",this.entryNo);
 
 	if(!dict.callService()){
-		$.messager.defaults = { ok: "确定"};
-		$.messager.alert('温馨提醒','IM查询用户失败：'+dict.error.Desc,'error');
+		// $.messager.defaults = { ok: "确定"};
+		// $.messager.alert('温馨提醒','IM查询用户失败：'+dict.error.Desc,'error');
+		alert("IM查询用户失败："+dict.error.Desc)
 		return null;
 	}
 	return dict;
@@ -203,8 +202,9 @@ appTalk.queryUser = function(){
 		dict.setValue("QR_TYPE","1");
 	}
 	if(!dict.callService()){
-		$.messager.defaults = { ok: "确定"};
-		$.messager.alert('温馨提醒','IM查询用户失败：'+dict.error.Desc,'error');
+		// $.messager.defaults = { ok: "确定"};
+		// $.messager.alert('温馨提醒','IM查询用户失败：'+dict.error.Desc,'error');
+		alert("IM查询用户失败："+dict.error.Desc)
 		return null;
 	}
 	return dict;
@@ -243,7 +243,7 @@ appTalk.renewContact = function(flag){
 	if(userDict==null) return;
 	var uNum = userDict.getValue("ONLINE_USER_COUNT");
 	var suNum = userDict.getValue("ONLINE_SERVICE_COUNT");
-	var isLogin = '0'; 
+	var isLogin = '0';
 	for(var i=0;i<uNum;i++){
 		var uObj = userDict.getBOValue("ONLINE_USER",i);
 		var entryNo = uObj.getValue("ENTRY_NO");
@@ -283,28 +283,45 @@ appTalk.renewContact = function(flag){
 			var userName = uObj.getValue("ENTRY_USER_NAME");
 			serviceUL.append('<a href="javascript:appTalk.selectContract(\''+entryNo+'\',\''+userId+'\',\''+userName+'\',\'A\')"><li>'+userName+'</li></a>');
 		}
-	} 
-	if(isLogin=='0'){//已经退出 
-		
+	}
+
+	if(isLogin=='0'){//已经退出
+
 		this.clsInterval();
-		$.messager.defaults = { ok: "重新登入",cancel:"退出"};
-		$.messager.confirm("温馨提醒","您长时间未在线已退出系统，是否重新登入？", function (data) {
-            if (data) {
-	            var dict = new DynamicDict("UBOSS_DESKTOP_IM_001");
-				dict.setValue("OP_TYPE","4");
-				dict.setValue("USER_TYPE",appTalk.sendFlag);
-				dict.setValue("ENTRY_NO",appTalk.entryNo);
-				if(!dict.callService()){
-					alert(dict.error.Desc);
-					Tools.CloseWin('talk_001');
-				} 
-				appTalk.interval();
-            }else {
-               	//移除session
-				Tools.RemoveSession("IM_ENTRY_NO");
+		// $.messager.defaults = { ok: "重新登入",cancel:"退出"};
+		// $.messager.confirm("温馨提醒","您长时间未在线已退出系统，是否重新登入？", function (data) {
+  //           if (data) {
+	 //            var dict = new DynamicDict("UBOSS_DESKTOP_IM_001");
+		// 		dict.setValue("OP_TYPE","4");
+		// 		dict.setValue("USER_TYPE",appTalk.sendFlag);
+		// 		dict.setValue("ENTRY_NO",appTalk.entryNo);
+		// 		if(!dict.callService()){
+		// 			alert(dict.error.Desc);
+		// 			Tools.CloseWin('talk_001');
+		// 		}
+		// 		appTalk.interval();
+  //           }else {
+  //              	//移除session
+		// 		Tools.RemoveSession("IM_ENTRY_NO");
+		// 		Tools.CloseWin('talk_001');
+  //           }
+  //       });
+
+        if(confirm("您长时间未在线已退出系统，是否重新登入？")){
+        	var dict = new DynamicDict("UBOSS_DESKTOP_IM_001");
+			dict.setValue("OP_TYPE","4");
+			dict.setValue("USER_TYPE",appTalk.sendFlag);
+			dict.setValue("ENTRY_NO",appTalk.entryNo);
+			if(!dict.callService()){
+				alert(dict.error.Desc);
 				Tools.CloseWin('talk_001');
-            }
-        });
+			}
+			appTalk.interval();
+        }else{
+        	//移除session
+			Tools.RemoveSession("IM_ENTRY_NO");
+			Tools.CloseWin('talk_001');
+        }
 	}
 }
 appTalk.selectContract = function(vEntryNo,vEntryUserId,vEntryUserName,vUserType){
@@ -316,14 +333,16 @@ appTalk.selectContract = function(vEntryNo,vEntryUserId,vEntryUserName,vUserType
 }
 /*发送信息*/
 appTalk.sendMsg = function(){
-	$.messager.defaults = { ok: "确定"};
+	// $.messager.defaults = { ok: "确定"};
 	if(this.vEntryNo==''){
-		$.messager.alert('温馨提醒','请从左边栏选择您需要通话的对象！','warning'); 
+		// $.messager.alert('温馨提醒','请从左边栏选择您需要通话的对象！','warning'); 
+		alert("请从左边栏选择您需要通话的对象！");
 		return;
 	}
 	var msg = $.trim($("#SEND_MSG").val());
 	if(msg==''){
-		$.messager.alert('温馨提醒','请输入消息！','warning'); 
+		// $.messager.alert('温馨提醒','请输入消息！','warning'); 
+		alert("请输入消息！");
 		$("#SEND_MSG").focus();
 		return;
 	}
@@ -341,8 +360,9 @@ appTalk.sendMsg = function(){
 	dict.setValue("V_USER_TYPE",this.vUserType);
 	dict.setValue("CONTENT",msg);
 	if(!dict.callService()){
-		$.messager.defaults = { ok: "确定"};
-		$.messager.alert('温馨提醒','信息发送失败：'+dict.error.Desc,'error'); 
+		// $.messager.defaults = { ok: "确定"};
+		// $.messager.alert('温馨提醒','信息发送失败：'+dict.error.Desc,'error'); 
+		alert("信息发送失败："+dict.error.Desc);
 		return;
 	}
 	var cNum = dict.getValue("CHAT_COUNT");
@@ -353,8 +373,9 @@ appTalk.sendMsg = function(){
 		var chatNo = uObj.getValue("CHAT_NO");
 		this.insertMsg('我',this.vEntryUserName,time,msg,chatNo);
 	}else{
-		$.messager.defaults = { ok: "确定"};
-		$.messager.alert('温馨提醒','系统忙......','error');
+		// $.messager.defaults = { ok: "确定"};
+		// $.messager.alert('温馨提醒','系统忙......','error');
+		alert("系统忙......");
 		return;
 	}
 }
@@ -363,53 +384,20 @@ appTalk.queryMsg = function(){
 	if(this.entryNo==''){
 		return;
 	}
-
-	var IS_ACCT = "0"
-	
- 	if(pop.ishide("talk_001") == true ) {
- 		IS_ACCT = "1";	 // 1 为窗口隐藏 
- 	} 
-
-
 	var dict = new DynamicDict("UBOSS_DESKTOP_IM_001");
 	dict.setValue("OP_TYPE","3");
 	dict.setValue("USER_TYPE",this.sendFlag);
 	dict.setValue("ENTRY_NO",this.entryNo);
-	dict.setValue("IS_ACCT",IS_ACCT);
-	
 	if(!dict.callService()){
 		return;
 	}
 	var uNum = dict.getValue("COUNT");
-	
-	// 数量提醒
-	var topIm = top.bottomMenu.num
-	var topMsg = top.bottomMenu.msg;	
-	if( IS_ACCT == "1") {
-		if(uNum > 0 ) {
-			topIm.html(uNum).show();
-		} 
-	} else {
-		topIm.html(0).hide();
-		topMsg.html("").hide();
-	}
-
-	 
- 
-    // 将消息内容写入 消息提示中
-    // top.bottomMenu.msgTo(bottomMenu.num,uNum)
-
-
 	for(var i=0;i<uNum;i++){
 		var uObj = dict.getBOValue("USER_CHAT",i);
 		var msg = uObj.getValue("CONTENT");
 		var userName = uObj.getValue("ENTRY_USER_NAME");
 		var time = uObj.getValue("SEND_DATE");
 		var chatNo = uObj.getValue("CHAT_NO");
-		// 隐藏消息 吸入提醒中 
-
-		 if( IS_ACCT == "1") {  topMsg.html( userName + ": " + msg.substring(0,12) + "...").show(); }
-		
 		this.insertMsg(userName,'我',time,msg,chatNo);
 	}
 }
@@ -488,21 +476,4 @@ appTalk.close = function(e){
      
     // Chrome / Safari
     return msg;
-}
-
-
-var pop = {};
-pop.ishide =  function (id) {
-	
-	var dglist = top.art.dialog.list;
-	var dgapi = dglist[id];
-	if(!dgapi) { return null; }
-	var wrap = dgapi.DOM.wrap;
-	var $wrap = $(wrap[0]);
-	if($wrap.is(":hidden")) {
-		return true;
-	} else {
-		return false;
-	} 
-	  
 }

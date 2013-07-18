@@ -384,20 +384,49 @@ appTalk.queryMsg = function(){
 	if(this.entryNo==''){
 		return;
 	}
+	// 判断窗口是否打开 
+	var IS_ACCT = "0" 
+ 	if(pop.ishide("talk_001") == true ) {
+ 		IS_ACCT = "1";	 // 1 为窗口隐藏 
+ 	}  
 	var dict = new DynamicDict("UBOSS_DESKTOP_IM_001");
 	dict.setValue("OP_TYPE","3");
 	dict.setValue("USER_TYPE",this.sendFlag);
 	dict.setValue("ENTRY_NO",this.entryNo);
+	dict.setValue("IS_ACCT",IS_ACCT);
+
 	if(!dict.callService()){
 		return;
 	}
+
 	var uNum = dict.getValue("COUNT");
+
+
+
+	// 数量提醒 by li 
+	var topIm = top.bottomMenu.num
+	var topMsg = top.bottomMenu.msg;
+ 
+	if( IS_ACCT == "1") {
+		if(uNum > 0 ) {
+			topIm.html(uNum).show();
+		} 
+	} else {
+		topIm.html(0).hide();
+		topMsg.html("").hide();
+	}
+
+
 	for(var i=0;i<uNum;i++){
 		var uObj = dict.getBOValue("USER_CHAT",i);
 		var msg = uObj.getValue("CONTENT");
 		var userName = uObj.getValue("ENTRY_USER_NAME");
 		var time = uObj.getValue("SEND_DATE");
 		var chatNo = uObj.getValue("CHAT_NO");
+
+		// 隐藏消息 吸入提醒中  byli 
+		 if( IS_ACCT == "1") {  topMsg.html( userName + ": " + msg.substring(0,12) + "...").show(); }
+
 		this.insertMsg(userName,'我',time,msg,chatNo);
 	}
 }
@@ -477,3 +506,22 @@ appTalk.close = function(e){
     // Chrome / Safari
     return msg;
 }
+
+
+
+
+
+var pop = {};
+pop.ishide =  function (id) {
+	
+	var dglist = top.art.dialog.list;
+	var dgapi = dglist[id];
+	if(!dgapi) { return null; }
+	var wrap = dgapi.DOM.wrap;
+	var $wrap = $(wrap[0]);
+	if($wrap.is(":hidden")) {
+		return true;
+	} else {
+		return false;
+	} 
+}	  

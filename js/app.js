@@ -4,54 +4,38 @@ var bindwheel = function () {
  			$(window).unbind('mousewheel');
  			var blocker = 0; // display block 状态的dialog
 			var array = art.dialog.list; 
-			for( a in array) { 
-		 
-				  if( "block" == array[a].DOM.wrap[0].style.display ) { 
-				  	 // alert(a + " --" + array[a].DOM.wrap[0].style.display );
+			for( a in array) {  
+				  if( "block" == array[a].DOM.wrap[0].style.display ) {  
 				  	 blocker++; // 统计所有 block 状态的dialog 
 				  } 
 			}
-			// 显示窗口数量大于1 则不绑定滚轮事件 
-			// alert(blocker)
-		    // 
-	        if(blocker > 1) { return; }
-			
+			// 显示窗口数量大于1 则不绑定滚轮事件  
+	        if(blocker > 1) { return; } 
 			if(!impressAPI) { return; }
-		    // 滚轮事件
-
+		    // 滚轮事件 
 	        $(window).bind('mousewheel', function(event, delta) {  
 	             // 上滚
-	             if(delta > 0) {
-
+	             if(delta > 0) { 
 	             	// mac 中会出现 delta 值不断累加的情况 
 	                impressAPI.next();
 	             } else if (delta < 0) {
-	                // -1
-	                
+	                // --1 
 	                impressAPI.prev();
 	             }
 	        });  
 } 
 var unbindwheel  = function () { 
+
 	$(window).unbind('mousewheel');
-}
-
-
-function portalInit(){
-	desk.init();  
+} 
+function portalInit(){ 
 	//任务栏 
 	bottomBar.init();
    //消息 和 开始菜单 
-    bottomMenu.init();
-
-
-    // bind 滚轮  
-
+    bottomMenu.init(); 
+    // bind 滚轮   
 	dataInit(); 
-	win.setView(win.viewstatus);
-
-
-
+	win.setView(win.viewstatus); 
 }
 var impressAPI = null;
 function dataInit(){
@@ -93,9 +77,7 @@ function dataInit(){
 		bindwheel();
 		
     } 
-}
-
-
+} 
 // 任务栏 me 作用是 使用 正确 对象作用域 
 var bottomBar = function (me) { 
 	return me = {
@@ -167,6 +149,7 @@ var bottomBar = function (me) {
 	}	
 }();
 
+// 开始菜单
 var startMenu = function (me) {
 	return me = {
 		init: function () { me.create() ;},
@@ -244,9 +227,9 @@ var startMenu = function (me) {
 			
 		}
 	}
-}();
-
-
+}(); 
+// im菜单
+// im菜单调用在talk.js控制写入和隐藏   
 var bottomMenu = function (me) {
 	return me = {
 		init: function (){
@@ -301,14 +284,12 @@ var bottomMenu = function (me) {
 		}
 	}
 }();
-
-var win = function (me) {
-	 
+// 窗口视图
+var win = function (me) { 
 	return me = {
 		viewstatus : "3d",
 		body: $("body"),
-		showApp : function(id){//art弹出 
-		
+		showApp : function(id){//art弹出  
 			var array = art.dialog.list;
 			var taskIds = bottomBar.getALLItemID();
 			var taskLen = taskIds.length;
@@ -480,22 +461,8 @@ var win = function (me) {
 
 	}
 }();
-// impress 窗口
-var desk = function () { 
-	return me={ 
-		init:function(){
-			me.create(); 
-		},
-		create:function(){ 
-			me.box=$("#impress"); 
-		},
-		addPanel:function(panel){
-			me.box.append(panel);      
-		}
-
-	}
-}();
-// css3 浏览器                         
+ 
+// html5 窗口菜单项                         
 var app = function(me) {
 	var o = { "data-x" :0, "data-y" :0, "data-z" :0 } 
 	return me = { 
@@ -592,42 +559,13 @@ var app = function(me) {
 				});
 			}
 	} //self
-}();
- 
-// 关闭按钮受到影响
-function showDialog(id) {
-    // 检测 当前窗口 隐藏或者是关闭 
- 
-    if(art.dialog.list[id]) { 
-        var wrap = art.dialog.list[id].DOM.wrap;
-        var $wrap = $(wrap);
-        if($wrap.is(":hidden")) { 
-            art.dialog.list[id].show(); 
-            art.dialog.list[id].focus();
-            return true; 
-        } 
-    } else {
-        return false; // 不存在该ID 弹出窗
-    } 
-} 
- 
-var isIE = (function () {
-	if(document.all) {
-		return true;
-	} else {
-		return false
-	}
-	
-})();
-
-
-// ie 的呈现方式 
+}();  
+// ie 窗口菜单项
 var appIE = function(me) {
 	var effect = []
 	effect.push({   "data-mode" : "flip"  })
 	effect.push({   "data-speed" : "900"  });
-	effect.push({   "data-direction" :"horizontal" });
-
+	effect.push({   "data-direction" :"horizontal" }); 
 	return me = {
 			init : function(){ 
 				this.app = DATA.app;
@@ -645,9 +583,7 @@ var appIE = function(me) {
  
 		   	    box.attr(s);
 				box.attr({ 
-					id:"icon_app_"+ data.appid,
-					// appid:this.app.appid,
-					// fileid : this.app.appid, 
+					id:"icon_app_"+ data.appid, 
 					title:data.name,
 					url:data.url,
 					sonMenu:data.sonMenu,
@@ -675,74 +611,60 @@ var appIE = function(me) {
 				$("#impress_ie").append(box);
 			},
 			bindEvent:function(box){//绑定事件 
-				app.bindEvent(box);
-				// box.click(function(e){ 
-				// 	// event.preventDefault()
-				// 	// 该方法将通知 Web 浏览器不要执行与事件关联的默认动作（如果存在这样的动作）。
-				// 	// 例如，如果 type 属性是 "submit"，在事件传播的任意阶段可以调用任意的事件句柄，通过调用该方法，可以阻止提交表单。
-				// 	// 注意，如果 Event 对象的 cancelable 属性是 fasle，那么就没有默认动作，或者不能阻止默认动作。无论哪种情况，调用该方法都没有作用。
-				 	 // e.preventDefault();
-				// 	// event.stopPropagation()
-				// 	// 该方法将停止事件的传播，阻止它被分派到其他 Document 节点。在事件传播的任何阶段都可以调用它。
-				// 	// 注意，虽然该方法不能阻止同一个 Document 节点上的其他事件句柄被调用，但是它可以阻止把事件分派到其他节点。
-		             // e.stopPropagation();
-				// 	var _this = $(this);
-				// 	var id = _this.attr("appid");
-				// 	var title = $.trim(_this.text());
-				// 	var url =_this.attr("url");
-				// 	var icon =_this.find("img").attr("src").split("/")[1];
-				// 	var sonMenu =_this.attr("sonMenu");//获取子菜单
-				// 	if(sonMenu == undefined){
-				// 		sonMenu = "[]"
-				// 	}
-				// 	var jsonSonMenu = eval("(" + sonMenu + ")");//将json格式的字符串转换为json
-					 
-				// 	// Windows.openApp(id,title,url,icon,jsonSonMenu,700,500);
-				// 	// 图标状态 不为active 不 open dialog  如果是ie 则不做判断就打开窗口 
-				
-
-				// 	if ( jsonSonMenu.length > 0 ) { 
-				// 		// open 子菜单 
-				// 		// alert("先打开了一些子菜单哦 ");
-				// 		// return;
-				// 	}
-				// 	// artdialog 的 width 和 height 
-				//  	var w = parseFloat(_this.attr("w"));
-				//  	var h =	parseFloat(_this.attr("h"));
-				 	
-				// 	win.openApp(id,title,url,icon,jsonSonMenu,w,h);
-				// });
+				app.bindEvent(box);  
 			}
 	} //self 
 }();
+// 判断 浏览器类型
+var isIE = (function () {
+	if(document.all) {
+		return true;
+	} else {
+		return false
+	} 
+})(); 
 
+//判断 顶层窗口中是否 重复
+function showDialog(id) {
+    // 检测 当前窗口 隐藏或者是关闭  
+    if(art.dialog.list[id]) { 
+        var wrap = art.dialog.list[id].DOM.wrap;
+        var $wrap = $(wrap);
+        if($wrap.is(":hidden")) { 
+            art.dialog.list[id].show(); 
+            art.dialog.list[id].focus();
+            return true; 
+        } 
+    } else {
+        return false; // 不存在该ID 弹出窗
+    } 
+} 
 
 var portal = new function(){};
 portal.init = function(){
 	this.elemEventBind();
 }
 portal.elemEventBind = function(){
-	$(".icon_talk").click(function() { portal.showTalk()});
+	// $(".icon_talk").click(function() { portal.showTalk()});
 	// 登出
-	$("#loginOut").click(function() {portal.loginout()});
-
-	$("#user_a").click(function() {
-		win.openApp("000001","个人中心","./app/user.jsp","",[],"","");
-	});
-	$("#bill_a").click(function() {
-		win.openApp("000001","个人中心","./app/account.jsp","",[],"","");
-	});
-	$("#app_a").click(function() {
-		win.openApp("000001","个人中心","./app/myapp.jsp","",[],"","");
-	});
-	$("#pwd_a").click(function() {
-		win.openApp("000001","个人中心","./app/modifyPWD.jsp","",[],"","");
-	});
+	$("#loginOut").click(function() {portal.loginout()}); 
+	// $("#user_a").click(function() {
+	// 	win.openApp("000001","个人中心","./app/user.jsp","",[],"","");
+	// });
+	// $("#bill_a").click(function() {
+	// 	win.openApp("000001","个人中心","./app/account.jsp","",[],"","");
+	// });
+	// $("#app_a").click(function() {
+	// 	win.openApp("000001","个人中心","./app/myapp.jsp","",[],"","");
+	// });
+	// $("#pwd_a").click(function() {
+	// 	win.openApp("000001","个人中心","./app/modifyPWD.jsp","",[],"","");
+	// });
 }
 portal.loginout = function(){
-	if($loginNo=='null')
+	if($loginNo=='null') {
 		win.openApp("login","登录","./app/login.jsp?tg=1","",[],"","");
-	else{
+	} else{ 
 		if(!confirm("您确定要退出吗？")) return;
 		$.ajax({
 		    url: './loginservlet.do?action=logout',
@@ -763,8 +685,7 @@ portal.loginout = function(){
 		    	}
 		    },
 		    cache: false
-		});
-
+		}); 
 	}
 }
 portal.showTalk = function(){
