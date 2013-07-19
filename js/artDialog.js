@@ -32,7 +32,7 @@ $.fn = $.prototype = {
 	 * DOM 就绪
 	 * @param	{Function}	回调函数
 	 */
-    ready: function (callback) {
+    ready: function (callback) { 
         $.bindReady();
 
         if ($.isReady) {
@@ -956,6 +956,20 @@ artDialog.fn = artDialog.prototype = {
 		config.init && config.init.call(that, window);
 		return that;
 	},
+
+	showloading: function () { 
+		var DOM = this.DOM; 
+		DOM.content[0].style.display ="none";
+		DOM.loadin[0].style.display ="block";
+		return this;
+	},
+	hideloading: function () {
+		var DOM = this.DOM; 
+
+		DOM.loadin[0].style.display ="none";
+		DOM.content[0].style.display ="block";
+		return this;
+	},
 	
 	/**
 	 * 设置内容
@@ -1861,6 +1875,7 @@ artDialog._templates =
 +									'<div class="aui_iconBg"></div>'
 +								'</td>'
 +								'<td class="aui_main">'
++  									'<div class="aui_loadin" style="display:none;"><span>loading.</span></div>'
 +									'<div class="aui_content"></div>'
 +								'</td>'
 +							'</tr>'

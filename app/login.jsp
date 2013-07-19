@@ -9,7 +9,7 @@ String tg = request.getParameter("tg")==null?"":(String)request.getParameter("tg
 <title>登录 </title>
 <link rel="stylesheet" type="text/css" href="../css/page.css"> 
 <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
-<link rel="stylesheet" type="text/css" href="../plugins/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
 <script type="text/javascript"  src="../js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="../plugins/jquery.easyui.min.js"></script>
@@ -20,7 +20,14 @@ String tg = request.getParameter("tg")==null?"":(String)request.getParameter("tg
 
 <script type="text/javascript"> 
 $(function () {
-	// 关闭自身，厉害哦 
+	 $(document).keydown(function(e) { 
+	 	 var curKey = e.which; 
+            if(curKey == 13){ 
+                login();
+                return false; 
+            } 
+	 });
+
 	$("#login_btn").click(function () {
 		login();
 	});
@@ -74,6 +81,11 @@ function login(){
 		return;
 	}
 
+	var win = art.dialog.top;   		
+
+ 
+	win.art.dialog.focus.showloading();
+
 	$.ajax({
 	    url: '../loginservlet.do?action=login',
 	    type:'POST',
@@ -83,10 +95,9 @@ function login(){
 	    error: function(msg) {      // 设置表单提交出错 
 	    	$.messager.alert('温馨提醒','执行出错：'+msg.responseText,'error');
         },
-	    success: function (resp) {
+	    success: function (resp) { 
 	    	var code = resp.code; 
-	    	if(code=='0'){
-	    		 
+	    	if(code=='0'){ 
 	    		<%if(tg.equals("1")){%> 
 	    			art.dialog.opener.location.reload();
 	    		<%}else{%>
@@ -108,6 +119,7 @@ function login(){
 				}
 	    		$.messager.alert('温馨提醒',msg,'error');
 	    	}
+	    	win.art.dialog.focus.hideloading();
 	    },
 	    cache: false
 	});

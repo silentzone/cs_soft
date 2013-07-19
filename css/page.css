@@ -796,3 +796,6 @@ blockquote p { font-size: 14px; margin: 5px 0; }
 .pop-window { box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
 .pop-inner { width:350px;height:90px; background-color:#efefef; padding-top: 50px; }
 .form_actions {  border-top: 1px solid #E5E5E5;  margin-top: 10px; padding:10px;}
+/* artdialog */                 
+.aui_loadin {    background: url("skins/icons/loading.gif") no-repeat scroll center center transparent; height: 20px;
+  overflow: hidden;  text-align: left; text-indent: -999em; width:20px; position: absolute; top:45%; left:45%; }
