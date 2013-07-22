@@ -73,6 +73,7 @@
     <link rel="stylesheet" type="text/css" href="css/page.css">  
     <script language="javascript" src="sys/js/request.js"></script>
     <script language="javascript" src="sys/js/dict.js"></script>
+    <script type="text/javascript" src="plugins/alert/alert.js"></script> 
    
 </head>
 

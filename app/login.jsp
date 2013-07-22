@@ -15,11 +15,12 @@ String tg = request.getParameter("tg")==null?"":(String)request.getParameter("tg
 <script type="text/javascript" src="../plugins/jquery.easyui.min.js"></script>
 <script language="javascript" src="../sys/js/Security.js"></script>
 <script type="text/javascript" src="../js/artDialog.js"></script>
-<script type="text/javascript" src="../js/iframeTools.js"></script> 
+<script type="text/javascript" src="../js/iframeTools.js"></script>
+<script type="text/javascript" src="../plugins/alert/alert.js"></script>  
 
 
 <script type="text/javascript"> 
-$(function () {
+$(function () {  
 	 $(document).keydown(function(e) { 
 	 	 var curKey = e.which; 
             if(curKey == 13){ 
@@ -28,22 +29,19 @@ $(function () {
             } 
 	 });
 
-	$("#login_btn").click(function () {
-		login();
+
+	$("#login_btn").click(function () { 
+		 login(); 
 	});
 
  
 	$("#reg_btn").click(function () { 
-	 	var win = art.dialog.top; 
-	 		
+	 	var win = art.dialog.top;  
 	 	art.dialog.close(); 
-	 	// 弹注册
-	 	
-
+	 	// 弹注册 
 	 	if(win.showDialog(12)) {
 	 		return;
-	 	};// 
-
+	 	};//  
 	 	win.art.dialog.open('app/reg.jsp',/** 弹出ART窗体*/
 			{   
 				id :"12",
@@ -63,11 +61,15 @@ $(function () {
 	 
 });
 
+// var response = null;
 function login(){
-	$.messager.defaults = { ok: "确定"};
+	// 清除之前的 
+ 	// $.alert().clear();
+
+	$.messager.defaults = { ok: "确定"}; //  替换为 $.alert
 	var userName = $("#edt_username").val();
 	if( !userName && userName == "") {
-		$.messager.alert('温馨提醒','请输入用户名','warning');
+		$.alert('温馨提醒:请输入用户名','warning');
 		return;
 	}
 	var password = $('#edt_pwd').val();
@@ -77,27 +79,31 @@ function login(){
 		var md5Password = MD5.toMD5(base64Password);
 		$('#md5Password').val(md5Password);
 	} else {
-		$.messager.alert('温馨提醒','请输入密码','warning');
+		$.alert('温馨提醒:请输入密码','warning');
 		return;
 	}
 
-	var win = art.dialog.top;   		
+	// 防止重复提交
+ 	// if(response) { response.abort(); return; } 
+ 	// 添加当前窗口的 等待状态   		 
+	// top.art.dialog.focus.showloading();
+	
 
- 
-	win.art.dialog.focus.showloading();
-
-	$.ajax({
+	// // 添加当前窗口的 等待状态   		 
+	// top.art.dialog.focus.showloading();	
+	
+	var response = $.ajax({
 	    url: '../loginservlet.do?action=login',
 	    type:'POST',
 	    data: $("#fm_login").serialize(),
 	    dataType: "json",
 	    contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 	    error: function(msg) {      // 设置表单提交出错 
-	    	$.messager.alert('温馨提醒','执行出错：'+msg.responseText,'error');
+	    	$.alert('温馨提醒','执行出错：'+msg.responseText,'error');
         },
 	    success: function (resp) { 
 	    	var code = resp.code; 
-	    	if(code=='0'){ 
+	    	if(code=='0'){  
 	    		<%if(tg.equals("1")){%> 
 	    			art.dialog.opener.location.reload();
 	    		<%}else{%>
@@ -117,9 +123,9 @@ function login(){
 				}else if(code=="-6"){
 					msg = "系统忙，请稍后再试";
 				}
-	    		$.messager.alert('温馨提醒',msg,'error');
-	    	}
-	    	win.art.dialog.focus.hideloading();
+	    		$.alert('温馨提醒:'+ msg , 'error');
+	    	} 
+	    	// top.art.dialog.focus.hideloading(); 
 	    },
 	    cache: false
 	});
@@ -131,6 +137,7 @@ function login(){
 
 <body>
 	<div class="section">
+	
  	<form id="fm_login" action="loginservlet.do?action=login" METHOD="POST" >
 		<div class="reg_box box-content">
 			<div class="control-group">
@@ -146,6 +153,7 @@ function login(){
 					<input type="hidden" id="md5Password" NAME="md5Password">
 				</div>
 			</div>
+			<div id="tip" style="height:36px;"></div>
 			<div class="control-group">
 				<div class="controls">
 					<span class="btn btn-success m_btn" id="login_btn">登录</span>

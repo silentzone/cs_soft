@@ -955,22 +955,7 @@ artDialog.fn = artDialog.prototype = {
 		
 		config.init && config.init.call(that, window);
 		return that;
-	},
-
-	showloading: function () { 
-		var DOM = this.DOM; 
-		DOM.content[0].style.display ="none";
-		DOM.loadin[0].style.display ="block";
-		return this;
-	},
-	hideloading: function () {
-		var DOM = this.DOM; 
-
-		DOM.loadin[0].style.display ="none";
-		DOM.content[0].style.display ="block";
-		return this;
-	},
-	
+	}, 
 	/**
 	 * 设置内容
 	 * @param	{String, HTMLElement}	内容 (可选)
@@ -1874,8 +1859,7 @@ artDialog._templates =
 +								'<td class="aui_icon">'
 +									'<div class="aui_iconBg"></div>'
 +								'</td>'
-+								'<td class="aui_main">'
-+  									'<div class="aui_loadin" style="display:none;"><span>loading.</span></div>'
++								'<td class="aui_main">' 
 +									'<div class="aui_content"></div>'
 +								'</td>'
 +							'</tr>'

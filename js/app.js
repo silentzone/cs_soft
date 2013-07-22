@@ -673,6 +673,7 @@ portal.loginout = function(){
 		    dataType: "json",
 		    contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 		    error: function(msg) {      // 设置表单提交出错 
+
 		    	$.messager.alert('温馨提醒','执行出错：'+msg.responseText,'error');
 	           },
 		    success: function (resp) {

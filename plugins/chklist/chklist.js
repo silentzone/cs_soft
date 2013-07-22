@@ -11,6 +11,8 @@ $.fn.extend({
             unchecked : null,
             onchecked : null,
             setChecked :null
+            //,that : this
+
         };
 
         $node.css({ position: "relative"});
