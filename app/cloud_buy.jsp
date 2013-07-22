@@ -127,9 +127,7 @@ $(function() {
 		jcAPI.reinitialise();
 
 
-		//
-		var markid = $(".nav-list").attr("alt")
-		$("#"+markid).addClass("active")
+		
 	 
 	});
 

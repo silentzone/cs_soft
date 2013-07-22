@@ -46,6 +46,8 @@
 <link rel="stylesheet" type="text/css" href="../plugins/themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="../plugins/themes/icon.css">
 
+ 
+
 </head>
 <body style="width:800px; margin:0 auto;" onload="appUser.init();"> 
 	<div class="section">
@@ -54,14 +56,8 @@
 		</div>  -->
 		<div class="row-fluid">
 			<div class="span3">
-				<ul class="nav nav-list bs-docs-sidenav">
-					<li class="active"><a href="user.jsp"><i class="icon-user"></i>个人信息</a></li>
-					<li><a href="account.jsp"><i class="icon-bookmark"></i>账户信息 </a></li>
-					<li><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li> 
-					<%if(havePower){%>
-					<li><a href="myvideo.jsp"><i class="icon-film"></i>我的视频</a></li> 
-					<%}%>
-					<li><a href="modifyPWD.jsp"><i class="icon-comment"></i>密码修改</a></li>
+				<ul class="nav nav-list sideMenu" alt="iuser">
+					<jsp:include page="includ/nav_user.jsp" flush="true" /> 
 				</ul> 
 			</div>
 			<div class="span9">
@@ -211,6 +207,13 @@ $(function () {
 		    cache: false
 		});
 	});
+
+ 
+	// 标识当前页面 
+	var markid = $(".nav-list").attr("alt");
+	$("#"+markid).addClass("active");
+ 
+
 
 });
 </script>

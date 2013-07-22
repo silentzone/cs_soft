@@ -69,7 +69,7 @@ if(sysLoginDto==null){
 	<div class="row-fluid"> 
 			<div class="span2 box-content" >   
 				<ul class="nav nav-list sideMenu" alt="serverVMmot"> <!--  bs-docs-sidenav -->
-					  <jsp:include page="includ/nav.jsp" flush="true" /> 
+					  <jsp:include page="includ/nav_user.jsp" flush="true" /> 
 				</ul> 
 	        </div> 
 			<div class="span10" ><!-- vm list-->

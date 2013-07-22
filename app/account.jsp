@@ -55,14 +55,8 @@
 <div class="section"> 
 	<div class="row-fluid">
 		<div class="span3">
-			<ul class="nav nav-list bs-docs-sidenav">
-				<li><a href="user.jsp"><i class="icon-user"></i>个人信息</a></li>
-				<li class="active"><a href="account.jsp"><i class="icon-bookmark"></i>账户信息 </a></li>
-				<li><a href="myapp.jsp"><i class="icon-inbox"></i>我的应用</a></li> 
-				<%if(havePower){%>
-				<li><a href="myvideo.jsp"><i class="icon-film"></i>我的视频</a></li> 
-				<%}%>
-				<li><a href="modifyPWD.jsp"><i class="icon-comment"></i>密码修改</a></li>
+			<ul class="nav nav-list sideMenu" alt="iaccount">
+				 <jsp:include page="includ/nav_user.jsp" flush="true" /> 
 			</ul> 
 		</div>
 		<div class="span9">
@@ -166,6 +160,10 @@
 <script type="text/javascript" src="./js/public.js"></script>
 <script type="text/javascript" src="./js/account.js"></script>
 <script type="text/javascript">
+$(function () {
+		var markid = $(".nav-list").attr("alt")
+		$("#"+markid).addClass("active") 
+});
 var $userId = "<%=userId%>";
 var $billId = "<%=billId%>";
 </script>
