@@ -46,7 +46,7 @@ if(sysLoginDto==null){
 	<script type="text/javascript" src="./cloudShowLinuVm.js"></script>
     <script type="text/javascript" src="./datagrid-detailview.js"></script>  
 	<script language="javascript" src="cloudShowLinuVm.js"></script>
-    <script language="javascript" src="cloud_login.js"></script>
+
     <link href="../css/page.css" rel="stylesheet" type="text/css" /> 
 
 </head> 
@@ -102,9 +102,6 @@ if(sysLoginDto==null){
 		$("#"+markid).addClass("active") 
 	});
 
-	  function openConsole(){
-		  httpsRemoteClientLogin();
-	  }
 </script>
 </html>
 

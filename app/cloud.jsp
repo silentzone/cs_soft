@@ -41,7 +41,6 @@ if(sysLoginDto==null){
 	<script language="javascript" src="../sys/js/dict.js"></script>
 	<script language="javascript" src="cloud.js"></script>
     <script language="javascript" src="Cloud_componet.js"></script>
-	<script language="javascript" src="cloud_login.js"></script>
 
 	<!-- chosen  ie 9- 不支持-->
   <!--<link rel="stylesheet" href="../plugins/chosen/chosen.css" />
@@ -151,9 +150,6 @@ $(function() {
 
       // $(".mselect").chosen({});
 	  
-	  function openConsole(){
-		 httpsRemoteClientLogin();
-	  }
 
       </script> 
 

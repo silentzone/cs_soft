@@ -23,13 +23,13 @@ DynamicDict sysLoginDto = (DynamicDict)session.getAttribute("SYS_LOGIN_INFO");
 %>
 
  					<li id="newserver" ><a href="cloud.jsp"><i class="icon-plus"></i>新建服务</a></li>
-					<li id="buyserver"><a href="cloud_buy.jsp?buttype=1"><i class="icon-shopping-cart"></i>已购服务</a></li>
+					<li id="buyserver1"><a href="cloud_buy.jsp?buttype=1"><i class="icon-shopping-cart"></i>已购服务</a></li>
                     <!-- <li id="buyserver2"><a href="cloud_buy.jsp?buttype=2"><i class="icon-shopping-cart"></i>人才服务已购服务</a></li> -->
                    
                    <!--  <li id="mydesktop" ><a onClick="openConsole();" ><i class="icon-share"></i>我的桌面</a></li>  -->
                     <!-- <li id="myserver"><a href="cloudShowLinuVm.jsp"><i class="icon-hdd"></i>我的主机</a></li> -->
                   <!--   <li id="talentService"><a href="cloud_talentService.jsp"><i class="icon-user"></i>人才服务</a></li>  -->
-                    <li id="cloudShowAccount"><a href="cloudShowAccount.jsp"><i class="icon-folder-close"></i>帐号管理</a></li> 
+                     <!-- <li id="cloudShowAccount"><a href="cloudShowAccount.jsp"><i class="icon-folder-close"></i>帐号管理</a></li>  -->
                     
                      <%
 						//判断用户id是否是管理员

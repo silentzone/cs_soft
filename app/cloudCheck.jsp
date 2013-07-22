@@ -61,7 +61,6 @@ if(sysLoginDto==null){
 	<script type="text/javascript" src="./cloudCheck.js"></script>
     <script type="text/javascript" src="./datagrid-detailview.js"></script>  
     <script language="javascript" src="Cloud_componet.js"></script>
-	<script language="javascript" src="cloud_login.js"></script>
     <link href="../css/page.css" rel="stylesheet" type="text/css" /> 
 
 </head> 
@@ -156,9 +155,6 @@ if(sysLoginDto==null){
 		var markid = $(".nav-list").attr("alt")
 		$("#"+markid).addClass("active") 
 	}) 
-	  function openConsole(){
-		  httpsRemoteClientLogin();
-	  }
 </script>
 </html>
 

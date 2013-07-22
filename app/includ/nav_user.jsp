@@ -3,22 +3,8 @@
 <%@page import="com.ztesoft.zsmart.core.utils.Base"%>
 <%@page import="com.ztesoft.zsmart.core.service.DynamicDict" %> 
 <%
- String strWebRoot = "";
- if(strWebRoot==null||strWebRoot.length()==0)
- {
-	strWebRoot = request.getScheme();
-	strWebRoot += "://";
-	strWebRoot += request.getServerName();
- 	int port = request.getServerPort();
- 	if (port != 80){
- 		strWebRoot += ":" + port;
- 	}
- 	strWebRoot +=  request.getContextPath()+"/";
- }
  DynamicDict sysLoginDto = (DynamicDict)session.getAttribute("SYS_LOGIN_INFO");
  if(sysLoginDto==null){
- 	request.getSession().setAttribute("OLD_URL",strWebRoot+"app/user.jsp");
-	response.sendRedirect(strWebRoot+"app/login.jsp");
 	return;
  }
  DynamicDict detailsBO = sysLoginDto.getBOByName("UserDetailsDto");
@@ -32,9 +18,6 @@
 		break;
 	}
  }
- String userId = sysLoginDto.getString("UserId");
- String userCode = sysLoginDto.getString("UserCode");
- String loginNo = sysLoginDto.getString("LoginNo");
 %>
 <!-- httpsRemoteClientLogin -->
 <script language="javascript" src="cloud_login.js"></script>

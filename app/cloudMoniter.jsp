@@ -42,7 +42,6 @@ if(sysLoginDto==null){
 	<script language="javascript" src="../sys/js/request.js"></script>
 	<script language="javascript" src="../sys/js/dict.js"></script>
 	 <script language="javascript" src="cloudMoniter.js"></script> 
-	<script language="javascript" src="cloud_login.js"></script>
 
 	<!-- styles needed by jScrollPane -->
   	<link type="text/css" href="../plugins/jscroll/jscroll.css" rel="stylesheet" media="all" /> 
@@ -126,10 +125,6 @@ $(function () {
 	var markid = $(".nav-list").attr("alt")
 	$("#"+markid).addClass("active") 
 })
-	  function openConsole(){
-		 httpsRemoteClientLogin();
-	  }
-
  
 </script>
 </html>

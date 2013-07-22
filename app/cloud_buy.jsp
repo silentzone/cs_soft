@@ -20,7 +20,7 @@ if(sysLoginDto==null){
 	response.sendRedirect(strWebRoot+"app/login.jsp");
 	return;
 }
-
+String buytype = request.getParameter("buttype");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,8 +73,14 @@ if(sysLoginDto==null){
 	<div class="section"> 
 		<div class="row-fluid"> 
 			<div class="span2 box-content" >
-				<ul class="nav nav-list sideMenu" alt="buyserver">
-					 <jsp:include page="includ/nav.jsp" flush="true" /> 
+				
+					<% if (buytype.equals("1")) { %>
+	                    <ul class="nav nav-list sideMenu" alt="buyserver1">
+						 <jsp:include page="includ/nav.jsp" flush="true" /> 
+                     <% } else { %>
+	                     <ul class="nav nav-list sideMenu" alt="buyserver2">
+    	                 <jsp:include page="includ/nav_talent.jsp" flush="true" /> 
+                     <% } %>
 				</ul> 
 		  </div> 
 
@@ -93,6 +99,7 @@ if(sysLoginDto==null){
 	</div>
 </body> 
 <script type="text/javascript">  
+var buytype =<%= buytype %>;
 $(function() {
 
 		// //滚动条
@@ -126,17 +133,13 @@ $(function() {
 		// jcAPI  动态刷新滚动条区域
 		jcAPI.reinitialise();
 
+		var markid = $(".nav-list").attr("alt")
+		$("#"+markid).addClass("active") 
+
 
 		
 	 
 	});
-
-      // $(".mselect").chosen({});
-	  
-	  function openConsole(){
-		  httpsRemoteClientLogin();
-	  }
-
 
       </script> 
 

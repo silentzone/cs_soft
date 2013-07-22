@@ -156,7 +156,7 @@ legend { margin-bottom: 5px; font-size: 14px; color:#888; text-indent: 0.5em;}
 .desktop_logo {width:243px; height:49px; background:url(../img/desktop_logo.png) no-repeat; display: inline-block;   }
 .desktop_logo:hover { background:url(../img/desktop_logo.png) no-repeat;}
 /* impress-not-supported  的样式 desktop 调用impress.js 的页面才有*/
-.impress-not-supported { background:#efefef ; }
+.impress-not-supported { /*background:#efefef ;*/ background:url(../img/desktop_bg_ie.png) no-repeat 0 0;}
 .impress-not-supported .impress {  width: 860px; padding:90px 0;  margin:auto;  }
 #impress_ie {  width: 860px; padding:90px 0;  margin:auto;  }
 /*.impress-not-supported #shell { left: 0; width:98%;}*/

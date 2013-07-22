@@ -21,17 +21,6 @@
 	response.sendRedirect(strWebRoot+"app/login.jsp");
 	return;
  }
- DynamicDict detailsBO = sysLoginDto.getBOByName("UserDetailsDto");
- int roleNum = detailsBO.getCountByName("USER_ROLE");
- boolean havePower = false;
- for(int i=0;i<roleNum;i++){
-	HashMap roleDict = (HashMap)detailsBO.getValueByName("USER_ROLE", i);
-	String roleId = (String)roleDict.get("ROLE_ID");
-	if(roleId.equals("video00001")){
-		havePower = true;
-		break;
-	}
- }
  String userId = sysLoginDto.getString("UserId");
  String userCode = sysLoginDto.getString("UserCode");
  String loginNo = sysLoginDto.getString("LoginNo");
