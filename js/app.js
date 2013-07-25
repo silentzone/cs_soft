@@ -24,8 +24,7 @@ var bindwheel = function () {
 	             }
 	        });  
 } 
-var unbindwheel  = function () { 
-
+var unbindwheel  = function () {  
 	$(window).unbind('mousewheel');
 } 
 function portalInit(){ 

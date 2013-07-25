@@ -178,7 +178,8 @@ function createListControl(arr,controlname){
 
 function getVMList(){
 	// 创建页签
-	$("#myTab").sildeTab(); 
+	 $("#myTab").sildeTab(); 
+
 	 $(".btn_select").click( function () {
 	 	 var $hideipt = $(this).next("input");
 	 	 if($hideipt.length != 0 ) { return; } else {  

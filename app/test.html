@@ -1,0 +1,291 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="cache-control" content="no-cache"> 
+<meta http-equiv="expires" content="0">
+  <title>week calendar </title> 
+ 
+  <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="../css/page.css" rel="stylesheet" rel="stylesheet" type="text/css">
+  <!--<script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.js"></script> -->
+ 
+  <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+  <script src="../plugins/backbone/underscore.js"></script>
+  <script src="../plugins/backbone/backbone.js"></script>
+ 
+  <style>
+  table{ border-collapse:collapse;  }
+  table th,table td { width: 100px;  border: #ccc solid 1px; }
+  table th { height: 20px;
+      background:#efefef;
+      background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#fdfdfd), to(#eaeaea));
+      background-image: -webkit-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+        background-image: -moz-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+        background-image: -ms-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+        background-image: -o-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+        background-image: -linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+      /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfdfd', endColorstr='#eaeaea',GradientType=0 );*/ /* IE6-9 */
+      border: 1px solid #ccc;
+      border-bottom: none;
+  
+      height: 36px;
+  }
+  .timeline { float:left}
+  .timeline td { border:#ccc solid 1px; border-right:none;}
+  .timetable td {  border-right: none; }
+  table td { height: 100px;}
+  #calendar .tip { display:none;}
+  .btn { padding: 4px; border: #ccc solid 1px; float: left; }
+  .disabled {  }
+  .toolbar { padding-bottom: 5px;}
+  #calendar .ipt { width: 45px; 
+    float:left; margin: 0 10px;
+    border-radius: 4px 4px 4px 4px;
+    color: #555555;
+    display: inline-block;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px; 
+    padding: 4px 6px;
+    vertical-align: middle;
+    border: #ccc solid 1px;}
+   #week_num{ padding: 0 2px;}
+  .timetable { float:left; } 
+
+  .tb_calendar { width:721px; height: 310px; overflow:hidden; position: relative; border-right: 1px solid #ccc;}
+  .slide { width: 9999px;height: 100%; position: absolute; top: 0; left: 0;  }
+  #tb_calendar table { float: left;  } 
+  .event_title { background: #efefef; margin: 2px;  padding: 3px; position: relative;} 
+ 
+</style>
+</head>
+
+<body>
+
+  <div id="calendar"> 
+    <div class="cr_title clearfix">
+        <h1 id="title">课程计划</h1>
+        <div class="toolbar clearfix">
+          <span id="btn_pre" class="btn"><i class="icon-chevron-left"></i> 前一周 </span>
+          <span class="ipt">第<span id="week_num">1</span>周</span>
+          <span id="btn_next" class="btn">  下一周 <i class="icon-chevron-right"></i></span> 
+        </div>
+    </div> 
+    <div class="cr_main">
+      <table  border="0"> <!-- cellspacing="0"  cellpadding="0" -->
+        <tr>
+          <th></th>
+          <th>周一</th>
+          <th>周二</th>
+          <th>周三</th>
+          <th>周四</th>
+          <th>周五</th>
+          <th>周六</th>
+          <th>周日</th>
+        </tr> 
+      </table>
+      <table class="timeline"  > <!--  border="0" cellspacing="0" cellpadding="0" -->
+        <tr>
+          <td>上午</td> 
+        </tr>
+        <tr>
+          <td>下午</td>
+        </tr>
+        <tr>
+           <td>晚上</td>
+        </tr>  
+      </table>
+      <div class="tb_calendar" >
+        <div id="slide" class="slide"></div>
+      </div>
+    </div>
+
+  </div><!-- calendar --> 
+  <script type="text/javascript">
+    
+    var DATAWEEK = [
+                          [  // week1
+                            { day:1,time:1,url:"http",tip:"java arr1-1",classname:"java"},
+                            { day:1,time:1,url:"http",tip:"java arr1-2",classname:"java"},
+                            { day:1,time:1,url:"",tip:"SQL arr1-3",classname:"SQL"},
+                            { day:4,time:2,url:"http",tip:"SQL arr1-4",classname:"SQL"}
+                          ],
+                          [  // week2
+                            { day:3,time:2,url:"url",tip:"java arr2-1",classname:"java"},
+                            { day:4,time:2,url:"http",tip:"java arr2-2",classname:"java"}
+                          ],
+                          [  // week3
+                            { day:6,time:3,url:"url",tip:" arr3-1 测试文字测试文字",classname:"haha"},
+                            { day:7,time:2,url:"url",tip:"arr3-2 测试文字",classname:"haha"},
+                            { day:6,time:2,url:"url",tip:"arr3-3 测试文字",classname:"haha"},
+                            { day:6,time:2,url:"url",tip:"arr3-3 测试文字测试文字测试文字",classname:"haha"},
+                            { day:6,time:3,url:"url",tip:"arr3-3 测试文字测试文字测试文字测试文字",classname:"haha"},
+                            { day:7,time:1,url:"url",tip:"arr3-3 测试文字测试文字",classname:"haha"},
+                             
+                          ]
+    ]; 
+
+    //事件数据模型 
+    var eventModel = Backbone.Model.extend({ 
+      defaults : {
+        day       :0,
+        time      :0,
+        url       :"",
+        classname :"",
+        tip       :""
+      } 
+    });
+    //事件集
+    var eventCollection = Backbone.Collection.extend({
+      model : eventModel
+    });  
+    var tableView = Backbone.View.extend({ 
+      tagName : "table",
+      className: "timetable",
+      initialize: function() {
+        // this.listenTo(this.model, 'change', this.render);
+        // this.listenTo(this.model, 'destroy', this.remove);
+      },
+      render :function () {
+        //时间段
+        for(var time=1; time<4; time++) {
+            var tr = $("<tr />");
+            // 周日期
+            for(var day=1;day<8;day++ ) {
+                var td = $("<td class='d"+ day + "_" + time+ "' />"); 
+                var  eventArr = this.model.where({ day : day , time : time});
+                $.each(eventArr,function (idx,mod) {
+                   var name = mod.get("classname");
+                   var tip = mod.get("tip"); 
+                   var url = mod.get("url"); 
+
+                  
+                   var temp ='<div class="popover right tip" >'
+                            + '<div class="popover-content">' 
+                            + tip
+                            + '<br>' 
+                            + url 
+                            + '</div></div>';
+                    var $tip = $(temp);
+                   // var $tip = $("<span class='tip' />").html(tip)
+                   if(day == 7 || day == 6 ) {
+                      $tip.css({ top:0 , left: 80 });   
+                   } else {
+                      $tip.css({ top:0 , left: 80 });
+                   }
+                   var $div = $("<div class='event_title'>"+ name +"课程 </div>").append($tip); 
+                   td.append($div);
+
+                   // bind show tip event 
+                   $div.click(function () {
+                      var pos =  $(this).position();
+                      var classname = $(this).parents("td").attr("class");
+
+                      // if (classname.indexOf(7) != -1  || classname.indexOf(6) != -1 ) {  
+                      //   $tip.css({ top: pos.top , left: (pos.left - 50) }).toggle(); 
+                      // } else  {
+                      //   $tip.css({ top: pos.top , left: pos.left+15  }).toggle();  
+                      // }
+
+                      $tip.toggle(); 
+                      
+                      // $tip.offset({ top: pos.top , left: (pos.left + 105) }).toggleClass("in");
+                      // alert(pos.top + " -- " + pos.left ); 
+                      
+                   }); 
+                })   
+              
+              tr.append(td);
+            } 
+          this.$el.append(tr); 
+        }
+        return this; 
+      }
+    });
+    // 打印表格 
+    _.each(DATAWEEK,function (obj,index) {
+      var events = new eventCollection; 
+      // obj.week = index; 
+      $.each(obj,function (idx,o) { 
+        // o.week = index;
+        events.add(o);
+      });
+      var tables = new tableView({ model: events });
+      $("#slide").append(tables.render().el);
+    });
+
+ 
+    // var remoteModel = Backbone.Model.extend({
+    //   defaults:[]
+    // })
+    // // 课程计划集合
+    // var remoteCollection = Backbone.Collection.extend({ 
+    //      model : remoteModel
+    // });
+    // var week = new remoteCollection;
+    // //  模拟动态服务器获取 原始数据组织课程的集合
+    // _.each(DATAWEEK,function (mod,index) {    
+    //   week.add(mod); 
+    // });
+
+    // 全视图
+    var warpView = Backbone.View.extend({
+      model : DATAWEEK, 
+      el: $("#calendar"),
+      me : {
+        weeknum: 1, 
+        $weeknum: this.$('#week_num')
+      },
+      render: function() {
+        // this.$el.html(this.template(this.model.toJSON()));
+        // this.$el.toggleClass('done', this.model.get('done')); v
+        return this;
+      }, 
+      events: {
+         "click #btn_pre": "slidePre", 
+         "click #btn_next": "slideNext"
+      },
+      slidePre :function () {  
+     
+        this.me.weeknum --;
+        if( this.me.weeknum < 1 ) {
+          this.$('#btn_pre').addClass("disabled");
+          this.me.weeknum = 1;
+          this.me.$weeknum.html(1);        
+        } else {
+          this.me.$weeknum.html(this.me.weeknum);
+          var width = this.$(".timetable").outerWidth();
+          this.$("#slide").animate({ left : "+=" + width});
+          this.$('#btn_next').removeClass("disabled");       
+        }
+
+        
+      },
+      slideNext :function () { 
+        this.me.weeknum++
+        if( this.me.weeknum > this.model.length) { 
+          this.$('#btn_next').addClass("disabled");
+          this.me.$weeknum.html(this.model.length);
+          this.me.weeknum = this.model.length;
+          
+        } else {
+          this.me.$weeknum.html(this.me.weeknum); 
+          var width = this.$(".timetable").outerWidth();
+          this.$("#slide").animate({ left : "-=" + width });
+          this.$('#btn_pre').removeClass("disabled");   
+        }
+        
+      } 
+    });
+    var warp = new warpView;
+     
+
+
+
+ 
+     
+  </script>
+  </body>
+</html>
