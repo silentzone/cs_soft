@@ -36,7 +36,7 @@
   .timeline td { border:#ccc solid 1px; border-right:none;}
   .timetable td {  border-right: none; }
   table td { height: 100px;}
-  #calendar .tip { display:none;}
+
   .btn { padding: 4px; border: #ccc solid 1px; float: left; }
   .disabled {  }
   .toolbar { padding-bottom: 5px;}
@@ -55,9 +55,16 @@
   .timetable { float:left; } 
 
   .tb_calendar { width:721px; height: 310px; overflow:hidden; position: relative; border-right: 1px solid #ccc;}
-  .slide { width: 9999px;height: 100%; position: absolute; top: 0; left: 0;  }
+  .slide { width:auto;height: 100%; position: absolute; top: 0; left: 0;  }
   #tb_calendar table { float: left;  } 
-  .event_title { background: #efefef; margin: 2px;  padding: 3px; position: relative;} 
+  .event_title { background: #efefef; margin: 2px;  padding: 3px; } 
+
+
+  #calendar .tip { display:none; width:135px; height: 115px;  }
+  #calendar .tip .popover-content { padding:3px 10px 3px 3px;}
+  #calendar .tip .close { position: absolute; right: 4px; top: 2px;}
+  #tip {  position: absolute; z-index: 100; display:none;}
+  .hide { display: none;}
  
 </style>
 </head>
@@ -102,29 +109,34 @@
       </div>
     </div>
 
+
+    <div id="tip" class="popover right tip">
+      <span class='close'>x</span>
+      <div class="popover-content"></div>
+    </div>
   </div><!-- calendar --> 
   <script type="text/javascript">
     
     var DATAWEEK = [
-                          [  // week1
-                            { day:1,time:1,url:"http",tip:"java arr1-1",classname:"java"},
-                            { day:1,time:1,url:"http",tip:"java arr1-2",classname:"java"},
-                            { day:1,time:1,url:"",tip:"SQL arr1-3",classname:"SQL"},
-                            { day:4,time:2,url:"http",tip:"SQL arr1-4",classname:"SQL"}
-                          ],
-                          [  // week2
-                            { day:3,time:2,url:"url",tip:"java arr2-1",classname:"java"},
-                            { day:4,time:2,url:"http",tip:"java arr2-2",classname:"java"}
-                          ],
-                          [  // week3
-                            { day:6,time:3,url:"url",tip:" arr3-1 测试文字测试文字",classname:"haha"},
-                            { day:7,time:2,url:"url",tip:"arr3-2 测试文字",classname:"haha"},
-                            { day:6,time:2,url:"url",tip:"arr3-3 测试文字",classname:"haha"},
-                            { day:6,time:2,url:"url",tip:"arr3-3 测试文字测试文字测试文字",classname:"haha"},
-                            { day:6,time:3,url:"url",tip:"arr3-3 测试文字测试文字测试文字测试文字",classname:"haha"},
-                            { day:7,time:1,url:"url",tip:"arr3-3 测试文字测试文字",classname:"haha"},
-                             
-                          ]
+        [  // week1
+          { day:1,time:1,url:"http",tip:"java arr1-1",classname:"java"},
+          { day:1,time:1,url:"http",tip:"java arr1-2",classname:"java"},
+          { day:1,time:1,url:"",tip:"SQL arr1-3",classname:"SQL"},
+          { day:4,time:2,url:"http",tip:"SQL arr1-4",classname:"SQL"}
+        ],
+        [  // week2
+          { day:3,time:2,url:"url",tip:"java arr2-1",classname:"java"},
+          { day:4,time:2,url:"http",tip:"java arr2-2",classname:"java"}
+        ],
+        [  // week3
+          { day:6,time:3,url:"url",tip:" arr3-1 测试文字",classname:"haha"},
+          { day:7,time:2,url:"url",tip:"arr3-2 测试文字",classname:"haha"},
+          { day:6,time:2,url:"url",tip:"arr3-3 测试文字",classname:"haha"},
+          { day:6,time:2,url:"url",tip:"arr3-3 测试文字测试文字测试文字",classname:"haha"},
+          { day:6,time:3,url:"url",tip:"arr3-3 测试文字测试文字测试文字测试文字",classname:"haha"},
+          { day:7,time:1,url:"url",tip:"arr3-3",classname:"haha"},
+           
+        ]
     ]; 
 
     //事件数据模型 
@@ -159,42 +171,30 @@
                 $.each(eventArr,function (idx,mod) {
                    var name = mod.get("classname");
                    var tip = mod.get("tip"); 
-                   var url = mod.get("url"); 
-
-                  
-                   var temp ='<div class="popover right tip" >'
-                            + '<div class="popover-content">' 
-                            + tip
-                            + '<br>' 
-                            + url 
-                            + '</div></div>';
-                    var $tip = $(temp);
+                   // var url = mod.get("url");  
+                    
+                    var $tip = $("<div class='hide'>" + tip  + "</div>") ;
+                   
                    // var $tip = $("<span class='tip' />").html(tip)
-                   if(day == 7 || day == 6 ) {
-                      $tip.css({ top:0 , left: 80 });   
-                   } else {
-                      $tip.css({ top:0 , left: 80 });
-                   }
-                   var $div = $("<div class='event_title'>"+ name +"课程 </div>").append($tip); 
-                   td.append($div);
+                   var $div = $("<div class='event_title'>"+ name +"课程 </div>"); 
+                   td.append($div).append($tip);
 
-                   // bind show tip event 
-                   $div.click(function () {
-                      var pos =  $(this).position();
-                      var classname = $(this).parents("td").attr("class");
-
-                      // if (classname.indexOf(7) != -1  || classname.indexOf(6) != -1 ) {  
-                      //   $tip.css({ top: pos.top , left: (pos.left - 50) }).toggle(); 
-                      // } else  {
-                      //   $tip.css({ top: pos.top , left: pos.left+15  }).toggle();  
-                      // }
-
-                      $tip.toggle(); 
+                   // // bind show tip event 
+                   // $div.click(function () {
+                   //    var pos =  $(this).position();
+                   //    var classname = $(this).parent().attr("class");
+                   //    if (classname.indexOf(7) != -1  || classname.indexOf(6) != -1 ) {  
+                   //      $tip.css({ top: (pos.top - 50 ) , left: (pos.left - 50) }).toggle();
+                   //       $tip.append("top -50 :" + pos.top + " left - 50:" + pos.left  ) 
+                   //    } else  {
+                   //      $tip.css({ top: pos.top , left: (pos.left + 70) }).toggle();
+                   //       $tip.append("top :" + pos.top + " left + 70:" + pos.left  )   
+                   //    }
                       
-                      // $tip.offset({ top: pos.top , left: (pos.left + 105) }).toggleClass("in");
-                      // alert(pos.top + " -- " + pos.left ); 
+                   //    // $tip.offset({ top: pos.top , left: (pos.left + 105) }).toggleClass("in");
+                   //    // alert(pos.top + " -- " + pos.left ); 
                       
-                   }); 
+                   // }); 
                 })   
               
               tr.append(td);
@@ -245,10 +245,11 @@
       }, 
       events: {
          "click #btn_pre": "slidePre", 
-         "click #btn_next": "slideNext"
+         "click #btn_next": "slideNext",
+         "click .event_title": "showTip",
+         "click .close": "hideTip"
       },
-      slidePre :function () {  
-     
+      slidePre :function () {   
         this.me.weeknum --;
         if( this.me.weeknum < 1 ) {
           this.$('#btn_pre').addClass("disabled");
@@ -259,8 +260,7 @@
           var width = this.$(".timetable").outerWidth();
           this.$("#slide").animate({ left : "+=" + width});
           this.$('#btn_next').removeClass("disabled");       
-        }
-
+        } 
         
       },
       slideNext :function () { 
@@ -275,9 +275,18 @@
           var width = this.$(".timetable").outerWidth();
           this.$("#slide").animate({ left : "-=" + width });
           this.$('#btn_pre').removeClass("disabled");   
-        }
-        
-      } 
+        } 
+      },
+      showTip : function (event) { 
+        var tagDom  = $(event.target); 
+        var tipinfo = tagDom.next(".hide").html();
+        var pos =  tagDom.offset();                     
+        this.$("#tip .popover-content").html(tipinfo);
+        this.$("#tip").css({ top: pos.top , left: pos.left }).toggle(); 
+      },
+      hideTip : function (event) {
+        this.$("#tip").hide();  
+      }
     });
     var warp = new warpView;
      
